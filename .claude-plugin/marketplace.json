@@ -1,0 +1,33 @@
+{
+  "name": "ai-content-plugins",
+  "owner": {
+    "name": "AI Content Studio"
+  },
+  "plugins": [
+    {
+      "name": "content-analysis",
+      "source": "./content-analysis",
+      "description": "Content analysis tools: competitor analysis, content benchmarking, quality checks, trend analysis, and template creation"
+    },
+    {
+      "name": "topic-research",
+      "source": "./topic-research",
+      "description": "Topic research tools: deep research pipelines, daily AI briefings, trend previews, field overviews, and event tracking"
+    },
+    {
+      "name": "content-production",
+      "source": "./content-production",
+      "description": "Content production tools: long articles, short posts, infographics, audience targeting, content tracking, and collaboration"
+    },
+    {
+      "name": "growth-ops",
+      "source": "./growth-ops",
+      "description": "Growth operations tools: source discovery, review checklists, topic screening, account monitoring, and growth planning"
+    },
+    {
+      "name": "audience-management",
+      "source": "./audience-management",
+      "description": "Audience management tools: operations reports, audience reviews, content planning, business proposals, and content optimization"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "hacker-news": {
+      "command": "npx",
+      "args": ["-y", "mcp-hacker-news"]
+    },
+    "arxiv": {
+      "command": "uvx",
+      "args": ["arxiv-mcp-server"]
+    },
+    "rss-reader": {
+      "command": "npx",
+      "args": ["-y", "@kwp-lab/rss-reader-mcp"]
+    }
+  }
+}

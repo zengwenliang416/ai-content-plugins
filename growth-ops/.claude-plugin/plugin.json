@@ -1,0 +1,8 @@
+{
+  "name": "growth-ops",
+  "version": "0.1.0",
+  "description": "Growth operations tools: source discovery, review checklists, topic screening, account monitoring, and growth planning",
+  "author": {
+    "name": "AI Content Studio"
+  }
+}

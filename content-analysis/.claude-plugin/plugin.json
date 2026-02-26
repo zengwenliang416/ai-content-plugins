@@ -1,0 +1,8 @@
+{
+  "name": "content-analysis",
+  "version": "0.1.0",
+  "description": "Content analysis tools: competitor analysis, content benchmarking, quality checks, trend analysis, and template creation",
+  "author": {
+    "name": "AI Content Studio"
+  }
+}

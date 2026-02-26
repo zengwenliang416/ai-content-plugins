@@ -7,10 +7,6 @@
     "arxiv": {
       "command": "uvx",
       "args": ["arxiv-mcp-server"]
-    },
-    "rss-reader": {
-      "command": "npx",
-      "args": ["-y", "@iflow-mcp/rss-reader-server"]
     }
   }
 }

@@ -5,8 +5,9 @@
 1. Create the plugin directory structure
 2. Write `plugin.json` manifest
 3. Add commands
-4. Add skills
-5. (Optional) Add hooks, MCP config, user config template
+4. Write skills (SKILL.md + resources)
+5. Configure MCP servers (optional)
+6. Register in marketplace.json
 
 ## Step 1: Directory Structure
 
@@ -15,7 +16,11 @@ mkdir -p my-plugin/.claude-plugin
 mkdir -p my-plugin/commands
 mkdir -p my-plugin/skills
 mkdir -p my-plugin/hooks
+touch my-plugin/.mcp.json
+touch my-plugin/hooks/hooks.json
 ```
+
+Initialize `.mcp.json` with `{ "mcpServers": {} }` and `hooks.json` with `{ "hooks": {} }`.
 
 ## Step 2: Plugin Manifest
 
@@ -30,7 +35,7 @@ Create `.claude-plugin/plugin.json`:
 }
 ```
 
-Optional fields for partner/public plugins: `homepage`, `repository`, `license`, `keywords`, `email` (in author object), `mcpServers` (can also live in `.mcp.json`).
+Fields: `name` (kebab-case), `version` (semver), `description` (capabilities summary), `author`.
 
 ## Step 3: Commands
 
@@ -45,62 +50,52 @@ argument-hint: "[expected argument placeholder]"
 ---
 ```
 
+Both fields are required. `description` is displayed when listing available commands. `argument-hint` shows the expected input format.
+
 ### Thin Delegation Pattern (preferred)
 
-Most commands should be thin wrappers that load a skill:
+Most commands should load a skill and pass through the argument:
 
 ```markdown
 ---
-description: Build an LBO model for a PE acquisition
-argument-hint: "[company name or deal details]"
+description: Benchmark content against top performers in a niche
+argument-hint: "[niche or topic]"
 ---
 
-Load the `lbo-model` skill and build a leveraged buyout model for the specified company.
+Load the `content-benchmark` skill and benchmark content performance
+against top performers in the specified niche.
 
-If a company name is provided as an argument, use it. Otherwise ask the user for the target company and deal parameters.
+If a niche or topic is provided, use it. Otherwise ask the user what
+niche or topic they want to benchmark against.
 ```
 
 ### Inline Workflow Pattern
 
-Use only when the command orchestrates multiple skills or adds pre/post-processing logic that does not belong in any single skill:
+Use when the command orchestrates multiple skills or adds multi-step logic:
 
 ```markdown
 ---
-description: Build a DCF valuation with comps-informed terminal multiples
-argument-hint: "[company name or ticker]"
+description: Run a multi-task deep research pipeline on an AI topic
+argument-hint: "[AI topic or technology]"
 ---
 
-## Workflow
+Load the `deep-research` skill and begin the 5-task pipeline to create
+a comprehensive AI topic research article.
 
-### Step 1: Gather Company Information
-Parse input or ask the user.
+If a topic is provided, use it. Otherwise ask the user which AI topic
+or technology to research.
 
-### Step 2: Run Comparable Company Analysis
-Load `comps-analysis` skill to build trading comps.
-Capture median EV/EBITDA, growth rates, margins.
-
-### Step 3: Build DCF Model
-Load `dcf-model` skill using comps output to inform assumptions.
-
-### Step 4: Cross-Check Valuation
-Validate implied multiples against peer medians.
-
-### Step 5: Deliver Output
-Provide comps spreadsheet, DCF model, and summary.
+This is a 5-task pipeline that must be executed one task at a time:
+1. Topic Research - Background, players, history, current state
+2. Data Compilation - Statistics, benchmarks, market data
+3. Analysis & Synthesis - Comparative analysis and content recommendation
+4. Visual Asset Generation - Charts, diagrams, infographics
+5. Article Assembly - Final publication-ready article
 ```
-
-Examples of inline workflow commands: `dcf` (skill chaining), `one-pager` (template detection + skill loading), `earnings` (timeliness check + skill loading).
 
 ## Step 4: Skills
 
-### Using the Skill Creator
-
-The canonical way to create skills is via the `skill-creator` meta-skill in the core plugin. It provides:
-
-- `scripts/init_skill.py <skill-name> --path <output-dir>` -- scaffolds the directory with SKILL.md template and example resource directories
-- `scripts/package_skill.py <path/to/skill>` -- validates and packages into a distributable `.skill` file
-
-### Manual SKILL.md Authoring
+### SKILL.md Format
 
 Create `skills/skill-name/SKILL.md`:
 
@@ -109,76 +104,67 @@ Create `skills/skill-name/SKILL.md`:
 name: skill-name
 description: >
   Describes what the skill does AND when to trigger it.
-  Include trigger phrases: "buyer list", "buyer universe", "potential acquirers".
-  Include contexts: when users want to identify strategic buyers for a sell-side process.
+  Include 5-7 trigger phrases: "benchmark content", "compare against
+  top performers", "identify quality gaps", "analyze what makes top
+  content succeed", "evaluate content performance".
+  Include contexts: when users want to compare their content output
+  against niche leaders on any platform or format.
 ---
 ```
 
 **Frontmatter rules:**
-- Only `name` and `description` fields. No other YAML fields (except optional `license`).
-- `description` is the sole trigger mechanism. All "when to use" information must be here, not in the body.
-- Be comprehensive: list trigger phrases, synonyms, and use-case contexts.
+
+- Only `name` and `description` fields. No other YAML fields.
+- `name`: kebab-case, must match the directory name.
+- `description`: the sole trigger mechanism. All "when to use" information must be here, not in the body. Include 5-7 natural language trigger phrases covering synonyms and use-case contexts.
 
 **Body structure:**
 
 ```markdown
-## Core Principles
-Key constraints and non-obvious rules Claude must follow.
+# Skill Title
 
 ## Workflow
-### Step 1: ...
-### Step 2: ...
 
-## Output Format
-What the skill produces (file types, structure, quality standards).
+### Step 1: Define Inputs
+Confirm required parameters with the user.
 
-## Important Notes
-Guardrails, anti-patterns, edge cases.
+### Step 2: Gather Data
+Describe data collection approach.
+
+### Step 3: Analyze
+Core analysis logic.
+
+### Step 4: Deliver Output
+Output format and quality standards.
 ```
 
-Keep the body under 500 lines. Move detailed reference material to `references/` files and link from SKILL.md.
+- Lead with the workflow, not background theory.
+- Use numbered steps with clear action verbs.
+- Reference bundled files explicitly: "See `references/scoring-criteria.md` for details."
+- Keep SKILL.md under 500 lines; move detailed content to reference files.
 
-### Bundled Resources
+### Adding References
 
-#### `scripts/`
-Executable code for deterministic or repetitive operations.
-
-```
-scripts/validate_dcf.py    # Validation logic
-scripts/extract_numbers.py # Data extraction
-scripts/init_skill.py      # Scaffolding tool
-```
-
-Test scripts by running them before packaging.
-
-#### `references/`
-Documentation loaded on demand to inform Claude's process.
+Create `references/` for detailed sub-workflows, criteria, or schemas:
 
 ```
-references/formulas.md      # Financial formula reference
-references/formatting.md    # Output formatting standards
-references/equity-research.md  # Audience-specific variant
+skills/skill-name/
+├── SKILL.md
+├── references/
+│   ├── scoring-criteria.md
+│   ├── platform-guidelines.md
+│   └── output-templates.md
+├── scripts/
+│   └── validate.py
+└── assets/
+    └── report-template.md
 ```
 
-For large reference files (>100 lines), include a table of contents. For files >10k words, include grep search patterns in SKILL.md.
-
-Organize by domain or variant when a skill supports multiple modes:
-
-```
-references/
-├── equity-research.md   # Audience: ER analysts
-├── ib-ma.md             # Audience: IB/M&A bankers
-├── corp-dev.md          # Audience: Corporate development
-└── sales-bd.md          # Audience: Sales/BD teams
-```
-
-#### `assets/`
-Files used in output, not loaded into context (templates, images, fonts).
-
-```
-assets/report-template.md   # Document template
-assets/logo.png              # Brand asset
-```
+| Directory | Purpose | When Loaded |
+|-----------|---------|-------------|
+| `references/` | Domain docs, detailed criteria, examples | On demand when Claude determines relevance |
+| `scripts/` | Executable code for deterministic tasks | Executed without reading into context |
+| `assets/` | Templates, images used in output | Used in output, not loaded into context |
 
 ### Progressive Disclosure
 
@@ -188,71 +174,114 @@ Design skills so context consumption scales with need:
 2. **SKILL.md body** (<500 lines) -- loaded only when triggered
 3. **Resources** (unlimited) -- loaded only when Claude determines they are needed
 
-Avoid duplicating information between SKILL.md and reference files. The body should contain workflow steps and essential constraints; move schemas, examples, and detailed specs to references.
+Avoid duplicating information between SKILL.md and reference files. The body should contain workflow steps and essential constraints; move detailed specs, schemas, and examples to references.
 
-## Step 5: Optional Components
+## Step 5: MCP Integration
 
-### MCP Configuration
-
-Create `.mcp.json` at plugin root:
+Create `.mcp.json` at plugin root to connect external data sources:
 
 ```json
 {
   "mcpServers": {
-    "provider-key": {
-      "type": "http",
-      "url": "https://mcp.provider.com/endpoint"
+    "hacker-news": {
+      "command": "npx",
+      "args": ["-y", "mcp-hacker-news"]
+    },
+    "arxiv": {
+      "command": "uvx",
+      "args": ["arxiv-mcp-server"]
+    },
+    "rss-reader": {
+      "command": "npx",
+      "args": ["-y", "@kwp-lab/rss-reader-mcp"]
     }
   }
 }
 ```
 
-For most add-on plugins, leave this empty or omit -- they rely on the core `financial-analysis` plugin for MCP data access.
+Available free MCP servers (no API keys needed):
 
-### Hooks
+| Server | Package | Runner | Purpose |
+|--------|---------|--------|---------|
+| `hacker-news` | `mcp-hacker-news` | npx | Hacker News content access |
+| `arxiv` | `arxiv-mcp-server` | uvx | Academic paper search |
+| `rss-reader` | `@kwp-lab/rss-reader-mcp` | npx | RSS feed reading |
 
-Create `hooks/hooks.json`:
+If the plugin needs no external data, leave the config empty: `{ "mcpServers": {} }`.
+
+## Step 6: Register in Marketplace
+
+Add an entry to `.claude-plugin/marketplace.json` at the project root:
 
 ```json
-[]
+{
+  "name": "my-plugin",
+  "source": "./my-plugin",
+  "description": "Summary of plugin capabilities"
+}
 ```
 
-Currently unused across all plugins. Reserve for future event-driven automation.
+The `source` field is a relative path from project root to the plugin directory.
 
-### User Configuration
+## The Skill Creator Meta-Skill
 
-Create `.claude/plugin-name.local.md.example` with configurable parameters:
+The `content-analysis` plugin includes a `skill-creator` meta-skill that defines the canonical extensibility contract for authoring new skills.
 
-```markdown
-# User Configuration
-- Firm: [Your firm name]
-- Role: [Your role]
-- Coverage sectors: [Your sectors]
-- Default valuation assumptions: [...]
+### Directory Structure
+
+```
+skill-name/
+├── SKILL.md (required)
+│   ├── YAML frontmatter: name, description
+│   └── Markdown instructions
+└── Bundled Resources (optional)
+    ├── scripts/       -- Executable code
+    ├── references/    -- Documentation to load as needed
+    └── assets/        -- Files used in output (templates, etc.)
 ```
 
-Actual `.local.md` files are gitignored.
+### Frontmatter Requirements
 
-## Testing
+- `name`: kebab-case skill name
+- `description`: what the skill does AND when to trigger it. This is the primary triggering mechanism. Include content domain examples and trigger phrases.
 
-Test commands via `/plugin-name:command-name` syntax in Claude. Skills trigger automatically when their `description` matches user intent.
+### Progressive Disclosure Principle
+
+- SKILL.md body: core workflow only (<500 lines)
+- `references/`: detailed criteria, examples, schemas
+- `assets/`: templates and output files
+
+### Degrees-of-Freedom Framework
+
+Match the level of specificity to the task's fragility and variability:
+
+- **High freedom**: multiple approaches are valid or decisions depend on context
+- **Medium freedom**: a preferred pattern exists but some variation is acceptable
+- **Low freedom**: operations are fragile, consistency is critical, or a specific sequence must be followed
+
+### 6-Step Creation Process
+
+1. **Understand** -- clarify the skill's usage patterns with 2-3 concrete examples
+2. **Plan** -- identify repeated work and map to reusable resources (references, assets, scripts)
+3. **Initialize** -- create the directory structure with `mkdir -p skill-name/{scripts,references,assets}`
+4. **Edit** -- write SKILL.md with frontmatter + workflow body
+5. **Package** -- validate: frontmatter has `name` and `description`, no extraneous files, all referenced files exist
+6. **Iterate** -- after real usage, tighten guidance on failure points and add reference files for recurring patterns
+
+### Prohibitions
+
+- No `README.md`, `CHANGELOG.md`, or any user-facing documentation
+- No background context about how the skill was created
+- No information Claude already knows (general writing advice, basic platform facts)
+- No duplicate content across SKILL.md and reference files
 
 ## Naming Conventions
 
-- Plugin directory: kebab-case (`investment-banking`)
-- Command files: kebab-case (`buyer-list.md`)
-- Skill directories: kebab-case (`comps-analysis/`)
-- Skill `name` in frontmatter: should match directory name (note: `fsi-comps-analysis` vs `comps-analysis/` is a known inconsistency to avoid)
+- Plugin directory: kebab-case (`content-analysis`)
+- Command files: kebab-case (`check-quality.md`)
+- Skill directories: kebab-case (`content-benchmark/`)
+- Skill `name` in frontmatter: must match directory name
 
-## Partner Plugin Considerations
+## Testing
 
-Partner plugins under `partner-built/` may include:
-- `LICENSE` file (e.g., Apache-2.0)
-- `README.md` with setup instructions
-- `CONNECTORS.md` for MCP tool reference (LSEG pattern)
-- Richer `plugin.json` with homepage, repository, keywords
-- Self-contained MCP endpoints (not dependent on core plugin)
-- Skills that generate binary output (DOCX, HTML, PPTX) with npm dependencies (`docx`, `pptxgenjs`)
-- Intermediate file pipelines (`/tmp/` writes between MCP calls)
-- AI disclaimer requirements in output
-- Data integrity rule sections in SKILL.md
+Test commands via `/plugin-name:command-name` syntax. Skills trigger automatically when their `description` matches user intent. Changes to markdown files take effect immediately.

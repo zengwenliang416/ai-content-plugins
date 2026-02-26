@@ -1,54 +1,72 @@
 # Coding Conventions
 
-File-structure, schema, and formatting conventions for the financial-services-plugins marketplace. Covers both the intended standard and known deviations.
+File-structure, schema, and formatting conventions for the ai-content-plugins marketplace. Covers file formats, naming rules, skill/command patterns, and output standards.
 
 ---
 
 ## 1. Plugin Directory Layout
 
-Every plugin (first-party and partner-built) follows this skeleton:
+Every plugin follows this skeleton:
 
 ```
 plugin-name/
   .claude-plugin/plugin.json   # manifest (required)
   commands/                     # slash-command markdown files
   skills/                       # skill directories, each with SKILL.md
-  hooks/hooks.json              # automation hooks
+  hooks/hooks.json              # automation hooks (currently all empty)
   .mcp.json                     # MCP server config (if any)
   .claude/                      # user-local config (gitignored)
 ```
 
-Partner plugins live under `partner-built/<name>/` and use the same layout.
+Five plugins exist: `content-analysis`, `topic-research`, `content-production`, `growth-ops`, `audience-management`.
+
+The root-level `.claude-plugin/marketplace.json` registers all plugins with their source paths.
 
 ---
 
-## 2. plugin.json Manifest
+## 2. File Formats
 
-**Minimum required fields:** `name`, `version`, `description`, `author.name`.
+| File type | Format | Location |
+|---|---|---|
+| Commands | Markdown (.md) | `commands/` |
+| Skills | `SKILL.md` | `skills/<skill-name>/` |
+| Plugin manifest | JSON | `.claude-plugin/plugin.json` |
+| MCP config | JSON | `.mcp.json` (root of each plugin) |
+| Hooks | JSON | `hooks/hooks.json` |
+| Marketplace manifest | JSON | `.claude-plugin/marketplace.json` (repo root) |
+| Skill references | Markdown (.md) | `skills/<skill-name>/references/` |
+| Skill assets | Markdown (.md) | `skills/<skill-name>/assets/` |
+
+---
+
+## 3. Naming Rules
+
+- **Plugin directories**: kebab-case (`content-analysis`, `topic-research`, `growth-ops`)
+- **Skill directories**: kebab-case (`deep-research`, `quality-check`, `content-benchmark`)
+- **Command files**: kebab-case `.md`, typically matching the skill they delegate to (`benchmark.md` -> `content-benchmark` skill, `check-quality.md` -> `quality-check` skill)
+- **Reference files**: kebab-case `.md` describing content (`frameworks.md`, `schemas.md`, `quality-criteria.md`)
+- **Asset files**: kebab-case `.md` (`article-template.md`, `quality-checklist.md`)
+
+---
+
+## 4. plugin.json Manifest
+
+Required fields: `name`, `version`, `description`, `author.name`.
 
 ```json
 {
   "name": "plugin-slug",
   "version": "0.1.0",
   "description": "One-line description",
-  "author": { "name": "Anthropic FSI" }
+  "author": { "name": "AI Content Studio" }
 }
 ```
 
-**Extended fields** (used by S&P Global only): `homepage`, `repository`, `license`, `keywords`, `mcpServers`.
-
-### Known inconsistencies
-
-| Issue | Detail |
-|---|---|
-| Version drift | `financial-analysis` 0.1.0, `investment-banking` 0.2.0, partner plugins 1.0.0 |
-| Author name variance | `"Anthropic"` vs `"Anthropic FSI"` vs partner names |
-| `mcpServers` placement | S&P Global embeds in both `plugin.json` AND `.mcp.json` (duplication) |
-| No discovery fields | No plugin declares `commands` or `skills` arrays; relies on path convention |
+All five plugins use version `0.1.0` and author `"AI Content Studio"`. No plugin declares `commands` or `skills` arrays; discovery relies on directory conventions.
 
 ---
 
-## 3. Command Files (`commands/*.md`)
+## 5. Command Files (`commands/*.md`)
 
 ### Frontmatter (YAML)
 
@@ -59,41 +77,43 @@ argument-hint: "[placeholder text]"
 ---
 ```
 
-Optional field: `allowed-tools` (array of tool names). Only `ppt-template` uses this.
+Both fields are standard. No other frontmatter fields are used.
 
-### Body patterns
+### Body pattern
 
-Two accepted patterns:
+Thin delegation: load a named skill, handle missing argument. Body is 2-5 lines.
 
-1. **Thin delegation** (preferred for most commands): Load a named skill, handle missing argument. Body is 2-5 lines.
-2. **Inline workflow** (acceptable for complex orchestration): Multi-step numbered workflow embedded directly. Used by `comps`, `dcf`, `one-pager`, `earnings`.
+```markdown
+Load the `skill-name` skill and [action description].
 
-LSEG commands add a `> See [CONNECTORS.md]` blockquote linking to their tool reference. This is partner-specific and not required for first-party plugins.
+If [argument] is provided, use it. Otherwise ask the user [what to provide].
+```
 
-### Known inconsistencies
-
-- `datapack-builder` skill has no corresponding command (orphaned skill).
-- `screen` command loads `idea-generation` skill (name mismatch).
-- Inline-workflow commands partially duplicate their skill's content.
+Some commands (e.g., `deep-research`) add a brief pipeline summary after the delegation line.
 
 ---
 
-## 4. SKILL.md Format
+## 6. SKILL.md Format
 
-### Frontmatter variants
+Two format variants exist:
 
-**Standard (YAML frontmatter):**
+### Variant A: YAML frontmatter (preferred)
 
 ```yaml
 ---
 name: skill-name
-description: Trigger description text
+description: Trigger description with 5-7 trigger phrases...
 ---
+
+# Skill Title
+
+## Workflow
+...
 ```
 
-Used by: `financial-analysis`, `investment-banking`, `equity-research`, LSEG, S&P Global.
+Used by most skills across all plugins.
 
-**Inline prose (no YAML fences):**
+### Variant B: Inline prose (no YAML fences)
 
 ```markdown
 # Skill Title
@@ -101,181 +121,116 @@ Used by: `financial-analysis`, `investment-banking`, `equity-research`, LSEG, S&
 description: Trigger description text...
 
 ## Workflow
+...
 ```
 
-Used by: `private-equity`, `wealth-management`, `check-model`.
+Used by: `presentation`, `asset-pack`, `content-tracker` in content-production, and some growth-ops skills.
 
-**Hybrid (YAML name only, description as body prose):**
+### Common structure
 
-```yaml
----
-name: check-model
----
+Regardless of variant, all SKILL.md files follow this structure:
 
-# Model Checker
+1. **Description line** with 5-7 trigger phrases
+2. **Numbered workflow steps** with clear action verbs
+3. **Output section** specifying format and deliverables
+4. **Important Notes** section with constraints and best practices
 
-description: Trigger text...
-```
+### Size guideline
 
-Used by: `check-model` in `financial-analysis`.
-
-### Intended standard
-
-Use YAML frontmatter with both `name` and `description`. The `name` field drives skill loading; the `description` field drives automatic trigger matching. Body content loads only after trigger.
-
-### Known inconsistencies
-
-| Issue | Detail |
-|---|---|
-| PE/WM use inline prose | No YAML fences; `description:` is a bare line in the body |
-| `check-model` hybrid | YAML has `name` only; `description` appears as body text |
-| `comps-analysis` name mismatch | Directory `comps-analysis/` but frontmatter `name: fsi-comps-analysis` |
-| S&P Global trigger length | `description` field is multi-paragraph (100+ words) vs typical 1-2 sentences |
+SKILL.md should stay under 500 lines. Detailed content offloads to `references/` or `assets/` subdirectories (progressive disclosure principle).
 
 ---
 
-## 5. Skill Resource Directories
-
-Skills may contain subdirectories for supporting content:
+## 7. Skill Resource Directories
 
 ```
 skill-name/
   SKILL.md
-  references/       # domain reference files (plural)
-  scripts/           # Python helper scripts
+  references/       # domain reference files (plural form)
   assets/            # templates, checklists
-  examples/          # example output files
 ```
 
-### `reference` vs `references` naming
+Standard directory name is `references/` (plural). Used by: `competitor-analysis`, `quality-check`, `deep-research`, `skill-creator`.
 
-| Directory name | Where used |
-|---|---|
-| `references/` (plural) | `3-statements`, `check-deck`, `competitive-analysis`, `skill-creator`, `earnings-analysis`, `initiating-coverage`, S&P Global skills |
-| `reference/` (singular) | `pitch-deck` only |
-
-**Intended standard:** `references/` (plural). The singular `reference/` in `pitch-deck` is an outlier.
+Assets are used by `deep-research` (`article-template.md`, `quality-checklist.md`).
 
 ---
 
-## 6. hooks.json Schema
+## 8. hooks.json
 
-All current hooks files are empty. Two schemas exist:
-
-| Schema | Plugins using it |
-|---|---|
-| `[]` (empty array) | `financial-analysis`, `equity-research`, `private-equity`, `wealth-management` |
-| `{"hooks": {}}` (object wrapper) | `investment-banking` |
-
-No standard has been established. Both schemas coexist.
-
----
-
-## 7. .mcp.json Format
+All five plugins have `hooks/hooks.json`. All are currently empty with the schema:
 
 ```json
 {
-  "mcpServers": {
-    "provider-key": {
-      "type": "http",
-      "url": "https://..."
-    }
-  }
+  "hooks": {}
 }
 ```
 
-`financial-analysis` is the sole MCP data hub (11 connectors). Add-on plugins have empty or absent `.mcp.json` files. Partner plugins define their own MCP endpoints.
+No event-driven automation is implemented.
 
-### MCP data source hierarchy (enforced by core skills)
+---
 
-1. MCP tools first (S&P Kensho, FactSet, Daloopa, etc.)
-2. Bloomberg terminal / SEC filings as fallback
-3. Web search is never the primary data source
+## 9. .mcp.json
 
-This hierarchy is explicit in core `financial-analysis` skills but not enforced by add-on plugin skills.
+MCP configs define external tool servers. Only two plugins use active MCP servers:
 
-### Known inconsistencies
-
-| Issue | Detail |
+| Plugin | MCP Servers |
 |---|---|
-| LSEG key collision | Both `financial-analysis/.mcp.json` and `partner-built/lseg/.mcp.json` define an `lseg` key pointing to the same endpoint |
-| S&P Global duplication | MCP config in both `plugin.json` and `.mcp.json` |
-| Missing `.mcp.json` | `equity-research` and `wealth-management` have no `.mcp.json` at all |
+| `topic-research` | `hacker-news`, `arxiv`, `rss-reader` (3 servers) |
+| `growth-ops` | `hacker-news`, `rss-reader` (2 servers) |
+| Others | Empty `{"mcpServers": {}}` |
+
+Server types used:
+- `npx` command: `mcp-hacker-news`, `@kwp-lab/rss-reader-mcp`
+- `uvx` command: `arxiv-mcp-server`
 
 ---
 
-## 8. Excel Output Conventions
+## 10. Command-to-Skill Mapping
 
-### Formula-only calculations
+The standard pattern is 1:1 command-to-skill mapping. Each command loads exactly one skill.
 
-All Excel outputs must use formulas for every calculated cell. Never hardcode a computed value. This is cross-cutting but not formally documented in a single location; each skill enforces it independently.
+Exceptions in `content-production`:
+- `presentation` and `asset-pack` are trigger-only skills with no corresponding command file
+- These skills activate only through automatic trigger matching on their description phrases
 
-### Cell font color coding
-
-**3-color system** (used by most skills):
-
-| Color | Hex | Meaning |
-|---|---|---|
-| Blue | `#0000FF` | Hardcoded inputs |
-| Black | `#000000` | Formulas / calculations |
-| Green | `#008000` | Links to other sheets |
-
-Skills using 3-color: `check-model`, `datapack-builder`, `comps-analysis`, `3-statements`, `dcf-model`.
-
-**4-color system** (LBO-specific):
-
-| Color | Hex | Meaning |
-|---|---|---|
-| Blue | `#0000FF` | Hardcoded inputs |
-| Black | `#000000` | Formulas with operators/functions |
-| Purple | `#800080` | Same-tab cell references (no calculation) |
-| Green | `#008000` | Cross-tab references |
-
-Skills using 4-color: `lbo-model` only. The 4-color system splits "formula" into "calculated formula" (black) and "direct reference" (purple/green by tab scope).
-
-### Additional formatting rules
-
-- Input cells: blue text + light green fill (used by `dcf-model`)
-- Every blue input should have a cell comment documenting the assumption
-- Comps: statistics rows (Max/75th/Median/25th/Min) apply to ratio columns only, never to absolute size metrics
+The `skill-creator` in `content-analysis` is a cross-plugin meta-skill that defines the extensibility contract for building new skills.
 
 ---
 
-## 9. Output File Naming
+## 11. Output Conventions
 
-Skills that produce files follow this pattern:
+### Primary format
 
-```
-[Company]_[ArtifactType]_[YYYY-MM-DD].[ext]
-```
+Markdown tables are the standard deliverable format across all plugins.
 
-Examples from skills:
-- `CompanyName_DataPack_YYYY-MM-DD.xlsx`
-- `[Company]_Q[Quarter]_[Year]_Earnings_Update.docx`
+### Source citation
 
----
+All data claims require source citation. Rules by plugin:
 
-## 10. Partner Plugin Differences
+| Plugin | Citation rule |
+|---|---|
+| `topic-research` | No fabricated data; mark missing data as "N/A - not publicly disclosed" |
+| `content-analysis` | Estimates labeled with `[E]` suffix |
+| All plugins | Source and date required for each referenced data point |
 
-Partner plugins (LSEG, S&P Global) diverge from first-party conventions in several ways:
+### Decision frameworks
 
-| Aspect | First-party | LSEG | S&P Global |
-|---|---|---|---|
-| Output format | Markdown / Excel | Markdown tables | Binary (DOCX, HTML, PPTX) |
-| npm dependencies | None | None | `docx`, `pptxgenjs`, `simple-icons`, `sharp` |
-| Intermediate files | None | None | Mandatory (`/tmp/` pipeline) |
-| AI disclaimer | Not required | Not required | Mandatory (3 locations) |
-| Data integrity rules | Implicit | Implicit | Explicit numbered section (10+ rules) |
-| CONNECTORS.md | Not used | Yes (tool catalog) | Not used |
-| Commands | Yes | Yes (1:1 with skills) | None (trigger-only) |
-| Licensing | Unspecified | Unspecified | Apache-2.0 |
+- **WRITE / MONITOR / SKIP**: Used by `topic-research` and partially by `growth-ops` for topic evaluation
+- **Priority labels**: `P0` / `P1` / `P2` (used by `content-tracker`)
+- **Significance ratings**: `High` / `Medium` / `Low` (shared across plugins)
+- **HIGH / MEDIUM / LOW screening**: Used by `topic-screening` in `growth-ops`
+
+### Platform support
+
+`content-production` includes Chinese social platform support: Xiaohongshu, WeChat, Weibo.
 
 ---
 
-## 11. Cross-Cutting Rules
+## 12. Cross-Cutting Rules
 
-1. **Skill trigger mechanism**: `name` + `description` in SKILL.md frontmatter drive automatic activation. Body loads post-trigger.
-2. **Command-to-skill delegation**: Thin command files should load a skill by name and handle argument gathering. Avoid duplicating skill workflow in the command body.
-3. **No web search as primary source**: Core skills enforce MCP-first data retrieval. Add-on and partner skills should follow the same hierarchy.
-4. **Formula-only Excel**: Every calculated cell must be a formula. No hardcoded computed values.
-5. **Progressive disclosure**: Plugin metadata (manifest) loads first, then command frontmatter, then skill frontmatter, then skill body + references. Design content for this loading order.
+1. **Skill trigger mechanism**: `name` + `description` in SKILL.md drive automatic activation. The description field is the primary trigger; include 5-7 trigger phrases.
+2. **Command-to-skill delegation**: Command files load a skill by name and handle argument gathering. Do not duplicate skill workflow in the command body.
+3. **Progressive disclosure**: Plugin manifest loads first, then command frontmatter, then skill frontmatter, then skill body + references. Design content for this loading order.
+4. **Context efficiency**: Only add context Claude does not already have. Keep SKILL.md under 500 lines; move detailed content to reference files.
+5. **No partner plugins**: Unlike some plugin marketplaces, this project has no partner-built plugins. All five plugins are first-party.

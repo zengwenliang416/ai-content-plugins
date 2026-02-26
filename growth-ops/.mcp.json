@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "rss-reader": {
-      "command": "npx",
-      "args": ["-y", "rss-reader-mcp"]
+      "command": "rss-mcp",
+      "args": []
     }
   }
 }

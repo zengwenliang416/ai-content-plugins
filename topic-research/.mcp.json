@@ -9,8 +9,8 @@
       "args": ["arxiv-mcp-server"]
     },
     "rss-reader": {
-      "command": "rss-mcp",
-      "args": []
+      "command": "npx",
+      "args": ["-y", "@iflow-mcp/rss-reader-server"]
     }
   }
 }

@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "rss-reader": {
-      "command": "rss-mcp",
-      "args": []
+      "command": "npx",
+      "args": ["-y", "@iflow-mcp/rss-reader-server"]
     }
   }
 }

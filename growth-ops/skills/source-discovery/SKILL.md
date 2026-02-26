@@ -1,6 +1,9 @@
-# Source Discovery
-
+---
+name: source-discovery
 description: Content source discovery workflow — find relevant blogs, newsletters, research papers, experts, and communities for a topic, check for prior usage, and organize into a curated source list. Use when researching a new topic, building a reference library, or expanding content inputs. Triggers on "find sources", "discover sources", "research references", "find experts on", "where to get info about", or "source discovery".
+---
+
+# Source Discovery
 
 ## Workflow
 

@@ -1,6 +1,9 @@
-# Content ROI Analysis
-
+---
+name: content-roi
 description: Calculate and compare return on investment for content pieces, formats, or campaigns. Evaluates time invested versus results generated — views, followers, engagement, and revenue where applicable. Use when prioritizing content types, justifying effort allocation, or identifying highest-ROI strategies. Triggers on "content ROI", "is this content worth making", "ROI analysis", "return on content", "time vs. results", or "what content is most valuable".
+---
+
+# Content ROI Analysis
 
 ## Workflow
 

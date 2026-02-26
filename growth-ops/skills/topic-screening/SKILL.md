@@ -1,6 +1,9 @@
-# Topic Screening
-
+---
+name: topic-screening
 description: Quickly screen a topic for content potential against key criteria — search volume, competition, audience interest, expertise fit, and timeliness. Outputs a one-page screening assessment with a HIGH / MEDIUM / LOW rating. Use when deciding whether to invest time in a topic. Triggers on "screen this topic", "is this topic worth covering", "topic potential", "should I write about", "topic screening", or "evaluate this idea".
+---
+
+# Topic Screening
 
 ## Workflow
 

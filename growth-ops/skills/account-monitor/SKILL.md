@@ -1,6 +1,9 @@
-# Account Portfolio Monitoring
-
+---
+name: account-monitor
 description: Track and analyze content account performance across platforms. Reviews follower growth, engagement, views, and posting activity, flags trends and anomalies, and surfaces action items. Use when reviewing monthly or quarterly account health, monitoring multiple platforms, or preparing a performance summary. Triggers on "account review", "portfolio monitoring", "how are my accounts doing", "platform performance", "growth check", or "account monitor".
+---
+
+# Account Portfolio Monitoring
 
 ## Workflow
 

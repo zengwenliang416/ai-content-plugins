@@ -1,6 +1,9 @@
-# Strategy Memo
-
+---
+name: strategy-memo
 description: Draft a structured content strategy memo synthesizing situation analysis, strategic options, a clear recommendation, key risks, and next steps. Use when making a major content decision, pivoting strategy, or communicating direction to collaborators or team. Triggers on "strategy memo", "write a strategy memo", "strategic recommendation", "content strategy brief", "decision memo", or "strategy write-up".
+---
+
+# Strategy Memo
 
 ## Workflow
 

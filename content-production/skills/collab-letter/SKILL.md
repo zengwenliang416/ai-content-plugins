@@ -1,6 +1,9 @@
-# Collab Letter
-
+---
+name: collab-letter
 description: Draft collaboration and outreach messages for creator partnerships, brand deals, and content co-production. Triggers on "collab", "outreach", "partnership email", "reach out to", "collaboration message", "DM draft".
+---
+
+# Collab Letter
 
 ## Workflow
 

@@ -1,6 +1,9 @@
-# Performance Analysis
-
+---
+name: performance-analysis
 description: Analyze content performance over a defined period — views, engagement, follower growth, top performers, and underperformers. Identifies patterns across topics, formats, and timing. Use when reviewing a quarter, preparing a retrospective, or deciding what content to produce more of. Triggers on "performance analysis", "content performance", "how did my content do", "analyze my posts", "performance review", or "what's working".
+---
+
+# Performance Analysis
 
 ## Workflow
 

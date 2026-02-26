@@ -1,6 +1,9 @@
-# Operations Report
-
+---
+name: ops-report
 description: Generate professional operations and analytics reports covering account performance, content mix, audience growth, and recommendations. Suitable for monthly or quarterly distribution to team members, brand partners, or personal review. Triggers on "ops report", "operations report", "analytics report", "monthly report", "quarterly report", or "generate report".
+---
+
+# Operations Report
 
 ## Workflow
 

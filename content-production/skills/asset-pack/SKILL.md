@@ -1,6 +1,9 @@
-# Asset Pack
-
+---
+name: asset-pack
 description: Bundle content assets — research, images, data, references — into an organized package for an article, series, or campaign. Triggers on "asset pack", "bundle", "package materials", "gather resources", "content bundle".
+---
+
+# Asset Pack
 
 ## Workflow
 

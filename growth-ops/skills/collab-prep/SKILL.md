@@ -1,6 +1,9 @@
-# Collaboration Prep
-
+---
+name: collab-prep
 description: Prepare for a content collaboration meeting — research the collaborator, identify mutual benefits, and draft talking points and a proposal outline. Use before any creator collaboration, brand partnership, or co-creation conversation. Triggers on "collab prep", "prep for collaboration", "meeting with [creator]", "collaboration brief", or "collab talking points".
+---
+
+# Collaboration Prep
 
 ## Workflow
 

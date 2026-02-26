@@ -1,6 +1,9 @@
-# Presentation
-
+---
+name: presentation
 description: Create content presentations and slide decks for talks, webinars, pitches, and educational content. Triggers on "presentation", "slides", "deck", "PPT", "slide deck", "keynote".
+---
+
+# Presentation
 
 ## Workflow
 
@@ -50,4 +53,3 @@ Adjust slide count based on speaking time (1-2 minutes per content slide).
 - If someone can read the slides without the speaker, the presentation is over-designed
 - Start with the structure (outline) before designing any slides
 - Always preview the full deck as an audience member before delivery
-- For reference files on advanced PowerPoint formatting, see the `reference/` subdirectory

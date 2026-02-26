@@ -1,6 +1,9 @@
-# Audience Review
-
+---
+name: audience-review
 description: Analyze audience demographics, interests, behavior, and engagement patterns across platforms. Segments the audience by platform, content preference, and engagement level. Identifies high-value segments and underserved opportunities. Use before content planning, collaboration pitches, or brand proposals. Triggers on "audience review", "who is my audience", "audience analysis", "audience demographics", "audience breakdown", or "audience insights".
+---
+
+# Audience Review
 
 ## Workflow
 

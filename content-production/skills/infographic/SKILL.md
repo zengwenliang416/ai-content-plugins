@@ -1,6 +1,9 @@
-# Infographic
-
+---
+name: infographic
 description: Create visual summary cards and infographic layouts for social media, presentations, and editorial content. Triggers on "infographic", "visual summary", "one-pager", "card", "图片总结", "visual card".
+---
+
+# Infographic
 
 ## Workflow
 

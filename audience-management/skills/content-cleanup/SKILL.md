@@ -1,6 +1,9 @@
-# Content Cleanup
-
+---
+name: content-cleanup
 description: Identify and action underperforming content — outdated posts, low-engagement pieces, and superseded work. Categorizes each piece into update, merge, archive, or delete actions with effort and impact estimates. Use for periodic content audits, SEO refreshes, or platform tidying. Triggers on "content cleanup", "content audit", "clean up my posts", "underperforming content", "outdated content", or "content pruning".
+---
+
+# Content Cleanup
 
 ## Workflow
 

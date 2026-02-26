@@ -1,6 +1,9 @@
-# Content Rebalance
-
+---
+name: content-rebalance
 description: Analyze current content mix, compare to target allocation, identify imbalances, and recommend adjustments to align content with audience preferences and strategic goals. Use when content feels scattered, a pivot is needed, or quarterly strategy calls for a reset. Triggers on "content rebalance", "rebalance my content", "content mix review", "fix my content mix", "too much of one topic", or "realign content strategy".
+---
+
+# Content Rebalance
 
 ## Workflow
 

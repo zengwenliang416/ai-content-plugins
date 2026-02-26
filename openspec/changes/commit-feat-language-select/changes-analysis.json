@@ -1,0 +1,115 @@
+{
+  "timestamp": "2026-02-26T03:50:00Z",
+  "analyzed_files": 41,
+  "primary_type": "feat",
+  "primary_scope": "commands",
+  "complexity": "high",
+  "should_split": true,
+  "split_recommendation": {
+    "commits": [
+      {
+        "type": "chore",
+        "scope": "config",
+        "emoji": "🔧",
+        "files": [".gitignore"],
+        "description": "add backups directory to .gitignore",
+        "body": "Exclude local backup files from version control."
+      },
+      {
+        "type": "feat",
+        "scope": "content-analysis",
+        "emoji": "✨",
+        "files": [
+          "content-analysis/commands/benchmark.md",
+          "content-analysis/commands/check-quality.md",
+          "content-analysis/commands/competitor.md",
+          "content-analysis/commands/debug-draft.md",
+          "content-analysis/commands/skill-creator.md",
+          "content-analysis/commands/template.md",
+          "content-analysis/commands/trend-analysis.md"
+        ],
+        "description": "add AskUserQuestion language selection to all commands",
+        "body": "Add bilingual (Chinese/English) language selection prompt via\nAskUserQuestion before generating any output artifacts.\n\nAffects 7 command files in content-analysis plugin."
+      },
+      {
+        "type": "feat",
+        "scope": "content-production",
+        "emoji": "✨",
+        "files": [
+          "content-production/commands/ab-test.md",
+          "content-production/commands/asset-pack.md",
+          "content-production/commands/audience.md",
+          "content-production/commands/collab-letter.md",
+          "content-production/commands/content-tracker.md",
+          "content-production/commands/infographic.md",
+          "content-production/commands/long-article.md",
+          "content-production/commands/presentation.md",
+          "content-production/commands/short-post.md"
+        ],
+        "description": "add AskUserQuestion language selection to all commands",
+        "body": "Add bilingual (Chinese/English) language selection prompt via\nAskUserQuestion before generating any output artifacts.\n\nAffects 9 command files in content-production plugin."
+      },
+      {
+        "type": "feat",
+        "scope": "topic-research",
+        "emoji": "✨",
+        "files": [
+          "topic-research/commands/brainstorm.md",
+          "topic-research/commands/daily-brief.md",
+          "topic-research/commands/deep-research.md",
+          "topic-research/commands/events.md",
+          "topic-research/commands/field-overview.md",
+          "topic-research/commands/narrative.md",
+          "topic-research/commands/release-analysis.md",
+          "topic-research/commands/trend-preview.md",
+          "topic-research/commands/update-research.md"
+        ],
+        "description": "add AskUserQuestion language selection to all commands",
+        "body": "Add bilingual (Chinese/English) language selection prompt via\nAskUserQuestion before generating any output artifacts.\n\nAffects 9 command files in topic-research plugin."
+      },
+      {
+        "type": "feat",
+        "scope": "growth-ops",
+        "emoji": "✨",
+        "files": [
+          "growth-ops/commands/account-portfolio.md",
+          "growth-ops/commands/collab-prep.md",
+          "growth-ops/commands/content-roi.md",
+          "growth-ops/commands/find-sources.md",
+          "growth-ops/commands/growth-plan.md",
+          "growth-ops/commands/performance.md",
+          "growth-ops/commands/review-checklist.md",
+          "growth-ops/commands/screen-topic.md",
+          "growth-ops/commands/strategy-memo.md"
+        ],
+        "description": "add AskUserQuestion language selection to all commands",
+        "body": "Add bilingual (Chinese/English) language selection prompt via\nAskUserQuestion before generating any output artifacts.\n\nAffects 9 command files in growth-ops plugin."
+      },
+      {
+        "type": "feat",
+        "scope": "audience-management",
+        "emoji": "✨",
+        "files": [
+          "audience-management/commands/audience-review.md",
+          "audience-management/commands/biz-proposal.md",
+          "audience-management/commands/cleanup.md",
+          "audience-management/commands/content-plan.md",
+          "audience-management/commands/content-rebalance.md",
+          "audience-management/commands/ops-report.md"
+        ],
+        "description": "add AskUserQuestion language selection to all commands",
+        "body": "Add bilingual (Chinese/English) language selection prompt via\nAskUserQuestion before generating any output artifacts.\n\nAffects 6 command files in audience-management plugin."
+      }
+    ]
+  },
+  "commit_strategy": {
+    "suggested_type": "feat",
+    "suggested_scope": "commands",
+    "confidence": "high"
+  },
+  "synthesis_metadata": {
+    "semantic_groups_count": 2,
+    "symbol_scopes_count": 5,
+    "conflicts_resolved": 0
+  }
+}

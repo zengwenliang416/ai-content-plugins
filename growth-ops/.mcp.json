@@ -1,12 +1,8 @@
 {
   "mcpServers": {
-    "hacker-news": {
-      "command": "npx",
-      "args": ["-y", "mcp-hacker-news"]
-    },
     "rss-reader": {
       "command": "npx",
-      "args": ["-y", "@kwp-lab/rss-reader-mcp"]
+      "args": ["-y", "rss-reader-mcp"]
     }
   }
 }

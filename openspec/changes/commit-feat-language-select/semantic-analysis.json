@@ -1,0 +1,88 @@
+{
+  "timestamp": "2026-02-26T00:00:00Z",
+  "analyzed_files": 41,
+  "semantic_groups": [
+    {
+      "name": "language-selection-feature",
+      "files": [
+        "audience-management/commands/audience-review.md",
+        "audience-management/commands/biz-proposal.md",
+        "audience-management/commands/cleanup.md",
+        "audience-management/commands/content-plan.md",
+        "audience-management/commands/content-rebalance.md",
+        "audience-management/commands/ops-report.md",
+        "content-analysis/commands/benchmark.md",
+        "content-analysis/commands/check-quality.md",
+        "content-analysis/commands/competitor.md",
+        "content-analysis/commands/debug-draft.md",
+        "content-analysis/commands/skill-creator.md",
+        "content-analysis/commands/template.md",
+        "content-analysis/commands/trend-analysis.md",
+        "content-production/commands/ab-test.md",
+        "content-production/commands/asset-pack.md",
+        "content-production/commands/audience.md",
+        "content-production/commands/collab-letter.md",
+        "content-production/commands/content-tracker.md",
+        "content-production/commands/infographic.md",
+        "content-production/commands/long-article.md",
+        "content-production/commands/presentation.md",
+        "content-production/commands/short-post.md",
+        "growth-ops/commands/account-portfolio.md",
+        "growth-ops/commands/collab-prep.md",
+        "growth-ops/commands/content-roi.md",
+        "growth-ops/commands/find-sources.md",
+        "growth-ops/commands/growth-plan.md",
+        "growth-ops/commands/performance.md",
+        "growth-ops/commands/review-checklist.md",
+        "growth-ops/commands/screen-topic.md",
+        "growth-ops/commands/strategy-memo.md",
+        "topic-research/commands/brainstorm.md",
+        "topic-research/commands/daily-brief.md",
+        "topic-research/commands/deep-research.md",
+        "topic-research/commands/events.md",
+        "topic-research/commands/field-overview.md",
+        "topic-research/commands/narrative.md",
+        "topic-research/commands/release-analysis.md",
+        "topic-research/commands/trend-preview.md",
+        "topic-research/commands/update-research.md"
+      ],
+      "purpose": "Add bilingual (Chinese/English) language selection prompt to all plugin commands via AskUserQuestion before any output is generated. This is a cross-cutting feature that makes all commands i18n-aware, allowing users to choose their output language at runtime.",
+      "suggested_type": "feat",
+      "suggested_scope": "commands"
+    },
+    {
+      "name": "gitignore-maintenance",
+      "files": [".gitignore"],
+      "purpose": "Add 'backups' directory to .gitignore to prevent accidental commit of local backup files.",
+      "suggested_type": "chore",
+      "suggested_scope": "config"
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "audience-management/commands/audience-review.md",
+      "to": "audience-management/skills/audience-review/SKILL.md",
+      "relationship": "uses"
+    },
+    {
+      "from": "content-analysis/commands/benchmark.md",
+      "to": "content-analysis/skills/content-benchmark/SKILL.md",
+      "relationship": "uses"
+    },
+    {
+      "from": "growth-ops/commands/growth-plan.md",
+      "to": "growth-ops/skills/growth-plan/SKILL.md",
+      "relationship": "uses"
+    },
+    {
+      "from": "topic-research/commands/brainstorm.md",
+      "to": "topic-research/skills/topic-brainstorm/SKILL.md",
+      "relationship": "uses"
+    }
+  ],
+  "complexity_factors": {
+    "cross_module_changes": true,
+    "breaking_changes": false,
+    "new_dependencies": false
+  }
+}

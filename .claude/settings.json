@@ -1,0 +1,9 @@
+{
+  "enabledPlugins": {
+    "audience-management@ai-content-plugins": true,
+    "content-analysis@ai-content-plugins": true,
+    "content-production@ai-content-plugins": true,
+    "growth-ops@ai-content-plugins": true,
+    "topic-research@ai-content-plugins": true
+  }
+}

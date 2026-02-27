@@ -1,0 +1,22 @@
+{
+  "name": "ai-content-agents",
+  "version": "1.0.0",
+  "description": "Three AI agents for content research, writing, and operations",
+  "agents": [
+    {
+      "name": "content-researcher",
+      "workspace": "./workspace-content-researcher",
+      "description": "Research agent — multi-platform news search, trend analysis, deep research, and content benchmarking"
+    },
+    {
+      "name": "content-writer",
+      "workspace": "./workspace-content-writer",
+      "description": "Writing agent — long-form articles, short posts, visual content, slide decks, and infographics"
+    },
+    {
+      "name": "content-operator",
+      "workspace": "./workspace-content-operator",
+      "description": "Operations agent — growth planning, audience management, publishing, and content utilities"
+    }
+  ]
+}

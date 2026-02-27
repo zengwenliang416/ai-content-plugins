@@ -1,39 +1,39 @@
-# AI Content Plugins
+# AI Content Agents
 
-This is a marketplace of Claude Cowork plugins for AI content creators and account operators. Each subdirectory is a standalone plugin.
+Three OpenClaw agents for AI content creators. Each workspace is an autonomous agent with its own identity, skills, and memory.
 
 ## Repository Structure
 
 ```
-├── content-analysis/      # Content analysis and benchmarking
-├── topic-research/        # Topic research and trend tracking
-├── content-production/    # Article and content creation
-├── growth-ops/            # Growth operations and optimization
-└── audience-management/   # Audience analytics and planning
+├── workspace-content-researcher/  # Research & analysis (18 skills)
+├── workspace-content-writer/      # Writing & visuals (16 skills)
+├── workspace-content-operator/    # Ops & publishing (22 skills)
+├── openclaw.json                  # Agent registration
+└── install.sh                     # Installation script
 ```
 
-## Plugin Structure
+## Agent Workspace Structure
 
-Each plugin follows this layout:
 ```
-plugin-name/
-├── .claude-plugin/plugin.json   # Plugin manifest (name, description, version)
-├── commands/                    # Slash commands (.md files)
-├── skills/                      # Knowledge files for specific tasks
-├── hooks/                       # Event-driven automation
-└── .claude/                     # User settings (*.local.md)
+workspace-*/
+├── IDENTITY.md    # Agent name and emoji
+├── SOUL.md        # Personality definition
+├── AGENTS.md      # Operating instructions
+├── USER.md        # User preferences (gitignored)
+├── TOOLS.md       # Tool inventory
+├── MEMORY.md      # Persistent memory
+├── memory/        # Memory storage
+└── skills/        # SKILL.md-based workflows
 ```
 
 ## Key Files
 
-- `marketplace.json`: Marketplace manifest - registers all plugins with source paths
-- `plugin.json`: Plugin metadata - name, description, version, and component discovery settings
-- `commands/*.md`: Slash commands invoked as `/plugin:command-name`
-- `skills/*/SKILL.md`: Detailed knowledge and workflows for specific tasks
-- `*.local.md`: User-specific configuration (gitignored)
+- `openclaw.json`: Registers all 3 agents with workspace paths
+- `skills/*/SKILL.md`: Skill definitions with OpenClaw frontmatter (`user-invocable`, `metadata.openclaw`)
+- `install.sh`: Symlinks workspaces to `~/.openclaw/` and sets up shared dependencies
 
-## Development Workflow
+## Development
 
-1. Edit markdown files directly - changes take effect immediately
-2. Test commands with `/plugin:command-name` syntax
-3. Skills are invoked automatically when their trigger conditions match
+1. Edit markdown files directly — changes take effect immediately
+2. Skills are invoked by name; each SKILL.md contains the full workflow
+3. `news-search` is shared across agents via symlink (source in content-researcher)

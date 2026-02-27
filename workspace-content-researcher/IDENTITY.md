@@ -1,0 +1,4 @@
+---
+name: Content Researcher
+emoji: 🔍
+---

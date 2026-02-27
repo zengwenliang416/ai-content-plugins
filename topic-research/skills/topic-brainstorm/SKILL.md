@@ -20,7 +20,8 @@ A structured topic brainstorming session that generates 20+ ideas, applies a sco
 ### Step 1: Analyze Current Trends and Gaps
 
 Before brainstorming, survey:
-- What are the top trends in AI right now? (use web search + HN + arXiv)
+
+- What are the top trends in AI right now? (use news-search CLI + HN MCP + arXiv MCP)
   - **Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
     - Twitter/X: `bun news-search/scripts/search.ts twitter "AI trending" 20` — hot topics and discourse
     - Reddit: `bun news-search/scripts/search.ts reddit "artificial intelligence" 10` — community buzz
@@ -36,29 +37,34 @@ Before brainstorming, survey:
 Use divergent thinking — generate across multiple dimensions:
 
 **Dimension 1: Technology-led**
+
 - Specific model or technique deep dives
 - Technical comparison articles
 - "How X works" explainers
 - Benchmark and evaluation deep dives
 
 **Dimension 2: Application-led**
+
 - Industry-specific AI adoption stories
 - Use-case deep dives
 - Workflow transformation stories
 - ROI and business case analysis
 
 **Dimension 3: Narrative-led**
+
 - "The case for/against X"
 - "Why everyone is wrong about X"
 - "The hidden story behind X"
 - Historical perspective pieces
 
 **Dimension 4: Event-led**
+
 - "What [conference/launch/paper] tells us about..."
 - "The implications of [recent event]"
 - "What comes next after [milestone]"
 
 **Dimension 5: Format experiments**
+
 - Comparison: "X vs Y vs Z"
 - Lists: "The N most important..."
 - Timelines: "History of X"
@@ -71,21 +77,25 @@ For each idea, note in 1-2 lines: what it covers and what makes it interesting.
 Score each idea on 4 dimensions (1-5 scale):
 
 **Audience Interest (1-5)**
+
 - 1: Niche interest, small audience
 - 5: High interest, broad tech audience
 - Evidence: Search trends, community discussion, newsletter engagement signals
 
 **Uniqueness (1-5)**
+
 - 1: Heavily covered, hard to differentiate
 - 5: Underexplored, clear gap in existing content
 - Evidence: Quick search for existing coverage
 
 **Feasibility (1-5)**
+
 - 1: Requires extensive data/access not readily available
 - 5: Fully researchable with public sources
 - Consider: Data availability, source access, research complexity
 
 **Timeliness (1-5)**
+
 - 1: Evergreen or timing-irrelevant
 - 3: Somewhat timely
 - 5: Highly timely — optimal window open now
@@ -102,6 +112,7 @@ Score each idea on 4 dimensions (1-5 scale):
 ### Step 5: Create Briefs for Top 3
 
 For each of the top 3 topics, write a 200-300 word brief covering:
+
 - **Core angle**: The specific hook that makes this article compelling
 - **Target audience**: Who cares most and why
 - **Key questions to answer**: What the article needs to address
@@ -116,6 +127,7 @@ For each of the top 3 topics, write a 200-300 word brief covering:
 
 ```markdown
 # Topic Brainstorm — [Date]
+
 [Seed topic/niche if provided, or "General AI Content"]
 
 ---
@@ -128,10 +140,11 @@ For each of the top 3 topics, write a 200-300 word brief covering:
 
 ## Full Topic List (Scored)
 
-| # | Topic | Audience | Uniqueness | Feasibility | Timeliness | Total |
-|---|-------|----------|------------|-------------|------------|-------|
-| 1 | [Topic title] | 4 | 3 | 5 | 4 | 16 |
-| 2 | [Topic title] | 3 | 5 | 4 | 3 | 15 |
+| #   | Topic         | Audience | Uniqueness | Feasibility | Timeliness | Total |
+| --- | ------------- | -------- | ---------- | ----------- | ---------- | ----- |
+| 1   | [Topic title] | 4        | 3          | 5           | 4          | 16    |
+| 2   | [Topic title] | 3        | 5          | 4           | 3          | 15    |
+
 ...
 
 ---
@@ -140,7 +153,7 @@ For each of the top 3 topics, write a 200-300 word brief covering:
 
 1. [Topic] — Score: [N/20] — [1-line description]
 2. [Topic] — Score: [N/20] — [1-line description]
-...
+   ...
 
 ---
 
@@ -155,6 +168,7 @@ For each of the top 3 topics, write a 200-300 word brief covering:
 **Target audience**: [Who cares, and why they care now]
 
 **Key questions to answer**:
+
 - [Question 1]
 - [Question 2]
 - [Question 3]

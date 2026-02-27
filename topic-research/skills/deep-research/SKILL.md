@@ -22,6 +22,7 @@ This skill produces in-depth AI topic articles following high-quality content st
 ### If User Requests Full Pipeline
 
 When user requests:
+
 - "Create a deep research article on [topic]"
 - "Write a comprehensive article on [topic]"
 - "Do the entire research process for [topic]"
@@ -31,6 +32,7 @@ When user requests:
 **REQUIRED RESPONSE:**
 
 1. **Ask which specific task to perform:**
+
    ```
    I can help you create a deep research article on [topic].
    This involves 5 separate tasks that need to be completed individually:
@@ -45,6 +47,7 @@ When user requests:
    ```
 
 2. **When user explicitly requests all tasks together:**
+
    ```
    I understand you'd like to complete the entire deep research pipeline.
    Currently, this skill supports executing one task at a time, which allows
@@ -75,6 +78,7 @@ When user requests:
 **DELIVER ONLY THE SPECIFIED OUTPUTS. DO NOT CREATE EXTRA DOCUMENTS.**
 
 Each task specifies exact deliverables. Do NOT create:
+
 - "Completion summaries"
 - "Executive summaries"
 - "Quick reference guides"
@@ -85,6 +89,7 @@ Each task specifies exact deliverables. Do NOT create:
 **Why**: These extras waste context and are not part of the professional workflow.
 
 **What TO deliver**:
+
 - Task 1: Research document (.md) — **NOTHING ELSE**
 - Task 2: Data workbook (.xlsx) — **NOTHING ELSE**
 - Task 3: Analysis document (.md) + Excel tabs added to Task 2 file — **NOTHING ELSE**
@@ -99,13 +104,13 @@ Each task specifies exact deliverables. Do NOT create:
 
 Select which task to execute:
 
-| Task | Name | Prerequisites | Output |
-|------|------|--------------|--------|
-| **1** | Topic Research | Topic name | 6-8K word document |
-| **2** | Data Compilation | Access to data sources | Excel workbook (6 tabs) |
-| **3** | Analysis & Synthesis | Data workbook (Task 2) | Analysis doc + Excel tabs |
-| **4** | Visual Asset Generation | Tasks 1, 2, 3 + external data | 15-25 PNG/JPG assets |
-| **5** | Article Assembly | ALL previous tasks (1-4) | 3,000-8,000 word article |
+| Task  | Name                    | Prerequisites                 | Output                    |
+| ----- | ----------------------- | ----------------------------- | ------------------------- |
+| **1** | Topic Research          | Topic name                    | 6-8K word document        |
+| **2** | Data Compilation        | Access to data sources        | Excel workbook (6 tabs)   |
+| **3** | Analysis & Synthesis    | Data workbook (Task 2)        | Analysis doc + Excel tabs |
+| **4** | Visual Asset Generation | Tasks 1, 2, 3 + external data | 15-25 PNG/JPG assets      |
+| **5** | Article Assembly        | ALL previous tasks (1-4)      | 3,000-8,000 word article  |
 
 ---
 
@@ -114,12 +119,14 @@ Select which task to execute:
 ### User Request Patterns and Responses
 
 **Pattern 1: User specifies a specific task**
+
 ```
 User: "Use deep-research, Task 1 for AI agents"
 Response: Execute Task 1 immediately
 ```
 
 **Pattern 2: User asks for "deep research article" or "full pipeline"**
+
 ```
 User: "Create a deep research article on AI agents"
 Response: DO NOT start any task automatically
@@ -127,6 +134,7 @@ Response: DO NOT start any task automatically
 ```
 
 **Pattern 3: User wants to do "all tasks" or "entire workflow"**
+
 ```
 User: "I want to complete all 5 tasks for AI agents"
 Response: DO NOT chain tasks together
@@ -137,6 +145,7 @@ Response: DO NOT chain tasks together
 ### Correct Usage Examples
 
 **Executing a single task:**
+
 ```
 "Use deep-research skill, Task 1 for AI agents"
 "Do Task 2 of deep-research for AI agents"
@@ -144,6 +153,7 @@ Response: DO NOT chain tasks together
 ```
 
 **Completing full article (requires 5 separate requests):**
+
 ```
 Request 1: "Do Task 1 for AI agents" → Complete → Deliver outputs
 Request 2: "Do Task 2 for AI agents" → Complete → Deliver outputs
@@ -177,21 +187,25 @@ Request 5: Task 5 - Article Assembly (requires ALL previous task outputs)
 **Purpose**: Research the topic's background, key players, development history, current state, competing approaches, applications, and risks.
 
 **Prerequisites**: None (fully independent)
+
 - Topic name or technology name only
 
 **Process**:
+
 1. Verify topic name provided
 2. Load detailed instructions from references/task1-topic-research.md
 3. Execute qualitative research workflow
 4. Deliver research document
 
 **Optional platform data** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+
 - Twitter/X discourse: `bun news-search/scripts/search.ts twitter "<topic>" 20`
 - Reddit discussions: `bun news-search/scripts/search.ts reddit "<topic>" 10`
 - GitHub projects: `bun news-search/scripts/search.ts github "<topic>" 10`
 - See `news-search` skill for full platform reference.
 
 **Output**: Topic Research Document (6,000-8,000 words)
+
 - Technology overview & background
 - Key players & products (companies, research labs, open-source projects)
 - Development timeline & history
@@ -205,6 +219,7 @@ Request 5: Task 5 - Article Assembly (requires ALL previous task outputs)
 **DELIVER ONLY THIS 1 FILE. NO completion summaries, no extra documents.**
 
 **DO NOT TAKE SHORTCUTS:**
+
 - Write full 6,000-8,000 words (not summaries)
 - Cover all major players with substantive analysis (not one-liners)
 - Analyze technical mechanisms in depth
@@ -221,19 +236,21 @@ Request 5: Task 5 - Article Assembly (requires ALL previous task outputs)
 **Purpose**: Collect and organize quantitative data: adoption metrics, benchmark results, market size estimates, player comparison tables, and timeline data.
 
 **Prerequisites**: Verify before starting
+
 - **Required**: Access to data sources
-  - Web search for market reports, benchmark papers, adoption surveys
+  - news-search web/exa for market reports, benchmark papers, adoption surveys
   - arXiv for performance benchmarks and technical comparisons
   - Company announcements for product metrics
   - OR: Pre-collected data provided by user
 - **Optional**: Topic research (Task 1) for context on what data matters
 
 **Input Verification**:
+
 ```
 BEFORE STARTING - Select approach:
 
 Option A: Collect data from sources (most common)
-- [ ] Have access to web search and arXiv?
+- [ ] Have access to news-search CLI and arXiv MCP?
 - [ ] Ready to extract quantitative data?
 
 Option B: User provided pre-collected data
@@ -245,6 +262,7 @@ Optional:
 ```
 
 **Process**:
+
 1. Verify access to data sources
 2. Load detailed instructions from references/task2-data-compilation.md
 3. Collect quantitative data from sources
@@ -252,12 +270,14 @@ Optional:
 5. Deliver workbook
 
 **Optional platform data** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+
 - YouTube metrics: `bun news-search/scripts/search.ts youtube "<topic>" 10`
 - Bilibili metrics: `bun news-search/scripts/search.ts bilibili "<topic>" 10`
 - Exa web data: `bun news-search/scripts/search.ts exa "<topic>" 20`
 - See `news-search` skill for full platform reference.
 
 **Output**: Data Workbook (.xlsx)
+
 - 6 tabs:
   1. **Market Data** - Market size estimates, growth projections, adoption rates
   2. **Player Comparison** - Feature comparison table across key players/approaches
@@ -271,6 +291,7 @@ Optional:
 **DELIVER ONLY THIS 1 FILE. NO completion summaries, no extra documents.**
 
 **DO NOT TAKE SHORTCUTS:**
+
 - Collect real data from actual sources (not fabricated)
 - Build ALL 6 tabs completely
 - Include source citations for every data point
@@ -279,6 +300,7 @@ Optional:
 - Do not skip any of the 6 essential tabs
 
 **Verification before proceeding to Task 3**:
+
 - [ ] Data workbook created and can be opened
 - [ ] Workbook has all 6 tabs
 - [ ] Real data collected from sources (not fabricated)
@@ -292,6 +314,7 @@ Optional:
 **Purpose**: Perform comparative analysis, assess competitive advantages and disadvantages, evaluate future trajectory, and produce a content recommendation.
 
 **Prerequisites**: Verify before starting
+
 - **Required**: Data workbook from Task 2
   - Player comparison table
   - Technical benchmarks
@@ -305,6 +328,7 @@ This task requires the data workbook from Task 2. Starting without it will resul
 **IF TASK 2 IS NOT COMPLETE**: Stop immediately and inform the user that Task 2 (Data Compilation) must be completed first.
 
 **Input Verification**:
+
 ```
 BEFORE STARTING:
 - [ ] Task 2 complete? (Data workbook exists)
@@ -319,12 +343,14 @@ Required from workbook:
 ```
 
 **Process**:
+
 1. Verify data workbook is accessible
 2. Load detailed instructions from references/task3-analysis.md
 3. Execute analysis workflow
 4. Deliver analysis document
 
 **Output**: Analysis & Synthesis (4-6 pages + Excel tabs)
+
 - Comparative analysis of key players and approaches
 - Advantage/disadvantage assessment (strengths, weaknesses, differentiators)
 - Future trajectory forecast with confidence levels
@@ -335,6 +361,7 @@ Required from workbook:
 - Key talking points for article (3-5 narrative hooks)
 
 **Files**:
+
 - `[Topic]_Analysis_[Date].md` (written analysis document)
 - Excel tabs added to `[Topic]_Data_Workbook_[Date].xlsx` (from Task 2)
   - Comparative Analysis tab
@@ -345,6 +372,7 @@ Required from workbook:
 **DELIVER ONLY: 1 markdown file + 4 tabs added to existing Excel. NO completion summaries, no extra documents.**
 
 **DO NOT TAKE SHORTCUTS:**
+
 - Complete full comparative analysis (not a surface-level list)
 - Include quantitative backing for every major claim
 - Write full 4-6 pages of analysis (not abbreviated)
@@ -352,6 +380,7 @@ Required from workbook:
 - Do not skip the scenario analysis
 
 **Verification before proceeding to Task 4**:
+
 - [ ] Content recommendation determined (WRITE/MONITOR/SKIP)
 - [ ] Analysis uses data from Task 2 workbook
 - [ ] Comparative framework covers all major players
@@ -364,6 +393,7 @@ Required from workbook:
 **Purpose**: Generate 15-25 professional charts, diagrams, and infographics for the article.
 
 **Prerequisites**: Verify before starting
+
 - **Required**: Topic research from Task 1
   - Development timeline (for timeline diagrams)
   - Key players list (for competitive maps)
@@ -384,6 +414,7 @@ Required from workbook:
 **IF ANY OF TASKS 1, 2, OR 3 ARE NOT COMPLETE**: Stop immediately and inform the user which tasks need to be completed first.
 
 **Input Verification**:
+
 ```
 BEFORE STARTING:
 - [ ] Task 1 complete? (Topic research exists)
@@ -411,6 +442,7 @@ Required from Task 3:
 ```
 
 **Process**:
+
 1. Verify all previous task outputs are accessible
 2. Load detailed instructions from references/task4-visual-generation.md
 3. Execute visual generation workflow
@@ -420,12 +452,14 @@ Required from Task 3:
 **Output**: 15-25 Visual Asset Files (PNG/JPG, 300 DPI) packaged in zip
 
 **4 MANDATORY Visuals** (must be present):
+
 - chart_01: Development timeline (horizontal timeline diagram)
 - chart_05: Performance benchmarks (bar or line chart comparing approaches)
 - chart_09: Market size / adoption trend (area or line chart)
 - chart_14: Competitive positioning map (2x2 or scatter plot)
 
 **15 REQUIRED Visuals** (specific list):
+
 - Overview: chart_01 (timeline), chart_02 (field overview diagram)
 - Technical: charts 03, 04, 05 (architecture, mechanism, benchmarks)
 - Players: charts 06, 07, 08 (player comparison, feature matrix, org/product map)
@@ -434,6 +468,7 @@ Required from Task 3:
 - Forward-looking: charts 15, 16 (scenario projections, trajectory)
 
 **10 OPTIONAL Visuals** (for 16-25 range):
+
 - charts 17-25 (use-case maps, funding landscape, research paper volume trends, etc.)
 
 **IMPORTANT**: Task 5 embeds ALL visuals created (15-25) for visual density (1 visual per 300-500 words).
@@ -445,6 +480,7 @@ Required from Task 3:
 **DELIVER ONLY THIS 1 ZIP FILE. NO completion summaries, no separate chart lists, no extra documents.**
 
 **DO NOT TAKE SHORTCUTS:**
+
 - Create ALL 15 required visuals minimum
 - Include ALL 4 mandatory visuals
 - Generate professional-quality charts at 300 DPI
@@ -453,6 +489,7 @@ Required from Task 3:
 - Do not use low-quality/placeholder images
 
 **Verification before proceeding to Task 5**:
+
 - [ ] Minimum 15 visual files created
 - [ ] All 4 mandatory visuals present:
   - [ ] chart_01: Development timeline
@@ -471,6 +508,7 @@ Required from Task 3:
 **Purpose**: Write and assemble the final publication-ready article incorporating all research, data, analysis, and visuals.
 
 **Prerequisites**: Verify before starting
+
 - **Required**: Topic research from Task 1
   - Full 6-8K word document
   - Technical explanations
@@ -493,6 +531,7 @@ Required from Task 3:
 **IF ANY OF TASKS 1, 2, 3, OR 4 ARE NOT COMPLETE**: Stop immediately and inform the user which tasks need to be completed first.
 
 **Input Verification**:
+
 ```
 BEFORE STARTING - ALL TASKS MUST BE COMPLETE:
 
@@ -527,6 +566,7 @@ IF ANY VERIFICATION FAILS: Stop and complete missing task first.
 ```
 
 **Process**:
+
 1. **CRITICAL**: Verify ALL prerequisites before starting
 2. Load detailed instructions from references/task5-article-assembly.md
 3. Execute article assembly workflow:
@@ -538,6 +578,7 @@ IF ANY VERIFICATION FAILS: Stop and complete missing task first.
 4. Save and deliver final article
 
 **Key Principles**:
+
 - Use Claude's DOCX and XLSX skills where applicable
 - Good articles are readable, narrative-driven, data-backed, and visually rich
 - Lead with the "so what" — why this topic matters to readers right now
@@ -555,6 +596,7 @@ IF ANY VERIFICATION FAILS: Stop and complete missing task first.
 - **Professional quality only** - Publication-ready on first delivery
 
 **NEVER:**
+
 - "This section would include..." - WRITE THE ACTUAL SECTION
 - "Charts would be inserted here..." - INSERT THE ACTUAL CHARTS
 - "See data workbook for details..." - EXTRACT AND INCLUDE THE DETAILS
@@ -564,12 +606,14 @@ IF ANY VERIFICATION FAILS: Stop and complete missing task first.
 **Output**: Final Article
 
 **Specifications**:
+
 - **Length**: 3,000-8,000 words (minimum 3,000)
 - **Visuals**: 15-25 embedded images
 - **Tables**: 8-15 data tables
 - **Format**: .md for web publication, or .docx if user prefers
 
 **Structure** (load assets/article-template.md for full template):
+
 - Section 1: Hook & Why It Matters (300-500 words)
 - Section 2: What It Is — Technical Overview (600-1,000 words)
 - Section 3: How It Got Here — Development History (400-700 words)
@@ -585,6 +629,7 @@ IF ANY VERIFICATION FAILS: Stop and complete missing task first.
 **DELIVER ONLY THIS 1 FILE. NO executive summaries, no "highlights" documents, no extra files.**
 
 **Final Verification**:
+
 - [ ] Article is 3,000-8,000 words
 - [ ] 15-25 visuals embedded
 - [ ] 8-15 tables included
@@ -599,6 +644,7 @@ IF ANY VERIFICATION FAILS: Stop and complete missing task first.
 ### Why Input Verification Matters
 
 Each task has strict prerequisites. Running a task without required inputs will:
+
 - Waste time with incomplete work
 - Produce low-quality outputs
 - Require rework
@@ -701,6 +747,7 @@ All outputs meet high-quality content standards for AI-focused publications:
 **Same session**: Outputs automatically available to subsequent tasks
 
 **Different sessions**: Reference previous task outputs explicitly
+
 ```
 "Use Task 3 with the data workbook from yesterday at [path]"
 "Use Task 5 with the research document at [path]"
@@ -709,6 +756,7 @@ All outputs meet high-quality content standards for AI-focused publications:
 ### File Organization
 
 Recommended structure during workflow:
+
 ```
 [Topic]_Research/
 ├── Task1_Research/
@@ -729,6 +777,7 @@ Recommended structure during workflow:
 This skill does **NOT** support running all tasks automatically in sequence. Each task must be explicitly requested and verified.
 
 **Why**: This ensures:
+
 - Quality control at each stage
 - Ability to review outputs before proceeding
 - Flexibility to pause/resume workflow
@@ -739,6 +788,7 @@ This skill does **NOT** support running all tasks automatically in sequence. Eac
 ## Success Criteria
 
 A successful deep research article workflow should:
+
 1. Complete all 5 tasks in order
 2. Pass all input verifications
 3. Meet all quality standards

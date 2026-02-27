@@ -45,6 +45,12 @@ Pull from all available sources in parallel:
 - Search: "AI research paper [current date]"
 - Search: "AI company announcement [current date]"
 
+**Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+- Twitter/X: `bun news-search/scripts/search.ts twitter "AI news" 20`
+- Reddit: `bun news-search/scripts/search.ts reddit "artificial intelligence" 10`
+- GitHub trending: `bun news-search/scripts/search.ts github "AI" 10`
+- See `news-search` skill for full platform reference.
+
 ### Step 2: Filter for AI/ML Relevance
 
 From all gathered items, keep only items that:

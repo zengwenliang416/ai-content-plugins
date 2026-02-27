@@ -50,6 +50,13 @@ For each: Look up the current year's dates, location, paper submission deadline,
 - Quarterly earnings calls for public AI companies (NVIDIA, Google, Microsoft, Meta, Amazon)
 - Key dates: January, April, July, October (approximately)
 
+**Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+- Twitter/X: `bun news-search/scripts/search.ts twitter "AI conference 2026" 20` — track announcements and CFPs
+- GitHub: `bun news-search/scripts/search.ts github "awesome-ai-conferences" 5` — curated event lists
+- Web: `bun news-search/scripts/search.ts web "AI events calendar 2026" 10` — aggregator sites
+- Read event pages: `bun news-search/scripts/read.ts <event-url>` — extract dates, deadlines, speakers
+- See `news-search` skill for full platform reference.
+
 ### Step 2: Estimate Likely Events
 
 Based on historical patterns, estimate:

@@ -185,6 +185,12 @@ Request 5: Task 5 - Article Assembly (requires ALL previous task outputs)
 3. Execute qualitative research workflow
 4. Deliver research document
 
+**Optional platform data** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+- Twitter/X discourse: `bun news-search/scripts/search.ts twitter "<topic>" 20`
+- Reddit discussions: `bun news-search/scripts/search.ts reddit "<topic>" 10`
+- GitHub projects: `bun news-search/scripts/search.ts github "<topic>" 10`
+- See `news-search` skill for full platform reference.
+
 **Output**: Topic Research Document (6,000-8,000 words)
 - Technology overview & background
 - Key players & products (companies, research labs, open-source projects)
@@ -244,6 +250,12 @@ Optional:
 3. Collect quantitative data from sources
 4. Build structured Excel workbook with 6 tabs
 5. Deliver workbook
+
+**Optional platform data** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+- YouTube metrics: `bun news-search/scripts/search.ts youtube "<topic>" 10`
+- Bilibili metrics: `bun news-search/scripts/search.ts bilibili "<topic>" 10`
+- Exa web data: `bun news-search/scripts/search.ts exa "<topic>" 20`
+- See `news-search` skill for full platform reference.
 
 **Output**: Data Workbook (.xlsx)
 - 6 tabs:

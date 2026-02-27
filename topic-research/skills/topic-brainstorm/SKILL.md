@@ -21,6 +21,11 @@ A structured topic brainstorming session that generates 20+ ideas, applies a sco
 
 Before brainstorming, survey:
 - What are the top trends in AI right now? (use web search + HN + arXiv)
+  - **Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+    - Twitter/X: `bun news-search/scripts/search.ts twitter "AI trending" 20` — hot topics and discourse
+    - Reddit: `bun news-search/scripts/search.ts reddit "artificial intelligence" 10` — community buzz
+    - YouTube: `bun news-search/scripts/search.ts youtube "AI news this week" 5` — trending video topics
+    - See `news-search` skill for full platform reference.
 - What topics are over-covered (hard to differentiate)?
 - What topics are under-covered (gaps in existing content)?
 - What is the target audience interested in? (research, application, business implications)

@@ -12,6 +12,12 @@ description: Write comprehensive long-form articles for blogs, newsletters, and 
 Ask for available inputs:
 - Research documents, PDFs, or reference articles
 - Data, statistics, or charts to include
+- **Platform research** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+  - Twitter/X: `bun news-search/scripts/search.ts twitter "[article topic]" 10` — expert opinions and discourse
+  - Reddit: `bun news-search/scripts/search.ts reddit "[article topic]" 10` — community perspectives
+  - Web: `bun news-search/scripts/search.ts web "[article topic]" 10` — related articles and data sources
+  - Read sources: `bun news-search/scripts/read.ts <url>` — extract content from references
+  - See `news-search` skill for full platform reference.
 - Key points or arguments that must be covered
 - Target publication or platform (blog, newsletter, Medium, etc.)
 - Target word count (default: 2,000-3,000 words)

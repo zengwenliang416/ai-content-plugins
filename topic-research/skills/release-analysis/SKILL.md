@@ -44,6 +44,13 @@ Collect all primary source materials:
 - Reproduction or commentary from the community (Twitter/X, HN)
 - Prior work the paper builds on (cited foundations)
 
+**Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+- Twitter/X: `bun news-search/scripts/search.ts twitter "[product/model name]" 20` — community reactions and expert commentary
+- Reddit: `bun news-search/scripts/search.ts reddit "[product/model name]" 10` — technical discussions
+- GitHub: `bun news-search/scripts/search.ts github "[product/model name]" 10` — code releases and repos
+- Read release page: `bun news-search/scripts/read.ts <announcement-url>` — extract details from blog posts
+- See `news-search` skill for full platform reference.
+
 ### Step 2: Analyze Key Claims and Capabilities
 
 Extract and evaluate:

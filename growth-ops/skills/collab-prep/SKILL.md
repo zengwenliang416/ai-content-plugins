@@ -24,6 +24,13 @@ Gather context on the collaborator:
 - **Audience size and demographics**: Platform followers, engagement rates, audience type
 - **Tone and style**: Professional, casual, educational, entertainment — how do they communicate?
 - **Recent work**: Noteworthy recent posts, collaborations, or projects
+  - **Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+    - Twitter/X: `bun news-search/scripts/search.ts twitter "from:[collaborator]" 20` — recent posts and engagement
+    - YouTube: `bun news-search/scripts/search.ts youtube "[collaborator name]" 5` — video content and collabs
+    - LinkedIn: `bun news-search/scripts/search.ts linkedin "[collaborator name]"` — professional profile
+    - Web: `bun news-search/scripts/search.ts web "[collaborator name]" 10` — press and mentions
+    - Read profile/posts: `bun news-search/scripts/read.ts <profile-url>` — extract details
+    - See `news-search` skill for full platform reference.
 - **Reputation**: How are they perceived in the community? Any controversies?
 - **Prior collaborations**: Who else have they worked with? What did those look like?
 

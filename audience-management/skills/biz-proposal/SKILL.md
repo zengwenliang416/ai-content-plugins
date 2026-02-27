@@ -18,6 +18,13 @@ Gather:
 - **Competition**: Are there other creators being considered?
 - **Budget signals**: Any indication of budget range shared?
 
+**Research the brand** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+- Twitter/X: `bun news-search/scripts/search.ts twitter "[brand name]" 10` — brand presence and engagement
+- Web: `bun news-search/scripts/search.ts web "[brand name] marketing" 10` — campaigns and press
+- LinkedIn: `bun news-search/scripts/search.ts linkedin "[brand name]"` — company profile
+- Read brand pages: `bun news-search/scripts/read.ts <brand-url>` — extract product and positioning info
+- See `news-search` skill for full platform reference.
+
 ### Step 2: Proposal Structure
 
 **I. About the Creator** (1 page)

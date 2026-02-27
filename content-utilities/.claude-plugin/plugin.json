@@ -1,0 +1,8 @@
+{
+  "name": "content-utilities",
+  "version": "0.1.0",
+  "description": "Content utilities: image compression, Markdown formatting, HTML conversion, web/tweet clipping",
+  "author": {
+    "name": "AI Content Studio"
+  }
+}

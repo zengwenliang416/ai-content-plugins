@@ -28,6 +28,21 @@
       "name": "audience-management",
       "source": "./audience-management",
       "description": "Audience management tools: operations reports, audience reviews, content planning, business proposals, and content optimization"
+    },
+    {
+      "name": "visual-content",
+      "source": "./visual-content",
+      "description": "Visual content generation: article illustrations, knowledge comics, cover images, infographics, slide decks, and Xiaohongshu cards"
+    },
+    {
+      "name": "publishing",
+      "source": "./publishing",
+      "description": "Platform publishing: WeChat Official Account and X/Twitter automation"
+    },
+    {
+      "name": "content-utilities",
+      "source": "./content-utilities",
+      "description": "Content utilities: image compression, Markdown formatting, HTML conversion, web/tweet clipping"
     }
   ]
 }

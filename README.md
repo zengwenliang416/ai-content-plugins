@@ -1,6 +1,8 @@
 # AI Content Plugins
 
-A marketplace of Claude Cowork plugins for AI content account operators. Covers the full content lifecycle: topic research, content production, competitor analysis, growth operations, and audience management.
+English | [中文](./README.zh-CN.md)
+
+A marketplace of Claude Cowork plugins for AI content account operators. Covers the full content lifecycle: topic research, content production, visual generation, publishing, competitor analysis, growth operations, and audience management.
 
 ## Plugins
 
@@ -9,6 +11,9 @@ A marketplace of Claude Cowork plugins for AI content account operators. Covers 
 | [content-analysis](./content-analysis) | Competitor analysis, content benchmarking, quality checks, trend analysis, and template creation |
 | [topic-research](./topic-research) | Deep research pipelines, daily AI briefings, trend previews, field overviews, and event tracking |
 | [content-production](./content-production) | Long articles, short posts, infographics, audience targeting, content tracking, and collaboration |
+| [visual-content](./visual-content) | Article illustrations, knowledge comics, cover images, infographics, slide decks, and Xiaohongshu cards |
+| [publishing](./publishing) | WeChat Official Account and X/Twitter publishing automation |
+| [content-utilities](./content-utilities) | Image compression, Markdown formatting, HTML conversion, web/tweet clipping |
 | [growth-ops](./growth-ops) | Source discovery, review checklists, topic screening, account monitoring, and growth planning |
 | [audience-management](./audience-management) | Operations reports, audience reviews, content planning, business proposals, and content optimization |
 
@@ -36,6 +41,92 @@ Some plugins integrate with free, open-source MCP servers for external data:
 
 MCP configs are in each plugin's `.mcp.json`. All MCP servers are free and require no API keys.
 
+## Article Production Pipeline
+
+The full end-to-end workflow for producing and publishing an article:
+
+```
+Research ─── Planning ─── Writing ─── QA ─── Visuals ─── Formatting ─── Publishing
+```
+
+### Stage 1: Research
+
+Gather raw material and build domain understanding.
+
+```
+/topic-research:daily-brief                 # Daily AI news briefing
+/topic-research:deep-research "LLM Agents"  # 5-task deep research pipeline
+/content-utilities:url-to-markdown          # Clip web pages as Markdown
+/content-utilities:x-to-markdown            # Clip tweets as Markdown
+/topic-research:field-overview "RAG"        # Field overview (3000-5000 words)
+```
+
+### Stage 2: Planning
+
+Select a topic and define the content angle.
+
+```
+/topic-research:brainstorm                  # Generate 20+ topics, score top 10
+/growth-ops:screen-topic "AI Agents"        # Quick potential check
+/content-production:audience                # Define target audience segments
+/audience-management:content-plan           # Build editorial calendar
+```
+
+### Stage 3: Writing
+
+Draft the article.
+
+```
+/content-production:long-article            # Write long-form article
+/content-production:short-post              # Or: short post / thread
+```
+
+### Stage 4: Quality Check
+
+Review and refine before visual production.
+
+```
+/content-analysis:debug-draft               # Diagnose structure/clarity issues
+/content-analysis:check-quality             # 5-dimension quality audit
+/growth-ops:review-checklist                # Pre-publish checklist
+```
+
+### Stage 5: Visual Enhancement
+
+Generate cover, illustrations, and infographics.
+
+```
+/visual-content:cover-image article.md      # Cover image (9 palettes × 6 rendering styles)
+/visual-content:article-illustrator article.md  # Auto-detect illustration spots
+/visual-content:infographic article.md      # Infographic (21 layouts × 17 styles)
+/visual-content:xhs-images article.md       # Xiaohongshu card series
+/content-utilities:compress-image           # Compress images for web
+```
+
+### Stage 6: Formatting & Publishing
+
+Convert to platform format and publish.
+
+```
+/content-utilities:format-markdown          # Normalize Markdown structure
+/content-utilities:markdown-to-html         # Convert to WeChat-compatible HTML
+/publishing:post-to-wechat                  # Publish to WeChat Official Account
+/publishing:post-to-x                       # Publish to X / Twitter
+```
+
+### Quick Path (Minimum Viable Pipeline)
+
+For a single WeChat article, the shortest path:
+
+```
+/topic-research:deep-research "topic"       # Research
+/content-production:long-article            # Write
+/content-analysis:check-quality             # QA
+/visual-content:cover-image article.md      # Cover
+/content-utilities:markdown-to-html         # Format
+/publishing:post-to-wechat                  # Publish
+```
+
 ## Usage
 
 ### Typical Daily Workflow
@@ -45,8 +136,10 @@ MCP configs are in each plugin's `.mcp.json`. All MCP servers are free and requi
 /topic-research:brainstorm               # Pick a topic from the briefing
 /topic-research:deep-research "LLM Agents"  # Deep research (5-task pipeline)
 /content-production:long-article         # Write the article
+/visual-content:cover-image article.md   # Generate cover image
+/content-utilities:markdown-to-html      # Convert to WeChat HTML
 /content-analysis:check-quality          # Quality check before publishing
-/growth-ops:review-checklist             # Pre-publish review
+/publishing:post-to-wechat               # Publish to WeChat
 ```
 
 ### All Commands
@@ -102,6 +195,34 @@ MCP configs are in each plugin's `.mcp.json`. All MCP servers are free and requi
 | `/growth-ops:account-portfolio` | Monitor your content accounts |
 | `/growth-ops:collab-prep [name]` | Prepare for a collaboration meeting |
 
+**visual-content** -- Generate visual assets
+
+| Command | Description |
+|---------|-------------|
+| `/visual-content:article-illustrator [article]` | Auto-detect illustration spots and generate images |
+| `/visual-content:comic [topic]` | Create a knowledge comic strip |
+| `/visual-content:cover-image [article]` | Generate article cover image |
+| `/visual-content:infographic [content]` | Generate infographic (21 layouts × 17 styles) |
+| `/visual-content:slide-deck [content]` | Generate presentation slide images |
+| `/visual-content:xhs-images [content]` | Generate Xiaohongshu card series |
+
+**publishing** -- Publish to platforms
+
+| Command | Description |
+|---------|-------------|
+| `/publishing:post-to-wechat [article]` | Publish to WeChat Official Account |
+| `/publishing:post-to-x [content]` | Publish to X / Twitter |
+
+**content-utilities** -- Content tools
+
+| Command | Description |
+|---------|-------------|
+| `/content-utilities:compress-image [path]` | Compress images to WebP/PNG |
+| `/content-utilities:format-markdown [file]` | Normalize Markdown formatting |
+| `/content-utilities:markdown-to-html [file]` | Convert Markdown to WeChat-compatible HTML |
+| `/content-utilities:url-to-markdown [url]` | Clip web page to Markdown |
+| `/content-utilities:x-to-markdown [url]` | Clip tweet/thread to Markdown |
+
 **audience-management** -- Manage audience and planning
 
 | Command | Description |
@@ -132,15 +253,18 @@ Each task verifies prerequisites before starting. Tasks 1 and 2 can run independ
 ```
 plugin-name/
 ├── .claude-plugin/plugin.json   # Plugin manifest
-├── .mcp.json                    # MCP server configuration
+├── .mcp.json                    # MCP server configuration (optional)
 ├── commands/                    # Slash commands (.md files)
 ├── skills/                      # Knowledge and workflow files
 │   └── skill-name/
 │       ├── SKILL.md             # Main skill definition
-│       └── references/          # Supporting reference docs
+│       ├── references/          # Supporting reference docs
+│       └── scripts/             # TypeScript automation (optional)
 └── hooks/
     └── hooks.json               # Event-driven automation
 ```
+
+Visual-content and publishing plugins include TypeScript scripts (run via `npx -y bun`) for image generation API calls, PDF/PPTX assembly, and platform API integration. No build step required.
 
 ## License
 

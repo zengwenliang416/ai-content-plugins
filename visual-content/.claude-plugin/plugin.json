@@ -1,0 +1,8 @@
+{
+  "name": "visual-content",
+  "version": "0.1.0",
+  "description": "Visual content generation: article illustrations, knowledge comics, cover images, infographics, slide decks, and Xiaohongshu cards",
+  "author": {
+    "name": "AI Content Studio"
+  }
+}

@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add news-search multi-platform search skill and commands supporting 12+ platforms (topic-research)
+- Integrate news-search platform sources into all plugin skills with 24h freshness protocol (skills)
 - Add AskUserQuestion bilingual language selection to all content-analysis commands (content-analysis)
 - Add AskUserQuestion bilingual language selection to all content-production commands (content-production)
 - Add AskUserQuestion bilingual language selection to all topic-research commands (topic-research)

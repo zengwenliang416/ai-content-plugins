@@ -27,7 +27,7 @@ cd ai-content-agents
 ./install.sh
 ```
 
-安装脚本会将三个 Agent workspace 软链接到 `~/.openclaw/`，并设置共享依赖。
+安装脚本会设置共享 skill 软链接（news-search）并安装 npm 依赖。将 Claude Code 或 OpenClaw 指向任意 `workspace-*` 目录即可激活对应 Agent。
 
 ### MCP 服务器（可选）
 

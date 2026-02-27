@@ -27,7 +27,7 @@ cd ai-content-agents
 ./install.sh
 ```
 
-The installer symlinks all three agent workspaces to `~/.openclaw/` and sets up shared dependencies.
+The installer sets up shared skill symlinks (news-search) and installs npm dependencies. Point Claude Code or OpenClaw to any `workspace-*` directory to activate an agent.
 
 ### MCP Servers (Optional)
 

@@ -21,33 +21,9 @@ if ! command -v bun &>/dev/null; then
 fi
 log "bun $(bun --version) found"
 
-# --- Step 2: Symlink workspaces to ~/.openclaw/ ---
-OPENCLAW_DIR="${HOME}/.openclaw"
-mkdir -p "${OPENCLAW_DIR}"
-
-WORKSPACES=("workspace-content-researcher" "workspace-content-writer" "workspace-content-operator")
-
-for ws in "${WORKSPACES[@]}"; do
-  src="${SCRIPT_DIR}/${ws}"
-  dst="${OPENCLAW_DIR}/${ws}"
-
-  if [ ! -d "$src" ]; then
-    warn "Workspace ${ws} not found, skipping"
-    continue
-  fi
-
-  if [ -L "$dst" ]; then
-    rm "$dst"
-  elif [ -d "$dst" ]; then
-    warn "${dst} exists as directory, skipping (remove manually to reinstall)"
-    continue
-  fi
-
-  ln -s "$src" "$dst"
-  log "Linked ${ws} → ${dst}"
-done
-
-# --- Step 3: Create news-search symlinks ---
+# --- Step 2: Create news-search symlinks ---
+# news-search is shared across all 3 agents. The canonical copy lives in
+# workspace-content-researcher. Writer and operator get symlinks.
 NEWS_SEARCH_SRC="workspace-content-researcher/skills/news-search"
 
 for ws in "workspace-content-writer" "workspace-content-operator"; do
@@ -63,23 +39,32 @@ for ws in "workspace-content-writer" "workspace-content-operator"; do
   fi
 
   ln -s "../../${NEWS_SEARCH_SRC}" "$link"
-  log "Symlinked news-search → ${ws}/skills/news-search"
+  log "Symlinked news-search → ${ws}/skills/"
 done
 
-# --- Step 4: Install npm dependencies ---
-NEWS_SEARCH_DIR="${SCRIPT_DIR}/${NEWS_SEARCH_SRC}"
-if [ -f "${NEWS_SEARCH_DIR}/scripts/package.json" ]; then
-  log "Installing news-search dependencies..."
-  (cd "${NEWS_SEARCH_DIR}/scripts" && bun install)
+# --- Step 3: Install npm dependencies ---
+# Find all package.json in skills/*/scripts/ and install
+INSTALLED=0
+for pkg in "${SCRIPT_DIR}"/workspace-*/skills/*/scripts/package.json; do
+  [ -f "$pkg" ] || continue
+  pkg_dir="$(dirname "$pkg")"
+  skill_name="$(basename "$(dirname "$pkg_dir")")"
+  log "Installing dependencies for ${skill_name}..."
+  (cd "$pkg_dir" && bun install --frozen-lockfile 2>/dev/null || bun install)
+  INSTALLED=$((INSTALLED + 1))
+done
+
+if [ "$INSTALLED" -eq 0 ]; then
+  warn "No package.json found in any skill — skipping dependency install"
 else
-  warn "No package.json in news-search/scripts — skipping bun install"
+  log "Installed dependencies for ${INSTALLED} skills"
 fi
 
 # --- Done ---
 echo ""
-log "Installation complete! 3 agents registered:"
-echo "  - content-researcher (research & analysis)"
-echo "  - content-writer     (writing & visuals)"
-echo "  - content-operator   (ops & publishing)"
+log "Setup complete! 3 agents ready:"
+echo "  - content-researcher  (research & analysis)  — 18 skills"
+echo "  - content-writer      (writing & visuals)    — 16 skills"
+echo "  - content-operator    (ops & publishing)     — 22 skills"
 echo ""
-echo "Run 'bun news-search/scripts/doctor.ts --json' in any workspace to verify setup."
+echo "Point Claude Code / OpenClaw to any workspace-* directory to activate an agent."

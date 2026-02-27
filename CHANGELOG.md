@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add platform-specific hard limits to short-post skill: 小红书 title 20 chars, 微博 section, LinkedIn/WeChat constraints (content-production)
 - Add news-search multi-platform search skill and commands supporting 12+ platforms (topic-research)
 - Integrate news-search platform sources into all plugin skills with 24h freshness protocol (skills)
 - Add AskUserQuestion bilingual language selection to all content-analysis commands (content-analysis)

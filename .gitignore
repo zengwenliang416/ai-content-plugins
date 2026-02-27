@@ -49,3 +49,5 @@ MEMORY.md
 # Brainstorm runs (generated output)
 .brainstorm-runs/
 backups
+
+git_repos

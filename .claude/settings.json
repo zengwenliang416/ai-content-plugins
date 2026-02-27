@@ -4,6 +4,9 @@
     "content-analysis@ai-content-plugins": true,
     "content-production@ai-content-plugins": true,
     "growth-ops@ai-content-plugins": true,
-    "topic-research@ai-content-plugins": true
+    "topic-research@ai-content-plugins": true,
+    "content-utilities@ai-content-plugins": true,
+    "publishing@ai-content-plugins": true,
+    "visual-content@ai-content-plugins": true
   }
 }

@@ -33,3 +33,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix wechat-publisher cover image path: check `images/cover.png` (consistent with pipeline) before `imgs/cover.png` fallback
 - Fix news-search enforcement: add mandatory CONSTRAINT block to 17 SKILL.md files preventing WebSearch substitution for news-search CLI (skills)
 - Fix daily-brief data architecture: restructure into 3-layer model (MCP + news-search + WebSearch supplementary) with Step 0 pre-flight diagnostic (daily-brief)
+- Fix upstream artifact auto-detection: add mandatory CONSTRAINT to 7 pipeline skills enforcing auto-scan before asking user for input (skills)

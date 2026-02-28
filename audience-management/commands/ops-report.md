@@ -1,6 +1,6 @@
 ---
 description: Generate an operations and analytics report
-argument-hint: "[time period]"
+argument-hint: "[time period, performance/rebalance report path, or pipeline.openspec.json]"
 ---
 
 Before generating any output, use AskUserQuestion to ask the user:
@@ -12,6 +12,55 @@ Before generating any output, use AskUserQuestion to ask the user:
 
 All output artifacts must be produced in the user's chosen language.
 
-Load the `ops-report` skill to generate a professional operations and analytics report covering performance, content mix, audience growth, and recommendations.
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
 
-If a time period is provided, use it. Otherwise ask for the reporting period and which platforms to include.
+**CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for reporting details. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**:
+   - If argument is `pipeline.openspec.json`, read it first and prioritize `outputs.performance_report_md`, then `outputs.content_rebalance_md`, then `inputs.period`.
+   - If argument is a time period or file path, use it directly.
+   - Then skip to Step 2.
+
+2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
+
+```bash
+ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+```
+
+If contracts found → read and prioritize `outputs.performance_report_md`, `outputs.content_rebalance_md`, and `inputs.period`.
+
+3. **Auto-scan legacy upstream assets**: Run these Bash commands immediately:
+
+```bash
+ls -t ai-content-output/performance-report/*.md 2>/dev/null | head -3
+ls -t ai-content-output/performance-analysis/*.md 2>/dev/null | head -3
+ls -t ai-content-output/content-rebalance/*.md 2>/dev/null | head -3
+ls -t ai-content-output/ops-report/*.md 2>/dev/null | head -3
+```
+
+If files found → present them to the user via AskUserQuestion: "检测到以下运营素材，请选择要用于报告的输入：" with files as options.
+
+4. **No upstream found**: Only in this case, ask the user for reporting period and platforms to include.
+
+## Step 2: Load Skill and Execute
+
+Load the `ops-report` skill and generate a professional operations and analytics report covering performance, content mix, audience growth, and recommendations.
+
+## Artifact Handoff
+
+**Output**: Operations report saved to:
+
+- `ai-content-output/ops-report/YYYY-MM-DD-<period>-ops-report.md` (standalone mode)
+- `ai-content-output/deep-research/<slug>/ops-report.md` (if contract/deep-research mode)
+
+**OpenSpec contract update (RECOMMENDED when contract exists)**:
+
+- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+  - `stage`: `audience-management`
+  - `outputs.ops_report_md`: ops report path
+  - `next.command`: `/audience-management:content-rebalance`
+  - `next.input`: ops report path or contract path
+
+**Next step**: Suggest running `/audience-management:content-rebalance` to translate report findings into allocation changes.

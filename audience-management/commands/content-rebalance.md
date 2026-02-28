@@ -1,6 +1,6 @@
 ---
 description: Rebalance content mix across topics and formats
-argument-hint: ""
+argument-hint: "[performance/content-plan path, or pipeline.openspec.json]"
 ---
 
 Before generating any output, use AskUserQuestion to ask the user:
@@ -12,6 +12,55 @@ Before generating any output, use AskUserQuestion to ask the user:
 
 All output artifacts must be produced in the user's chosen language.
 
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
+
+**CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for rebalance details. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**:
+   - If argument is `pipeline.openspec.json`, read it first and prioritize `outputs.performance_report_md`, then `outputs.content_plan_md`.
+   - If argument is a file path, use it directly.
+   - Then skip to Step 2.
+
+2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
+
+```bash
+ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+```
+
+If contracts found → read and prioritize `outputs.performance_report_md` and `outputs.content_plan_md`.
+
+3. **Auto-scan legacy upstream assets**: Run these Bash commands immediately:
+
+```bash
+ls -t ai-content-output/performance-report/*.md 2>/dev/null | head -3
+ls -t ai-content-output/performance-analysis/*.md 2>/dev/null | head -3
+ls -t ai-content-output/content-plan/*.md 2>/dev/null | head -3
+ls -t ai-content-output/ops-report/*.md 2>/dev/null | head -3
+```
+
+If files found → present them to the user via AskUserQuestion: "检测到以下内容结构素材，请选择要用于再平衡分析的输入：" with files as options.
+
+4. **No upstream found**: Only in this case, ask the user for current content mix and target allocation.
+
+## Step 2: Load Skill and Execute
+
 Load the `content-rebalance` skill to analyze current content mix, compare to target allocation, identify imbalances, and recommend adjustments.
 
-If content data or targets are provided, use them. Otherwise ask the user for their current content breakdown and strategic goals.
+## Artifact Handoff
+
+**Output**: Rebalance plan saved to:
+
+- `ai-content-output/content-rebalance/YYYY-MM-DD-content-rebalance.md` (standalone mode)
+- `ai-content-output/deep-research/<slug>/content-rebalance.md` (if contract/deep-research mode)
+
+**OpenSpec contract update (RECOMMENDED when contract exists)**:
+
+- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+  - `stage`: `audience-management`
+  - `outputs.content_rebalance_md`: rebalance plan path
+  - `next.command`: `/audience-management:content-plan`
+  - `next.input`: rebalance plan path or contract path
+
+**Next step**: Suggest running `/audience-management:content-plan` to apply rebalance decisions in the editorial calendar.

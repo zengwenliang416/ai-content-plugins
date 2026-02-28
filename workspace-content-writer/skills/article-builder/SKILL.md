@@ -19,11 +19,11 @@ Ask for available inputs:
 
 - Research documents, PDFs, or reference articles
 - Data, statistics, or charts to include
-- **Platform research** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
-  - Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "[article topic]" 10` — expert opinions and discourse
-  - Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "[article topic]" 10` — community perspectives
-  - Web: `bun {baseDir}/../news-search/scripts/search.ts web "[article topic]" 10` — related articles and data sources
-  - Read sources: `bun {baseDir}/../news-search/scripts/read.ts <url>` — extract content from references
+- **Platform research** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
+  - Twitter/X: `bun skills/news-search/scripts/search.ts twitter "[article topic]" 10` — expert opinions and discourse
+  - Reddit: `bun skills/news-search/scripts/search.ts reddit "[article topic]" 10` — community perspectives
+  - Web: `bun skills/news-search/scripts/search.ts web "[article topic]" 10` — related articles and data sources
+  - Read sources: `bun skills/news-search/scripts/read.ts <url>` — extract content from references
   - See `news-search` skill for full platform reference.
 - Key points or arguments that must be covered
 - Target publication or platform (blog, newsletter, Medium, etc.)

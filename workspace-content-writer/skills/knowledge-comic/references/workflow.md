@@ -431,7 +431,7 @@ With confirmed prompts from Step 5/6:
 
 ```bash
 # Each page generation MUST include --ref
-npx -y bun {baseDir}/../ai-image-gen/scripts/main.ts \
+npx -y bun skills/ai-image-gen/scripts/main.ts \
   --promptfiles prompts/01-page-xxx.md \
   --image 01-page-xxx.png \
   --ar 3:4 \

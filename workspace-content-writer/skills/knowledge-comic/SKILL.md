@@ -221,7 +221,7 @@ Analyze → [Check Existing?] → [Confirm: Style + Reviews] → Storyboard → 
 
 ```bash
 # Use Reference Sheet Prompt from characters/characters.md
-npx -y bun {baseDir}/../ai-image-gen/scripts/main.ts \
+npx -y bun skills/ai-image-gen/scripts/main.ts \
   --promptfiles characters/characters.md \
   --image characters/characters.png --ar 4:3
 ```
@@ -247,7 +247,7 @@ Compress to reduce token usage when used as reference image:
 
 ```bash
 # Example: ALWAYS include --ref for consistency
-npx -y bun {baseDir}/../ai-image-gen/scripts/main.ts \
+npx -y bun skills/ai-image-gen/scripts/main.ts \
   --promptfiles prompts/01-page-xxx.md \
   --image 01-page-xxx.png --ar 3:4 \
   --ref characters/characters.png

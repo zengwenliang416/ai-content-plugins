@@ -17,7 +17,7 @@ Skills are invoked by name. Each skill's SKILL.md contains the full workflow. Fo
 
 ## news-search Integration
 
-This agent has access to news-search (via symlink) for research-backed writing. Use `bun {baseDir}/../news-search/scripts/search.ts` to fetch current data when articles need fresh information.
+This agent has access to news-search (via symlink) for research-backed writing. Use `bun skills/news-search/scripts/search.ts` to fetch current data when articles need fresh information.
 
 ## Output Standards
 

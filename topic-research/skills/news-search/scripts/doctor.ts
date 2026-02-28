@@ -7,7 +7,7 @@ interface ChannelResult {
 }
 
 const config = loadConfig();
-const jsonMode = Bun.argv.includes("--json");
+const jsonMode = process.argv.includes("--json");
 
 async function checkChannel(
   name: string,
@@ -24,13 +24,23 @@ async function checkChannel(
 
 const channels: Record<string, () => Promise<ChannelResult>> = {
   twitter: () =>
-    checkChannel("twitter", "bird", "npm install -g @steipete/bird", async () => {
-      if (!config.twitter_auth_token) {
-        return { status: "unconfigured", hint: "Run: bun config.ts parse-cookies '<cookie-string>'" };
-      }
-      const r = await runCmd(birdArgs(config, ["whoami"]), proxyEnv(config));
-      return r.ok ? { status: "ok" } : { status: "error", hint: "Auth failed — cookies may be expired" };
-    }),
+    checkChannel(
+      "twitter",
+      "bird",
+      "npm install -g @steipete/bird",
+      async () => {
+        if (!config.twitter_auth_token) {
+          return {
+            status: "unconfigured",
+            hint: "Run: bun config.ts parse-cookies '<cookie-string>'",
+          };
+        }
+        const r = await runCmd(birdArgs(config, ["whoami"]), proxyEnv(config));
+        return r.ok
+          ? { status: "ok" }
+          : { status: "error", hint: "Auth failed — cookies may be expired" };
+      },
+    ),
 
   youtube: () => checkChannel("youtube", "yt-dlp", "pip install yt-dlp"),
 
@@ -39,19 +49,27 @@ const channels: Record<string, () => Promise<ChannelResult>> = {
   github: () =>
     checkChannel("github", "gh", "brew install gh", async () => {
       const r = await runCmd(["gh", "auth", "status"]);
-      return r.ok ? { status: "ok" } : { status: "unconfigured", hint: "Run: gh auth login" };
+      return r.ok
+        ? { status: "ok" }
+        : { status: "unconfigured", hint: "Run: gh auth login" };
     }),
 
   reddit: async () => {
     if (config.reddit_proxy) return { status: "ok" };
-    return { status: "ok", hint: "No proxy — may be blocked from some IPs. Consider configuring a proxy." };
+    return {
+      status: "ok",
+      hint: "No proxy — may be blocked from some IPs. Consider configuring a proxy.",
+    };
   },
 
   exa: () =>
     checkChannel("exa", "mcporter", "npm install -g mcporter", async () => {
       const r = await runCmd(["mcporter", "list"]);
       if (!r.ok || !r.stdout.includes("exa")) {
-        return { status: "unconfigured", hint: "Run: mcporter config add exa https://mcp.exa.ai/mcp" };
+        return {
+          status: "unconfigured",
+          hint: "Run: mcporter config add exa https://mcp.exa.ai/mcp",
+        };
       }
       return { status: "ok" };
     }),
@@ -60,7 +78,10 @@ const channels: Record<string, () => Promise<ChannelResult>> = {
     checkChannel("xhs", "mcporter", "npm install -g mcporter", async () => {
       const r = await runCmd(["mcporter", "list"]);
       if (!r.ok || !r.stdout.includes("xiaohongshu")) {
-        return { status: "unconfigured", hint: "Need xiaohongshu-mcp Docker service. See news-search-setup." };
+        return {
+          status: "unconfigured",
+          hint: "Need xiaohongshu-mcp Docker service. See news-search-setup.",
+        };
       }
       return { status: "ok" };
     }),
@@ -69,34 +90,54 @@ const channels: Record<string, () => Promise<ChannelResult>> = {
     checkChannel("douyin", "mcporter", "npm install -g mcporter", async () => {
       const r = await runCmd(["mcporter", "list"]);
       if (!r.ok || !r.stdout.includes("douyin")) {
-        return { status: "unconfigured", hint: "Need douyin MCP service. See news-search-setup." };
+        return {
+          status: "unconfigured",
+          hint: "Need douyin MCP service. See news-search-setup.",
+        };
       }
       return { status: "ok" };
     }),
 
   linkedin: () =>
-    checkChannel("linkedin", "mcporter", "npm install -g mcporter", async () => {
-      const r = await runCmd(["mcporter", "list"]);
-      if (!r.ok || !r.stdout.includes("linkedin")) {
-        return { status: "ok", hint: "MCP not configured — fallback to Jina Reader" };
-      }
-      return { status: "ok" };
-    }),
+    checkChannel(
+      "linkedin",
+      "mcporter",
+      "npm install -g mcporter",
+      async () => {
+        const r = await runCmd(["mcporter", "list"]);
+        if (!r.ok || !r.stdout.includes("linkedin")) {
+          return {
+            status: "ok",
+            hint: "MCP not configured — fallback to Jina Reader",
+          };
+        }
+        return { status: "ok" };
+      },
+    ),
 
   bosszhipin: () =>
-    checkChannel("bosszhipin", "mcporter", "npm install -g mcporter", async () => {
-      const r = await runCmd(["mcporter", "list"]);
-      if (!r.ok || !r.stdout.includes("bosszp")) {
-        return { status: "ok", hint: "MCP not configured — fallback to Jina Reader" };
-      }
-      return { status: "ok" };
-    }),
+    checkChannel(
+      "bosszhipin",
+      "mcporter",
+      "npm install -g mcporter",
+      async () => {
+        const r = await runCmd(["mcporter", "list"]);
+        if (!r.ok || !r.stdout.includes("bosszp")) {
+          return {
+            status: "ok",
+            hint: "MCP not configured — fallback to Jina Reader",
+          };
+        }
+        return { status: "ok" };
+      },
+    ),
 
   web: async () => ({ status: "ok" }),
 
   rss: async () => {
     const r = await runCmd(["python3", "-c", "import feedparser"]);
-    if (!r.ok) return { status: "missing", hint: "Install: pip install feedparser" };
+    if (!r.ok)
+      return { status: "missing", hint: "Install: pip install feedparser" };
     return { status: "ok" };
   },
 };
@@ -116,7 +157,12 @@ if (jsonMode) {
     "Tier 1 (free key/service)": ["twitter", "reddit", "exa"],
     "Tier 2 (needs setup)": ["xhs", "douyin", "linkedin", "bosszhipin"],
   };
-  const icon: Record<Status, string> = { ok: "+", missing: "x", unconfigured: "?", error: "!" };
+  const icon: Record<Status, string> = {
+    ok: "+",
+    missing: "x",
+    unconfigured: "?",
+    error: "!",
+  };
 
   for (const [tier, names] of Object.entries(tiers)) {
     console.error(`\n${tier}:`);

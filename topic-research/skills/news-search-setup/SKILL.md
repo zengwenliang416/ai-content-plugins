@@ -32,7 +32,7 @@ Output: JSON status per tool on stdout, progress on stderr.
 
 ### Step 2: Diagnose Channels
 
-Run: `bun news-search/scripts/doctor.ts`
+Run: `${TS_RUNNER} news-search/scripts/doctor.ts`
 
 Review output and decide per channel:
 
@@ -48,14 +48,14 @@ For each unconfigured channel:
 **Twitter/X** (needs cookies):
 1. Ask user to install [Cookie-Editor](https://cookie-editor.cgagnier.ca/) browser extension
 2. User exports cookies as "Header String" from Twitter/X
-3. Run: `bun news-search/scripts/config.ts parse-cookies '<cookie-string>'`
-4. Verify: `bun news-search/scripts/doctor.ts --json` → twitter should be "ok"
+3. Run: `${TS_RUNNER} news-search/scripts/config.ts parse-cookies '<cookie-string>'`
+4. Verify: `${TS_RUNNER} news-search/scripts/doctor.ts --json` → twitter should be "ok"
 5. See `references/cookie-guide.md` for detailed steps
 
 **Reddit** (optional proxy):
 1. Ask if user needs Reddit access from a blocked IP
 2. If yes, guide proxy setup — see `references/proxy-guide.md`
-3. Run: `bun news-search/scripts/config.ts set reddit_proxy "http://user:pass@host:port"`
+3. Run: `${TS_RUNNER} news-search/scripts/config.ts set reddit_proxy "http://user:pass@host:port"`
 
 **Exa** (auto-configured):
 1. Run: `mcporter config add exa https://mcp.exa.ai/mcp`
@@ -91,7 +91,7 @@ For users who want everything set up at once:
 bun news-search-setup/scripts/install.ts
 
 # 2. Check status
-bun news-search/scripts/doctor.ts
+${TS_RUNNER} news-search/scripts/doctor.ts
 
 # 3. Verify
 bun news-search-setup/scripts/verify.ts

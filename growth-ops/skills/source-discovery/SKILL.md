@@ -21,13 +21,13 @@ Research and identify potential sources based on the user's topic or niche:
 
     > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-    - Twitter/X: `bun news-search/scripts/search.ts twitter "[topic] expert" 20` — find thought leaders
-    - Reddit: `bun news-search/scripts/search.ts reddit "[topic]" 10` — discover active subreddits and communities
-    - YouTube: `bun news-search/scripts/search.ts youtube "[topic]" 10` — find content creators and channels
-    - GitHub: `bun news-search/scripts/search.ts github "[topic]" 10` — find open-source projects and contributors
-    - LinkedIn: `bun news-search/scripts/search.ts linkedin "[topic] expert" 10` — professional voices
-    - Web/Exa: `bun news-search/scripts/search.ts web "[topic] newsletter blog" 10` — discover publications
-    - Read any source: `bun news-search/scripts/read.ts <url>` — extract content from discovered URLs
+    - Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "[topic] expert" 20` — find thought leaders
+    - Reddit: `${TS_RUNNER} news-search/scripts/search.ts reddit "[topic]" 10` — discover active subreddits and communities
+    - YouTube: `${TS_RUNNER} news-search/scripts/search.ts youtube "[topic]" 10` — find content creators and channels
+    - GitHub: `${TS_RUNNER} news-search/scripts/search.ts github "[topic]" 10` — find open-source projects and contributors
+    - LinkedIn: `${TS_RUNNER} news-search/scripts/search.ts linkedin "[topic] expert" 10` — professional voices
+    - Web/Exa: `${TS_RUNNER} news-search/scripts/search.ts web "[topic] newsletter blog" 10` — discover publications
+    - Read any source: `${TS_RUNNER} news-search/scripts/read.ts <url>` — extract content from discovered URLs
     - See `news-search` skill for full platform reference.
 - **Output**: A shortlist of sources with: name, type, URL, brief description, and why it's relevant
 

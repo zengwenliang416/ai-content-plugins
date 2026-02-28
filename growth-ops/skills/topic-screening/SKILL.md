@@ -33,10 +33,10 @@ Evaluate the topic across five dimensions:
 
 > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-- Twitter/X: `bun news-search/scripts/search.ts twitter "[topic]" 10` — gauge current discourse volume
-- Reddit: `bun news-search/scripts/search.ts reddit "[topic]" 5` — check community interest
-- YouTube: `bun news-search/scripts/search.ts youtube "[topic]" 5` — assess existing video coverage
-- Web: `bun news-search/scripts/search.ts web "[topic]" 10` — evaluate competition and demand
+- Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "[topic]" 10` — gauge current discourse volume
+- Reddit: `${TS_RUNNER} news-search/scripts/search.ts reddit "[topic]" 5` — check community interest
+- YouTube: `${TS_RUNNER} news-search/scripts/search.ts youtube "[topic]" 5` — assess existing video coverage
+- Web: `${TS_RUNNER} news-search/scripts/search.ts web "[topic]" 10` — evaluate competition and demand
 - See `news-search` skill for full platform reference.
 
 **Scoring guide**:

@@ -28,11 +28,11 @@ Gather context on the collaborator:
 
     > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-    - Twitter/X: `bun news-search/scripts/search.ts twitter "from:[collaborator]" 20` — recent posts and engagement
-    - YouTube: `bun news-search/scripts/search.ts youtube "[collaborator name]" 5` — video content and collabs
-    - LinkedIn: `bun news-search/scripts/search.ts linkedin "[collaborator name]"` — professional profile
-    - Web: `bun news-search/scripts/search.ts web "[collaborator name]" 10` — press and mentions
-    - Read profile/posts: `bun news-search/scripts/read.ts <profile-url>` — extract details
+    - Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "from:[collaborator]" 20` — recent posts and engagement
+    - YouTube: `${TS_RUNNER} news-search/scripts/search.ts youtube "[collaborator name]" 5` — video content and collabs
+    - LinkedIn: `${TS_RUNNER} news-search/scripts/search.ts linkedin "[collaborator name]"` — professional profile
+    - Web: `${TS_RUNNER} news-search/scripts/search.ts web "[collaborator name]" 10` — press and mentions
+    - Read profile/posts: `${TS_RUNNER} news-search/scripts/read.ts <profile-url>` — extract details
     - See `news-search` skill for full platform reference.
 - **Reputation**: How are they perceived in the community? Any controversies?
 - **Prior collaborations**: Who else have they worked with? What did those look like?

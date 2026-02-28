@@ -1,17 +1,32 @@
-import { loadConfig, requireTool, runCmd, birdArgs, proxyEnv, parseSearchArgs, fmtDate, filterJsonLines } from "./utils.ts";
+import {
+  loadConfig,
+  requireTool,
+  runCmd,
+  birdArgs,
+  proxyEnv,
+  parseSearchArgs,
+  fmtDate,
+  filterJsonLines,
+} from "./utils.ts";
 
-const { positional, since, noFreshness } = parseSearchArgs(Bun.argv);
+const { positional, since, noFreshness } = parseSearchArgs(process.argv);
 const [platform, query, countStr] = positional;
 const count = parseInt(countStr || "10");
 
 if (!platform || !query) {
-  console.error("Usage: bun search.ts <platform> <query> [count] [--since 24h] [--no-freshness]");
-  console.error("Platforms: twitter|reddit|github|youtube|bilibili|xhs|douyin|exa|web|rss|linkedin|bosszhipin");
+  console.error(
+    "Usage: bun search.ts <platform> <query> [count] [--since 24h] [--no-freshness]",
+  );
+  console.error(
+    "Platforms: twitter|reddit|github|youtube|bilibili|xhs|douyin|exa|web|rss|linkedin|bosszhipin",
+  );
   process.exit(1);
 }
 
 if (!noFreshness) {
-  console.error(`[freshness] Filtering to results since ${fmtDate(since, "ymd")} (use --no-freshness for background research)`);
+  console.error(
+    `[freshness] Filtering to results since ${fmtDate(since, "ymd")} (use --no-freshness for background research)`,
+  );
 }
 
 const config = loadConfig();
@@ -20,7 +35,9 @@ switch (platform) {
   case "twitter": {
     requireTool("bird", "npm install -g @steipete/bird");
     if (!config.twitter_auth_token) {
-      console.error("ERROR: Twitter not configured. Run: bun config.ts parse-cookies '<cookie-string>'");
+      console.error(
+        "ERROR: Twitter not configured. Run: bun config.ts parse-cookies '<cookie-string>'",
+      );
       process.exit(2);
     }
     const q = noFreshness ? query : `${query} since:${fmtDate(since, "ymd")}`;
@@ -59,7 +76,15 @@ switch (platform) {
     const dateArgs = noFreshness
       ? ["--sort", "stars"]
       : ["--sort", "updated", "--updated", `>=${fmtDate(since, "ymd")}`];
-    const r = await runCmd(["gh", "search", "repos", query, ...dateArgs, "--limit", String(count)]);
+    const r = await runCmd([
+      "gh",
+      "search",
+      "repos",
+      query,
+      ...dateArgs,
+      "--limit",
+      String(count),
+    ]);
     if (r.ok) console.log(r.stdout);
     else {
       console.error(r.stderr);
@@ -70,9 +95,18 @@ switch (platform) {
 
   case "youtube": {
     requireTool("yt-dlp", "pip install yt-dlp");
-    const r = await runCmd(["yt-dlp", "--dump-json", "--flat-playlist", `ytsearch${count}:${query}`]);
+    const r = await runCmd([
+      "yt-dlp",
+      "--dump-json",
+      "--flat-playlist",
+      `ytsearch${count}:${query}`,
+    ]);
     if (r.ok) {
-      console.log(noFreshness ? r.stdout : filterJsonLines(r.stdout, since, "upload_date"));
+      console.log(
+        noFreshness
+          ? r.stdout
+          : filterJsonLines(r.stdout, since, "upload_date"),
+      );
     } else {
       console.error(r.stderr);
       process.exit(1);
@@ -82,9 +116,18 @@ switch (platform) {
 
   case "bilibili": {
     requireTool("yt-dlp", "pip install yt-dlp");
-    const r = await runCmd(["yt-dlp", "--dump-json", "--flat-playlist", `bilisearch${count}:${query}`]);
+    const r = await runCmd([
+      "yt-dlp",
+      "--dump-json",
+      "--flat-playlist",
+      `bilisearch${count}:${query}`,
+    ]);
     if (r.ok) {
-      console.log(noFreshness ? r.stdout : filterJsonLines(r.stdout, since, "upload_date"));
+      console.log(
+        noFreshness
+          ? r.stdout
+          : filterJsonLines(r.stdout, since, "upload_date"),
+      );
     } else {
       console.error(r.stderr);
       process.exit(1);
@@ -94,9 +137,16 @@ switch (platform) {
 
   case "xhs": {
     requireTool("mcporter", "npm install -g mcporter");
-    const r = await runCmd(["mcporter", "call", `xiaohongshu.search_feeds(keyword: "${query}")`]);
+    const r = await runCmd([
+      "mcporter",
+      "call",
+      `xiaohongshu.search_feeds(keyword: "${query}")`,
+    ]);
     if (r.ok) {
-      if (!noFreshness) console.error("[freshness] XHS: no native date filter — manually verify recency");
+      if (!noFreshness)
+        console.error(
+          "[freshness] XHS: no native date filter — manually verify recency",
+        );
       console.log(r.stdout);
     } else {
       console.error(r.stderr);
@@ -107,9 +157,16 @@ switch (platform) {
 
   case "douyin": {
     requireTool("mcporter", "npm install -g mcporter");
-    const r = await runCmd(["mcporter", "call", `douyin.search_videos(keyword: "${query}", count: ${count})`]);
+    const r = await runCmd([
+      "mcporter",
+      "call",
+      `douyin.search_videos(keyword: "${query}", count: ${count})`,
+    ]);
     if (r.ok) {
-      if (!noFreshness) console.error("[freshness] Douyin: no native date filter — manually verify recency");
+      if (!noFreshness)
+        console.error(
+          "[freshness] Douyin: no native date filter — manually verify recency",
+        );
       console.log(r.stdout);
     } else {
       console.error(r.stderr);
@@ -121,7 +178,9 @@ switch (platform) {
   case "exa":
   case "web": {
     requireTool("mcporter", "npm install -g mcporter");
-    const dateParam = noFreshness ? "" : `, startPublishedDate: "${since.toISOString()}"`;
+    const dateParam = noFreshness
+      ? ""
+      : `, startPublishedDate: "${since.toISOString()}"`;
     const r = await runCmd([
       "mcporter",
       "call",
@@ -137,13 +196,20 @@ switch (platform) {
 
   case "linkedin": {
     requireTool("mcporter", "npm install -g mcporter");
-    const r = await runCmd(["mcporter", "call", `linkedin.search_people(query: "${query}")`]);
+    const r = await runCmd([
+      "mcporter",
+      "call",
+      `linkedin.search_people(query: "${query}")`,
+    ]);
     if (r.ok) console.log(r.stdout);
     else {
       console.error(`WARN: LinkedIn MCP failed, trying Jina Reader fallback`);
-      const resp = await fetch(`https://r.jina.ai/https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(query)}`, {
-        headers: { Accept: "text/markdown" },
-      });
+      const resp = await fetch(
+        `https://r.jina.ai/https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(query)}`,
+        {
+          headers: { Accept: "text/markdown" },
+        },
+      );
       console.log(await resp.text());
     }
     break;
@@ -151,13 +217,20 @@ switch (platform) {
 
   case "bosszhipin": {
     requireTool("mcporter", "npm install -g mcporter");
-    const r = await runCmd(["mcporter", "call", `bosszp.search_jobs(query: "${query}")`]);
+    const r = await runCmd([
+      "mcporter",
+      "call",
+      `bosszp.search_jobs(query: "${query}")`,
+    ]);
     if (r.ok) console.log(r.stdout);
     else {
       console.error(`WARN: Boss MCP failed, trying Jina Reader fallback`);
-      const resp = await fetch(`https://r.jina.ai/https://www.zhipin.com/web/geek/job?query=${encodeURIComponent(query)}`, {
-        headers: { Accept: "text/markdown" },
-      });
+      const resp = await fetch(
+        `https://r.jina.ai/https://www.zhipin.com/web/geek/job?query=${encodeURIComponent(query)}`,
+        {
+          headers: { Accept: "text/markdown" },
+        },
+      );
       console.log(await resp.text());
     }
     break;
@@ -169,7 +242,9 @@ switch (platform) {
     const filterExpr = noFreshness
       ? `f.entries[:${count}]`
       : `[e for e in f.entries if not e.get("published_parsed") or calendar.timegm(e.published_parsed)>=${sinceTs}][:${count}]`;
-    const imports = noFreshness ? "import feedparser,json" : "import feedparser,json,calendar";
+    const imports = noFreshness
+      ? "import feedparser,json"
+      : "import feedparser,json,calendar";
     const r = await runCmd([
       "python3",
       "-c",
@@ -185,6 +260,8 @@ switch (platform) {
 
   default:
     console.error(`ERROR: Unknown platform '${platform}'.`);
-    console.error("Supported: twitter|reddit|github|youtube|bilibili|xhs|douyin|exa|web|rss|linkedin|bosszhipin");
+    console.error(
+      "Supported: twitter|reddit|github|youtube|bilibili|xhs|douyin|exa|web|rss|linkedin|bosszhipin",
+    );
     process.exit(1);
 }

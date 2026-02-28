@@ -51,10 +51,10 @@ Scan for early indicators of emerging or accelerating trends:
 
 > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-- Twitter/X: `bun news-search/scripts/search.ts twitter "<trend-keyword>" 20`
-- Reddit: `bun news-search/scripts/search.ts reddit "<trend-keyword>" 10`
-- GitHub: `bun news-search/scripts/search.ts github "<trend-keyword>" 10`
-- YouTube: `bun news-search/scripts/search.ts youtube "<trend-keyword>" 10`
+- Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "<trend-keyword>" 20`
+- Reddit: `${TS_RUNNER} news-search/scripts/search.ts reddit "<trend-keyword>" 10`
+- GitHub: `${TS_RUNNER} news-search/scripts/search.ts github "<trend-keyword>" 10`
+- YouTube: `${TS_RUNNER} news-search/scripts/search.ts youtube "<trend-keyword>" 10`
 - See `news-search` skill for full platform reference.
 
 ### Step 2: Analyze Momentum and Trajectory

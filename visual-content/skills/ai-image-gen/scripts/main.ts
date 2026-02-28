@@ -96,7 +96,8 @@ function parseArgs(argv: string[]): CliArgs {
 
     if (a === "--promptfiles") {
       const { items, next } = takeMany(i);
-      if (items.length === 0) throw new Error("Missing files for --promptfiles");
+      if (items.length === 0)
+        throw new Error("Missing files for --promptfiles");
       out.promptFiles.push(...items);
       i = next;
       continue;
@@ -111,7 +112,13 @@ function parseArgs(argv: string[]): CliArgs {
 
     if (a === "--provider") {
       const v = argv[++i];
-      if (v !== "google" && v !== "openai" && v !== "dashscope" && v !== "replicate") throw new Error(`Invalid provider: ${v}`);
+      if (
+        v !== "google" &&
+        v !== "openai" &&
+        v !== "dashscope" &&
+        v !== "replicate"
+      )
+        throw new Error(`Invalid provider: ${v}`);
       out.provider = v;
       continue;
     }
@@ -139,14 +146,16 @@ function parseArgs(argv: string[]): CliArgs {
 
     if (a === "--quality") {
       const v = argv[++i];
-      if (v !== "normal" && v !== "2k") throw new Error(`Invalid quality: ${v}`);
+      if (v !== "normal" && v !== "2k")
+        throw new Error(`Invalid quality: ${v}`);
       out.quality = v;
       continue;
     }
 
     if (a === "--imageSize") {
       const v = argv[++i]?.toUpperCase();
-      if (v !== "1K" && v !== "2K" && v !== "4K") throw new Error(`Invalid imageSize: ${v}`);
+      if (v !== "1K" && v !== "2K" && v !== "4K")
+        throw new Error(`Invalid imageSize: ${v}`);
       out.imageSize = v;
       continue;
     }
@@ -192,7 +201,10 @@ async function loadEnvFile(p: string): Promise<Record<string, string>> {
       if (idx === -1) continue;
       const key = trimmed.slice(0, idx).trim();
       let val = trimmed.slice(idx + 1).trim();
-      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+      if (
+        (val.startsWith('"') && val.endsWith('"')) ||
+        (val.startsWith("'") && val.endsWith("'"))
+      ) {
         val = val.slice(1, -1);
       }
       env[key] = val;
@@ -246,16 +258,29 @@ function parseSimpleYaml(yaml: string): Partial<ExtendConfig> {
       } else if (key === "default_provider") {
         config.default_provider = value === "null" ? null : (value as Provider);
       } else if (key === "default_quality") {
-        config.default_quality = value === "null" ? null : (value as "normal" | "2k");
+        config.default_quality =
+          value === "null" ? null : (value as "normal" | "2k");
       } else if (key === "default_aspect_ratio") {
         const cleaned = value.replace(/['"]/g, "");
         config.default_aspect_ratio = cleaned === "null" ? null : cleaned;
       } else if (key === "default_image_size") {
-        config.default_image_size = value === "null" ? null : (value as "1K" | "2K" | "4K");
+        config.default_image_size =
+          value === "null" ? null : (value as "1K" | "2K" | "4K");
       } else if (key === "default_model") {
-        config.default_model = { google: null, openai: null, dashscope: null, replicate: null };
+        config.default_model = {
+          google: null,
+          openai: null,
+          dashscope: null,
+          replicate: null,
+        };
         currentKey = "default_model";
-      } else if (currentKey === "default_model" && (key === "google" || key === "openai" || key === "dashscope" || key === "replicate")) {
+      } else if (
+        currentKey === "default_model" &&
+        (key === "google" ||
+          key === "openai" ||
+          key === "dashscope" ||
+          key === "replicate")
+      ) {
         const cleaned = value.replace(/['"]/g, "");
         config.default_model![key] = cleaned === "null" ? null : cleaned;
       }
@@ -310,7 +335,9 @@ async function readPromptFromFiles(files: string[]): Promise<string> {
 async function readPromptFromStdin(): Promise<string | null> {
   if (process.stdin.isTTY) return null;
   try {
-    const t = await Bun.stdin.text();
+    const chunks: Buffer[] = [];
+    for await (const chunk of process.stdin) chunks.push(Buffer.from(chunk));
+    const t = Buffer.concat(chunks).toString();
     const v = t.trim();
     return v.length > 0 ? v : null;
   } catch {
@@ -326,15 +353,23 @@ function normalizeOutputImagePath(p: string): string {
 }
 
 function detectProvider(args: CliArgs): Provider {
-  if (args.referenceImages.length > 0 && args.provider && args.provider !== "google" && args.provider !== "openai" && args.provider !== "replicate") {
+  if (
+    args.referenceImages.length > 0 &&
+    args.provider &&
+    args.provider !== "google" &&
+    args.provider !== "openai" &&
+    args.provider !== "replicate"
+  ) {
     throw new Error(
-      "Reference images require a ref-capable provider. Use --provider google (Gemini multimodal), --provider openai (GPT Image edits), or --provider replicate."
+      "Reference images require a ref-capable provider. Use --provider google (Gemini multimodal), --provider openai (GPT Image edits), or --provider replicate.",
     );
   }
 
   if (args.provider) return args.provider;
 
-  const hasGoogle = !!(process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY);
+  const hasGoogle = !!(
+    process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY
+  );
   const hasOpenai = !!process.env.OPENAI_API_KEY;
   const hasDashscope = !!process.env.DASHSCOPE_API_KEY;
   const hasReplicate = !!process.env.REPLICATE_API_TOKEN;
@@ -344,22 +379,29 @@ function detectProvider(args: CliArgs): Provider {
     if (hasOpenai) return "openai";
     if (hasReplicate) return "replicate";
     throw new Error(
-      "Reference images require Google, OpenAI or Replicate. Set GOOGLE_API_KEY/GEMINI_API_KEY, OPENAI_API_KEY, or REPLICATE_API_TOKEN, or remove --ref."
+      "Reference images require Google, OpenAI or Replicate. Set GOOGLE_API_KEY/GEMINI_API_KEY, OPENAI_API_KEY, or REPLICATE_API_TOKEN, or remove --ref.",
     );
   }
 
-  const available = [hasGoogle && "google", hasOpenai && "openai", hasDashscope && "dashscope", hasReplicate && "replicate"].filter(Boolean) as Provider[];
+  const available = [
+    hasGoogle && "google",
+    hasOpenai && "openai",
+    hasDashscope && "dashscope",
+    hasReplicate && "replicate",
+  ].filter(Boolean) as Provider[];
 
   if (available.length === 1) return available[0]!;
   if (available.length > 1) return available[0]!;
 
   throw new Error(
     "No API key found. Set GOOGLE_API_KEY, GEMINI_API_KEY, OPENAI_API_KEY, DASHSCOPE_API_KEY, or REPLICATE_API_TOKEN.\n" +
-      "Create ~/.content-skills/.env or <cwd>/.content-skills/.env with your keys."
+      "Create ~/.content-skills/.env or <cwd>/.content-skills/.env with your keys.",
   );
 }
 
-async function validateReferenceImages(referenceImages: string[]): Promise<void> {
+async function validateReferenceImages(
+  referenceImages: string[],
+): Promise<void> {
   for (const refPath of referenceImages) {
     const fullPath = path.resolve(refPath);
     try {
@@ -372,7 +414,11 @@ async function validateReferenceImages(referenceImages: string[]): Promise<void>
 
 type ProviderModule = {
   getDefaultModel: () => string;
-  generateImage: (prompt: string, model: string, args: CliArgs) => Promise<Uint8Array>;
+  generateImage: (
+    prompt: string,
+    model: string,
+    args: CliArgs,
+  ) => Promise<Uint8Array>;
 };
 
 function isRetryableGenerationError(error: unknown): boolean {
@@ -415,7 +461,8 @@ async function main(): Promise<void> {
   if (!mergedArgs.quality) mergedArgs.quality = "2k";
 
   let prompt: string | null = mergedArgs.prompt;
-  if (!prompt && mergedArgs.promptFiles.length > 0) prompt = await readPromptFromFiles(mergedArgs.promptFiles);
+  if (!prompt && mergedArgs.promptFiles.length > 0)
+    prompt = await readPromptFromFiles(mergedArgs.promptFiles);
   if (!prompt) prompt = await readPromptFromStdin();
 
   if (!prompt) {
@@ -441,10 +488,14 @@ async function main(): Promise<void> {
 
   let model = mergedArgs.model;
   if (!model && extendConfig.default_model) {
-    if (provider === "google") model = extendConfig.default_model.google ?? null;
-    if (provider === "openai") model = extendConfig.default_model.openai ?? null;
-    if (provider === "dashscope") model = extendConfig.default_model.dashscope ?? null;
-    if (provider === "replicate") model = extendConfig.default_model.replicate ?? null;
+    if (provider === "google")
+      model = extendConfig.default_model.google ?? null;
+    if (provider === "openai")
+      model = extendConfig.default_model.openai ?? null;
+    if (provider === "dashscope")
+      model = extendConfig.default_model.dashscope ?? null;
+    if (provider === "replicate")
+      model = extendConfig.default_model.replicate ?? null;
   }
   model = model || providerModule.getDefaultModel();
 
@@ -481,8 +532,8 @@ async function main(): Promise<void> {
           prompt: prompt.slice(0, 200),
         },
         null,
-        2
-      )
+        2,
+      ),
     );
   } else {
     console.log(outputPath);

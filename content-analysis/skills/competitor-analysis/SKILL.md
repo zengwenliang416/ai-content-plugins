@@ -106,11 +106,11 @@ Use these metrics consistently across all competitor comparisons.
 
 > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-- Twitter/X: `bun news-search/scripts/search.ts twitter "[competitor] OR [niche]" 20` — track competitor activity
-- YouTube: `bun news-search/scripts/search.ts youtube "[competitor name]" 10` — content and engagement data
-- Reddit: `bun news-search/scripts/search.ts reddit "[niche]" 10` — community sentiment on competitors
-- Web: `bun news-search/scripts/search.ts web "[competitor] content strategy" 10` — coverage and analysis
-- Read competitor pages: `bun news-search/scripts/read.ts <competitor-url>` — extract content details
+- Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "[competitor] OR [niche]" 20` — track competitor activity
+- YouTube: `${TS_RUNNER} news-search/scripts/search.ts youtube "[competitor name]" 10` — content and engagement data
+- Reddit: `${TS_RUNNER} news-search/scripts/search.ts reddit "[niche]" 10` — community sentiment on competitors
+- Web: `${TS_RUNNER} news-search/scripts/search.ts web "[competitor] content strategy" 10` — coverage and analysis
+- Read competitor pages: `${TS_RUNNER} news-search/scripts/read.ts <competitor-url>` — extract content details
 - See `news-search` skill for full platform reference.
 
 - Niche size and estimated audience (total addressable viewers/readers)

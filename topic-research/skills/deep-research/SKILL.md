@@ -253,9 +253,9 @@ input_context:
 
 > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-- Twitter/X discourse: `bun news-search/scripts/search.ts twitter "<topic>" 20`
-- Reddit discussions: `bun news-search/scripts/search.ts reddit "<topic>" 10`
-- GitHub projects: `bun news-search/scripts/search.ts github "<topic>" 10`
+- Twitter/X discourse: `${TS_RUNNER} news-search/scripts/search.ts twitter "<topic>" 20`
+- Reddit discussions: `${TS_RUNNER} news-search/scripts/search.ts reddit "<topic>" 10`
+- GitHub projects: `${TS_RUNNER} news-search/scripts/search.ts github "<topic>" 10`
 - See `news-search` skill for full platform reference.
 
 **Output**: Topic Research Document (6,000-8,000 words)
@@ -327,9 +327,9 @@ Optional:
 
 > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-- YouTube metrics: `bun news-search/scripts/search.ts youtube "<topic>" 10`
-- Bilibili metrics: `bun news-search/scripts/search.ts bilibili "<topic>" 10`
-- Exa web data: `bun news-search/scripts/search.ts exa "<topic>" 20`
+- YouTube metrics: `${TS_RUNNER} news-search/scripts/search.ts youtube "<topic>" 10`
+- Bilibili metrics: `${TS_RUNNER} news-search/scripts/search.ts bilibili "<topic>" 10`
+- Exa web data: `${TS_RUNNER} news-search/scripts/search.ts exa "<topic>" 20`
 - See `news-search` skill for full platform reference.
 
 **Output**: Data Workbook (.xlsx)

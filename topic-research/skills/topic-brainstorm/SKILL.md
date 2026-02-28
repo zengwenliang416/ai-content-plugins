@@ -61,9 +61,9 @@ Before brainstorming, survey:
   - **Platform sources** (via news-search CLI, 24h freshness enforced):
 
     > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
-    - Twitter/X: `bun news-search/scripts/search.ts twitter "AI trending" 20` — hot topics and discourse
-    - Reddit: `bun news-search/scripts/search.ts reddit "artificial intelligence" 10` — community buzz
-    - YouTube: `bun news-search/scripts/search.ts youtube "AI news this week" 5` — trending video topics
+    - Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "AI trending" 20` — hot topics and discourse
+    - Reddit: `${TS_RUNNER} news-search/scripts/search.ts reddit "artificial intelligence" 10` — community buzz
+    - YouTube: `${TS_RUNNER} news-search/scripts/search.ts youtube "AI news this week" 5` — trending video topics
     - See `news-search` skill for full platform reference.
 
 - What topics are over-covered (hard to differentiate)?

@@ -22,10 +22,10 @@ Gather:
 
 > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-- Twitter/X: `bun news-search/scripts/search.ts twitter "[brand name]" 10` — brand presence and engagement
-- Web: `bun news-search/scripts/search.ts web "[brand name] marketing" 10` — campaigns and press
-- LinkedIn: `bun news-search/scripts/search.ts linkedin "[brand name]"` — company profile
-- Read brand pages: `bun news-search/scripts/read.ts <brand-url>` — extract product and positioning info
+- Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "[brand name]" 10` — brand presence and engagement
+- Web: `${TS_RUNNER} news-search/scripts/search.ts web "[brand name] marketing" 10` — campaigns and press
+- LinkedIn: `${TS_RUNNER} news-search/scripts/search.ts linkedin "[brand name]"` — company profile
+- Read brand pages: `${TS_RUNNER} news-search/scripts/read.ts <brand-url>` — extract product and positioning info
 - See `news-search` skill for full platform reference.
 
 ### Step 2: Proposal Structure

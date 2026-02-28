@@ -48,10 +48,10 @@ Collect all primary source materials:
 
 > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-- Twitter/X: `bun news-search/scripts/search.ts twitter "[product/model name]" 20` — community reactions and expert commentary
-- Reddit: `bun news-search/scripts/search.ts reddit "[product/model name]" 10` — technical discussions
-- GitHub: `bun news-search/scripts/search.ts github "[product/model name]" 10` — code releases and repos
-- Read release page: `bun news-search/scripts/read.ts <announcement-url>` — extract details from blog posts
+- Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "[product/model name]" 20` — community reactions and expert commentary
+- Reddit: `${TS_RUNNER} news-search/scripts/search.ts reddit "[product/model name]" 10` — technical discussions
+- GitHub: `${TS_RUNNER} news-search/scripts/search.ts github "[product/model name]" 10` — code releases and repos
+- Read release page: `${TS_RUNNER} news-search/scripts/read.ts <announcement-url>` — extract details from blog posts
 - See `news-search` skill for full platform reference.
 
 ### Step 2: Analyze Key Claims and Capabilities

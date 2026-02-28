@@ -50,10 +50,10 @@ For each piece of evidence:
 
 > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-- Twitter/X: `bun news-search/scripts/search.ts twitter "<narrative-keyword>" 20`
-- Reddit: `bun news-search/scripts/search.ts reddit "<narrative-keyword>" 10`
-- GitHub: `bun news-search/scripts/search.ts github "<narrative-keyword>" 10`
-- Read specific URLs: `bun news-search/scripts/read.ts <url>`
+- Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "<narrative-keyword>" 20`
+- Reddit: `${TS_RUNNER} news-search/scripts/search.ts reddit "<narrative-keyword>" 10`
+- GitHub: `${TS_RUNNER} news-search/scripts/search.ts github "<narrative-keyword>" 10`
+- Read specific URLs: `${TS_RUNNER} news-search/scripts/read.ts <url>`
 - See `news-search` skill for full platform reference.
 
 ### Step 3: Collect Opposing Evidence

@@ -45,9 +45,9 @@ Content pillars: 3-5 recurring topic areas that define the creator's niche. Each
 
 > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-- Twitter/X: `bun news-search/scripts/search.ts twitter "[niche] trending" 10` — what's hot in your space
-- Reddit: `bun news-search/scripts/search.ts reddit "[niche]" 10` — community discussion themes
-- Web: `bun news-search/scripts/search.ts web "[niche] content trends 2026" 10` — industry trends
+- Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "[niche] trending" 10` — what's hot in your space
+- Reddit: `${TS_RUNNER} news-search/scripts/search.ts reddit "[niche]" 10` — community discussion themes
+- Web: `${TS_RUNNER} news-search/scripts/search.ts web "[niche] content trends 2026" 10` — industry trends
 - See `news-search` skill for full platform reference.
 
 **Monthly themes**: Anchor each month to a central topic or campaign to create coherence:

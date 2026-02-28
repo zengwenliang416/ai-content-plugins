@@ -31,13 +31,35 @@ NS_SCRIPTS="$(cd "$(dirname "$0")/../topic-research/skills/news-search/scripts" 
 
 > If running from the project root, the path is: `topic-research/skills/news-search/scripts/`
 
-2. Run the environment diagnostic:
+2. **Check runtime availability** — detect `bun` or `npx tsx`:
 
 ```bash
-bun ${NS_SCRIPTS}/doctor.ts
+if command -v bun &>/dev/null; then
+  TS_RUNNER="bun"
+elif command -v npx &>/dev/null; then
+  TS_RUNNER="npx tsx"
+else
+  echo "ERROR: No TypeScript runtime found."
+  echo "Install bun (recommended): curl -fsSL https://bun.sh/install | bash"
+  echo "Or install Node.js: https://nodejs.org/"
+  exit 1
+fi
 ```
 
-3. Record which platforms are available. Skip unavailable platforms gracefully but **never skip news-search entirely**.
+> **Recommended runtime**: [bun](https://bun.sh) — faster startup, native TypeScript support.
+> Install: `curl -fsSL https://bun.sh/install | bash`
+>
+> **Fallback runtime**: `npx tsx` — works if Node.js 18+ is installed.
+>
+> If neither is available, **STOP and ask the user to install bun** before proceeding. Do NOT skip news-search or silently degrade.
+
+3. Run the environment diagnostic:
+
+```bash
+${TS_RUNNER} ${NS_SCRIPTS}/doctor.ts
+```
+
+4. Record which platforms are available. Skip unavailable platforms gracefully but **never skip news-search entirely**.
 
 ### Step 1: Gather Sources
 
@@ -66,28 +88,28 @@ Pull from **both** MCP tools and news-search in parallel. **Both layers are MAND
 **RSS feeds** (5 sources):
 
 ```bash
-bun ${NS_SCRIPTS}/search.ts rss "https://importai.substack.com/feed" 10
-bun ${NS_SCRIPTS}/search.ts rss "https://deeplearning.ai/the-batch/feed" 10
-bun ${NS_SCRIPTS}/search.ts rss "https://www.technologyreview.com/feed/" 10
-bun ${NS_SCRIPTS}/search.ts rss "https://venturebeat.com/category/ai/feed/" 10
-bun ${NS_SCRIPTS}/search.ts rss "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml" 10
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts rss "https://importai.substack.com/feed" 10
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts rss "https://deeplearning.ai/the-batch/feed" 10
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts rss "https://www.technologyreview.com/feed/" 10
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts rss "https://venturebeat.com/category/ai/feed/" 10
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts rss "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml" 10
 ```
 
 **Web + Exa search** (4 queries):
 
 ```bash
-bun ${NS_SCRIPTS}/search.ts web "AI news today" 10
-bun ${NS_SCRIPTS}/search.ts exa "AI model launch" 10
-bun ${NS_SCRIPTS}/search.ts web "AI research paper" 10
-bun ${NS_SCRIPTS}/search.ts web "AI company announcement" 10
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts web "AI news today" 10
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts exa "AI model launch" 10
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts web "AI research paper" 10
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts web "AI company announcement" 10
 ```
 
 **Platform sources** (24h freshness auto-enforced):
 
 ```bash
-bun ${NS_SCRIPTS}/search.ts twitter "AI news" 20
-bun ${NS_SCRIPTS}/search.ts reddit "artificial intelligence" 10
-bun ${NS_SCRIPTS}/search.ts github "AI" 10
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts twitter "AI news" 20
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts reddit "artificial intelligence" 10
+${TS_RUNNER} ${NS_SCRIPTS}/search.ts github "AI" 10
 ```
 
 > See `news-search` skill for full platform reference and additional platforms (YouTube, XiaoHongShu, etc.)

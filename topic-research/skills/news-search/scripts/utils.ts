@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
+import { spawnSync as nodeSpawnSync, spawn as nodeSpawn } from "child_process";
 
 const CONFIG_DIR = join(homedir(), ".config", "news-search");
 const CONFIG_FILE = join(CONFIG_DIR, "config.json");
@@ -21,46 +22,58 @@ export function saveConfig(config: Record<string, string>): void {
 }
 
 export function requireTool(name: string, installHint: string): void {
-  const result = Bun.spawnSync(["which", name]);
-  if (result.exitCode !== 0) {
+  const result = nodeSpawnSync("which", [name]);
+  if (result.status !== 0) {
     console.error(`ERROR: '${name}' not found. Install: ${installHint}`);
     process.exit(127);
   }
 }
 
 export async function toolExists(name: string): Promise<boolean> {
-  const result = Bun.spawnSync(["which", name]);
-  return result.exitCode === 0;
+  const result = nodeSpawnSync("which", [name]);
+  return result.status === 0;
 }
 
 export async function runCmd(
   cmd: string[],
   env?: Record<string, string>,
 ): Promise<{ ok: boolean; stdout: string; stderr: string }> {
-  try {
-    const proc = Bun.spawn(cmd, {
-      stdout: "pipe",
-      stderr: "pipe",
-      env: { ...process.env, ...env },
-    });
-    const [stdout, stderr] = await Promise.all([
-      new Response(proc.stdout).text(),
-      new Response(proc.stderr).text(),
-    ]);
-    const exitCode = await proc.exited;
-    return { ok: exitCode === 0, stdout: stdout.trim(), stderr: stderr.trim() };
-  } catch (e: any) {
-    return { ok: false, stdout: "", stderr: e.message ?? String(e) };
-  }
+  return new Promise((resolve) => {
+    try {
+      const proc = nodeSpawn(cmd[0], cmd.slice(1), {
+        env: { ...process.env, ...env },
+      });
+      const stdoutChunks: Buffer[] = [];
+      const stderrChunks: Buffer[] = [];
+      proc.stdout.on("data", (chunk: Buffer) => stdoutChunks.push(chunk));
+      proc.stderr.on("data", (chunk: Buffer) => stderrChunks.push(chunk));
+      proc.on("close", (code) => {
+        resolve({
+          ok: code === 0,
+          stdout: Buffer.concat(stdoutChunks).toString().trim(),
+          stderr: Buffer.concat(stderrChunks).toString().trim(),
+        });
+      });
+      proc.on("error", (e: Error) => {
+        resolve({ ok: false, stdout: "", stderr: e.message });
+      });
+    } catch (e: any) {
+      resolve({ ok: false, stdout: "", stderr: e.message ?? String(e) });
+    }
+  });
 }
 
 /**
  * Build bird CLI args with auth from config.
  * Returns base args: ["bird", ...extraArgs, "--auth-token", token, "--ct0", ct0]
  */
-export function birdArgs(config: Record<string, string>, extra: string[]): string[] {
+export function birdArgs(
+  config: Record<string, string>,
+  extra: string[],
+): string[] {
   const args = ["bird", ...extra];
-  if (config.twitter_auth_token) args.push("--auth-token", config.twitter_auth_token);
+  if (config.twitter_auth_token)
+    args.push("--auth-token", config.twitter_auth_token);
   if (config.twitter_ct0) args.push("--ct0", config.twitter_ct0);
   return args;
 }
@@ -69,9 +82,12 @@ export function birdArgs(config: Record<string, string>, extra: string[]): strin
  * Build env for Node.js CLI tools that need proxy support.
  * Uses undici ProxyAgent via NODE_OPTIONS --require preload.
  */
-export function proxyEnv(config: Record<string, string>): Record<string, string> {
+export function proxyEnv(
+  config: Record<string, string>,
+): Record<string, string> {
   const env: Record<string, string> = {};
-  const proxy = config.proxy || process.env.HTTPS_PROXY || process.env.HTTP_PROXY;
+  const proxy =
+    config.proxy || process.env.HTTPS_PROXY || process.env.HTTP_PROXY;
   if (proxy) {
     env.HTTPS_PROXY = proxy;
     env.HTTP_PROXY = proxy;
@@ -83,14 +99,20 @@ export function proxyEnv(config: Record<string, string>): Record<string, string>
 }
 
 function resolveUndiciBootstrap(): string | null {
-  const r = Bun.spawnSync(["node", "-e", "console.log(require.resolve('undici'))"], {
-    stdout: "pipe",
-    env: { ...process.env, NODE_PATH: npmGlobalRoot() },
-  });
-  if (r.exitCode !== 0) return null;
-  const undiciIndex = new TextDecoder().decode(r.stdout).trim();
+  const r = nodeSpawnSync(
+    "node",
+    ["-e", "console.log(require.resolve('undici'))"],
+    { env: { ...process.env, NODE_PATH: npmGlobalRoot() } },
+  );
+  if (r.status !== 0) return null;
+  const undiciIndex = r.stdout.toString().trim();
   // Write a one-time bootstrap script next to config
-  const bootstrapPath = join(homedir(), ".config", "news-search", "proxy-bootstrap.cjs");
+  const bootstrapPath = join(
+    homedir(),
+    ".config",
+    "news-search",
+    "proxy-bootstrap.cjs",
+  );
   const undiciDir = undiciIndex.replace(/\/index\.js$/, "");
   const script = `const{setGlobalDispatcher,ProxyAgent}=require('${undiciDir}');const p=process.env.HTTPS_PROXY||process.env.HTTP_PROXY;if(p)setGlobalDispatcher(new ProxyAgent(p));`;
   mkdirSync(join(homedir(), ".config", "news-search"), { recursive: true });
@@ -99,8 +121,8 @@ function resolveUndiciBootstrap(): string | null {
 }
 
 function npmGlobalRoot(): string {
-  const r = Bun.spawnSync(["npm", "root", "-g"], { stdout: "pipe" });
-  return r.exitCode === 0 ? new TextDecoder().decode(r.stdout).trim() : "";
+  const r = nodeSpawnSync("npm", ["root", "-g"]);
+  return r.status === 0 ? r.stdout.toString().trim() : "";
 }
 
 // --- Freshness filtering ---
@@ -131,24 +153,41 @@ export function parseSearchArgs(argv: string[]): {
   let sinceVal = "24h";
   let noFreshness = false;
   const si = args.indexOf("--since");
-  if (si >= 0) { sinceVal = args[si + 1] || "24h"; args.splice(si, 2); }
+  if (si >= 0) {
+    sinceVal = args[si + 1] || "24h";
+    args.splice(si, 2);
+  }
   const nf = args.indexOf("--no-freshness");
-  if (nf >= 0) { noFreshness = true; args.splice(nf, 1); }
+  if (nf >= 0) {
+    noFreshness = true;
+    args.splice(nf, 1);
+  }
   return { positional: args, since: parseSince(sinceVal), noFreshness };
 }
 
-export function filterJsonLines(stdout: string, since: Date, dateField: string): string {
+export function filterJsonLines(
+  stdout: string,
+  since: Date,
+  dateField: string,
+): string {
   const threshold = fmtDate(since, "compact");
-  const lines = stdout.split("\n").filter(line => {
+  const lines = stdout.split("\n").filter((line) => {
     if (!line.trim()) return false;
     try {
       const obj = JSON.parse(line);
       const val = obj[dateField];
       if (!val) return true;
-      const ds = String(val).replace(/[-T:Z]/g, "").slice(0, 8);
+      const ds = String(val)
+        .replace(/[-T:Z]/g, "")
+        .slice(0, 8);
       return ds >= threshold;
-    } catch { return true; }
+    } catch {
+      return true;
+    }
   });
-  if (lines.length === 0) console.error("[freshness] All results filtered out — try --since 7d or --no-freshness");
+  if (lines.length === 0)
+    console.error(
+      "[freshness] All results filtered out — try --since 7d or --no-freshness",
+    );
   return lines.join("\n");
 }

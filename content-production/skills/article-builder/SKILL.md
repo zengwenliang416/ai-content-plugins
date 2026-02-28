@@ -46,10 +46,10 @@ Ask for available inputs:
 - **Platform research** (via news-search CLI, 24h freshness enforced):
 
   > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
-  - Twitter/X: `bun news-search/scripts/search.ts twitter "[article topic]" 10` — expert opinions and discourse
-  - Reddit: `bun news-search/scripts/search.ts reddit "[article topic]" 10` — community perspectives
-  - Web: `bun news-search/scripts/search.ts web "[article topic]" 10` — related articles and data sources
-  - Read sources: `bun news-search/scripts/read.ts <url>` — extract content from references
+  - Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "[article topic]" 10` — expert opinions and discourse
+  - Reddit: `${TS_RUNNER} news-search/scripts/search.ts reddit "[article topic]" 10` — community perspectives
+  - Web: `${TS_RUNNER} news-search/scripts/search.ts web "[article topic]" 10` — related articles and data sources
+  - Read sources: `${TS_RUNNER} news-search/scripts/read.ts <url>` — extract content from references
   - See `news-search` skill for full platform reference.
 
 - Key points or arguments that must be covered

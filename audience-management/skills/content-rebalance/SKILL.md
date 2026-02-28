@@ -36,8 +36,8 @@ Define where the content mix should be:
 
     > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
-    - Twitter/X: `bun news-search/scripts/search.ts twitter "[your niche]" 10` — what resonates with audience
-    - Reddit: `bun news-search/scripts/search.ts reddit "[your niche]" 10` — community demand signals
+    - Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "[your niche]" 10` — what resonates with audience
+    - Reddit: `${TS_RUNNER} news-search/scripts/search.ts reddit "[your niche]" 10` — community demand signals
     - See `news-search` skill for full platform reference.
 - **Based on strategy**: What topics need more coverage to build authority or attract a new segment?
 - **Based on platform requirements**: Each platform favors certain formats (short video on TikTok/Reels, long-form on YouTube/Substack)

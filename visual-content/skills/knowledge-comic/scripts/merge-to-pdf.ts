@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync } from "fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import { join, basename } from "path";
 import { PDFDocument } from "pdf-lib";
 
@@ -23,7 +23,9 @@ function parseArgs(): { dir: string; output?: string } {
   }
 
   if (!dir) {
-    console.error("Usage: bun merge-to-pdf.ts <comic-dir> [--output filename.pdf]");
+    console.error(
+      "Usage: bun merge-to-pdf.ts <comic-dir> [--output filename.pdf]",
+    );
     process.exit(1);
   }
 
@@ -46,13 +48,16 @@ function findComicPages(dir: string): PageInfo[] {
     .map((f) => {
       const match = f.match(pagePattern);
       const baseName = f.replace(/\.(png|jpg|jpeg)$/i, "");
-      const promptPath = hasPrompts ? join(promptsDir, `${baseName}.md`) : undefined;
+      const promptPath = hasPrompts
+        ? join(promptsDir, `${baseName}.md`)
+        : undefined;
 
       return {
         filename: f,
         path: join(dir, f),
         index: parseInt(match![1], 10),
-        promptPath: promptPath && existsSync(promptPath) ? promptPath : undefined,
+        promptPath:
+          promptPath && existsSync(promptPath) ? promptPath : undefined,
       };
     })
     .sort((a, b) => a.index - b.index);
@@ -88,11 +93,13 @@ async function createPdf(pages: PageInfo[], outputPath: string) {
       height,
     });
 
-    console.log(`Added: ${page.filename}${page.promptPath ? " (prompt available)" : ""}`);
+    console.log(
+      `Added: ${page.filename}${page.promptPath ? " (prompt available)" : ""}`,
+    );
   }
 
   const pdfBytes = await pdfDoc.save();
-  await Bun.write(outputPath, pdfBytes);
+  writeFileSync(outputPath, pdfBytes);
 
   console.log(`\nCreated: ${outputPath}`);
   console.log(`Total pages: ${pages.length}`);
@@ -102,7 +109,8 @@ async function main() {
   const { dir, output } = parseArgs();
   const pages = findComicPages(dir);
 
-  const dirName = basename(dir) === "comic" ? basename(join(dir, "..")) : basename(dir);
+  const dirName =
+    basename(dir) === "comic" ? basename(join(dir, "..")) : basename(dir);
   const outputPath = output || join(dir, `${dirName}.pdf`);
 
   console.log(`Found ${pages.length} pages in: ${dir}\n`);

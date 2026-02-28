@@ -1,6 +1,6 @@
 import { loadConfig, saveConfig } from "./utils.ts";
 
-const [action, key, value] = Bun.argv.slice(2);
+const [action, key, value] = process.argv.slice(2);
 const config = loadConfig();
 
 switch (action) {
@@ -35,7 +35,9 @@ switch (action) {
   case "parse-cookies": {
     const cookies = key;
     if (!cookies) {
-      console.error("Usage: bun config.ts parse-cookies '<cookie-header-string>'");
+      console.error(
+        "Usage: bun config.ts parse-cookies '<cookie-header-string>'",
+      );
       process.exit(1);
     }
     const authMatch = cookies.match(/auth_token=([^;\s]+)/);
@@ -54,6 +56,8 @@ switch (action) {
   }
 
   default:
-    console.error("Usage: bun config.ts <get|set|delete|list|parse-cookies> [key] [value]");
+    console.error(
+      "Usage: bun config.ts <get|set|delete|list|parse-cookies> [key] [value]",
+    );
     process.exit(1);
 }

@@ -219,16 +219,20 @@ ai-content-output/deep-research/<article-slug>/
 
 - Topic name or technology name only
 
-**Input Context** (optional but recommended):
+**Input Context**:
 
-Before starting research from scratch, check for upstream artifacts:
+> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user for topic details or starting research from scratch, you MUST first scan for existing upstream artifacts. If upstream artifacts are found, load them automatically and inform the user — do NOT ask for confirmation. Only ask the user for topic input when NO upstream artifact is found.
 
-1. **Brainstorm brief**: Check `ai-content-output/brainstorm/` for a matching topic brief
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**: If user passes a file/directory path, use it directly
+2. **Brainstorm brief**: Check `ai-content-output/brainstorm/` for a matching topic brief (today or most recent within 3 days)
    - If found, extract: core angle, target audience, key questions, data requirements, potential sources
    - Use these as research focus areas (skip re-discovering what's already known)
-2. **Daily brief**: Check `ai-content-output/daily-brief/` for relevant daily brief data
+3. **Daily brief**: Check `ai-content-output/daily-brief/` for relevant daily brief data (today or most recent within 3 days)
    - If found, extract relevant news items and data points
    - Avoid re-searching for information already gathered
+4. **No upstream found**: Only in this case, ask the user for topic input
 
 When upstream artifacts exist, reference them in the research document's frontmatter:
 

@@ -98,9 +98,12 @@ When the input article resides in `ai-content-output/` (from the content pipelin
 
 **When no article path is provided**:
 
-1. Check `ai-content-output/deep-research/` and `ai-content-output/articles/` for recent articles
-2. If found, list and ask user which article to generate a cover for
-3. If not found, proceed with direct content input workflow
+> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user for an article path, you MUST first scan for existing upstream artifacts. If exactly one recent article is found, load it automatically and inform the user. Only ask the user for input when NO upstream artifact is found or when multiple candidates exist.
+
+1. **Auto-scan**: Check `ai-content-output/deep-research/` and `ai-content-output/articles/` for recent articles (within 3 days)
+   - If exactly one found, load it automatically and proceed
+   - If multiple found, list and ask user which article to generate a cover for
+2. **No upstream found**: Only in this case, proceed with direct content input workflow
 
 ```
 <output-dir>/

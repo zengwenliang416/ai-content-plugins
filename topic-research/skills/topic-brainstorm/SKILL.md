@@ -17,24 +17,41 @@ A structured topic brainstorming session that generates 20+ ideas, applies a sco
 
 ## Input Handling
 
-This skill accepts an optional input file path pointing to upstream data (typically a daily-brief).
+> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user ANY question about seed topics or materials, you MUST first scan for existing upstream artifacts. Do NOT ask "do you have a seed topic" or "provide materials" if an upstream artifact already exists. Only ask the user when NO upstream artifact is found.
 
-**When input file is provided** (e.g., `/topic-research:brainstorm path/to/daily-brief.md`):
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**: If user passes a file path (e.g., `/topic-research:brainstorm path/to/file.md`), use that file directly
+2. **Today's daily brief**: Scan `ai-content-output/daily-brief/` for files matching today's date (`YYYY-MM-DD` pattern). If found, read and use as seed material automatically — inform the user which file was loaded, do NOT ask for confirmation
+3. **Recent daily brief**: If no today's brief, check for the most recent file in `ai-content-output/daily-brief/` (within last 3 days). If found, use it with a note about the date
+4. **No upstream found**: Only in this case, ask the user if they have a seed topic or niche to focus on
+
+**When upstream artifact is loaded**:
 
 1. Read the file content
 2. Extract news items, top stories, and trend signals as seed material
 3. Skip redundant web searches for data already present in the input file
 4. Use the input's categories and items as the basis for Step 1 trend analysis
 
-**When no input file is provided**:
-
-1. Check `ai-content-output/daily-brief/` for today's brief (YYYY-MM-DD pattern)
-2. If found, read and use as seed material (same as above)
-3. If not found, proceed with fresh data gathering (existing Step 1 workflow)
-
 ---
 
 ## Workflow
+
+### Step 0: Pre-flight — Detect Upstream Artifacts
+
+**MANDATORY** before any data collection or user interaction about topics.
+
+```bash
+# Check for today's daily brief
+TODAY=$(date +%Y-%m-%d)
+ls ai-content-output/daily-brief/${TODAY}*.md 2>/dev/null
+```
+
+- If file found → load it, extract seed material, inform user: "已自动加载今日简报: [filename]"
+- If not found → check recent files: `ls -t ai-content-output/daily-brief/ | head -3`
+- If still nothing → proceed to ask user for seed topic
+
+**Only after Step 0 completes**, continue to Step 1.
 
 ### Step 1: Analyze Current Trends and Gaps
 
@@ -44,11 +61,11 @@ Before brainstorming, survey:
   - **Platform sources** (via news-search CLI, 24h freshness enforced):
 
     > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
-
     - Twitter/X: `bun news-search/scripts/search.ts twitter "AI trending" 20` — hot topics and discourse
     - Reddit: `bun news-search/scripts/search.ts reddit "artificial intelligence" 10` — community buzz
     - YouTube: `bun news-search/scripts/search.ts youtube "AI news this week" 5` — trending video topics
     - See `news-search` skill for full platform reference.
+
 - What topics are over-covered (hard to differentiate)?
 - What topics are under-covered (gaps in existing content)?
 - What is the target audience interested in? (research, application, business implications)

@@ -7,9 +7,17 @@ description: Write comprehensive long-form articles for blogs, newsletters, and 
 
 ## Input Handling
 
-This skill accepts an optional input file or directory pointing to upstream research.
+> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user for article topics or starting from scratch, you MUST first scan for existing upstream artifacts. If found, load them automatically and inform the user — do NOT ask for confirmation unless multiple candidates exist. Only ask the user for input when NO upstream artifact is found.
 
-**When a deep-research directory is provided** (e.g., `/content-production:long-article ai-content-output/deep-research/<slug>/`):
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**: If user passes a file/directory path, use it directly
+2. **Auto-scan deep-research**: Check `ai-content-output/deep-research/` for recent research directories
+   - If exactly one found (within 3 days), load it automatically
+   - If multiple found, list available topics and ask user which to use
+3. **No upstream found**: Only in this case, proceed with fresh source gathering
+
+**When a deep-research directory is loaded** (e.g., `ai-content-output/deep-research/<slug>/`):
 
 1. Read the directory contents
 2. Load available research documents as source materials:
@@ -25,12 +33,6 @@ This skill accepts an optional input file or directory pointing to upstream rese
 1. Read the file content as background reference
 2. Proceed with Step 1 to gather additional materials as needed
 
-**When no input is provided**:
-
-1. Check `ai-content-output/deep-research/` for recent research directories
-2. If found, list available topics and ask user which to use
-3. If not found, proceed with fresh source gathering (existing Step 1)
-
 ---
 
 ## Workflow
@@ -44,12 +46,12 @@ Ask for available inputs:
 - **Platform research** (via news-search CLI, 24h freshness enforced):
 
   > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
-
   - Twitter/X: `bun news-search/scripts/search.ts twitter "[article topic]" 10` — expert opinions and discourse
   - Reddit: `bun news-search/scripts/search.ts reddit "[article topic]" 10` — community perspectives
   - Web: `bun news-search/scripts/search.ts web "[article topic]" 10` — related articles and data sources
   - Read sources: `bun news-search/scripts/read.ts <url>` — extract content from references
   - See `news-search` skill for full platform reference.
+
 - Key points or arguments that must be covered
 - Target publication or platform (blog, newsletter, Medium, etc.)
 - Target word count (default: 2,000-3,000 words)

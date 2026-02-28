@@ -7,16 +7,15 @@ description: Review article or content quality across accuracy, readability, log
 
 ## Input Handling
 
-This skill accepts a file path to the content to review.
+> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user for content to review, you MUST first scan for existing upstream artifacts. If exactly one recent article is found, load it automatically and inform the user. Only ask the user for input when NO upstream artifact is found or when multiple candidates exist.
 
-**When file path is provided**: Use it directly.
+**Detection order** (stop at first hit):
 
-**When no file path is provided**:
-
-1. Check `ai-content-output/deep-research/` for recent `article.md` files
-2. Check `ai-content-output/articles/` for recent `.md` files
-3. If found, list available articles and ask user which to review
-4. If not found, ask user to provide content or a file path
+1. **Explicit argument**: If user passes a file path, use it directly
+2. **Auto-scan articles**: Check `ai-content-output/deep-research/` for recent `article.md` files, then check `ai-content-output/articles/` for recent `.md` files
+   - If exactly one found (within 3 days), load it automatically
+   - If multiple found, list available articles and ask user which to review
+3. **No upstream found**: Only in this case, ask user to provide content or a file path
 
 ---
 

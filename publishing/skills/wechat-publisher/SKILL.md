@@ -114,13 +114,16 @@ See [references/image-text-posting.md](references/image-text-posting.md) for det
 
 ## Input Handling (Pipeline Context)
 
-When no file path is provided, auto-detect from the content pipeline:
+> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user for content to publish, you MUST first scan for existing upstream artifacts. If exactly one recent HTML article is found, load it automatically and inform the user. Only ask the user for input when NO upstream artifact is found or when multiple candidates exist.
 
-1. Check `ai-content-output/deep-research/` for recent `article.html` files
-2. Check `ai-content-output/articles/` for recent `.html` files
-3. If HTML found, list and ask user which to publish
-4. If only `.md` found (no `.html`), suggest running `md-to-html` first
-5. If nothing found, fall back to existing Step 1 (ask user for input)
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**: If user passes a file path, use it directly
+2. **Auto-scan HTML**: Check `ai-content-output/deep-research/` for recent `article.html` files, then check `ai-content-output/articles/` for recent `.html` files
+   - If exactly one found (within 3 days), load it automatically
+   - If multiple found, list and ask user which to publish
+3. **Markdown only**: If only `.md` found (no `.html`), suggest running `md-to-html` first
+4. **No upstream found**: Only in this case, fall back to existing Step 1 (ask user for input)
 
 ---
 

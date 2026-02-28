@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Rebuild llmdoc documentation for OpenClaw 3-agent architecture — 14 new docs replacing 9 plugin-era docs (llmdoc)
+- Update skill definitions across all 3 agent workspaces for OpenClaw conventions (researcher, writer, operator)
+
+### Fixed
+
+- Add OpenClaw agent registration, Python feedparser check, and news-search symlinks to install script (install)
+
 ### Added
 
 - Add news-search multi-platform search skill and commands supporting 12+ platforms (topic-research)

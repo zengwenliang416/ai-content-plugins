@@ -19,23 +19,27 @@ This document provides step-by-step instructions for executing Task 3 (Analysis 
 For each major player identified in Task 2:
 
 **Dimension 1: Technical Capability**
+
 - Performance on canonical benchmarks (from Task 2 Tab 3)
 - Technical innovation vs. incremental improvement
 - Multimodality, scale, efficiency trade-offs
 
 **Dimension 2: Ecosystem & Access**
+
 - Open-source vs. proprietary
 - API availability and pricing
 - Community size and contributor activity
 - Documentation and developer experience
 
 **Dimension 3: Commercial Position**
+
 - Enterprise adoption and named customers
 - Integration partnerships
 - Distribution channels
 - Revenue model sustainability
 
 **Dimension 4: Research Pipeline**
+
 - Paper output volume and quality
 - Lab talent density
 - Compute resources
@@ -62,6 +66,7 @@ Threat: [What could unseat them?]
 Assess the overall field and each major player's trajectory:
 
 **Field Trajectory**:
+
 - Current phase: Research / Early Product / Crossing Chasm / Mainstream / Mature
 - Pace of change: Accelerating / Steady / Plateauing
 - Key variable: What factor will determine the field's trajectory?
@@ -71,6 +76,7 @@ Assess the overall field and each major player's trajectory:
 For each player: Rising / Stable / Declining — and why
 
 **Confidence Levels**:
+
 - High: Based on observable data and trends
 - Medium: Reasonable inference from current signals
 - Low: Speculative, dependent on uncertain variables
@@ -80,16 +86,19 @@ For each player: Rising / Stable / Declining — and why
 ## Content Recommendation
 
 ### WRITE Criteria (all three should be met)
+
 - Audience interest is high and demonstrable (search volume, community buzz)
 - A unique angle exists that is not saturated in existing content
 - Timing is good (topic is rising but not yet peaked)
 
 ### MONITOR Criteria (one or more applies)
+
 - Topic has high potential but is too early or too nascent
 - Needs one more data point (product launch, paper, funding round) before the angle is compelling
 - Audience interest is present but the "so what" isn't clear yet
 
 ### SKIP Criteria (one or more applies)
+
 - Topic is already saturated with high-quality coverage
 - Audience interest is declining (fading trend)
 - The angle available is weak or derivative
@@ -131,6 +140,7 @@ Identify 3-5 narrative hooks — angles that make the article compelling:
 **Consequences hooks**: "What happens if X wins"
 
 For each hook:
+
 - One-line hook title
 - Why this angle is compelling (audience insight)
 - Key evidence or data point that powers the hook
@@ -172,6 +182,7 @@ For each hook:
 ### Step 5: Write Analysis Document
 
 Structure:
+
 1. **Executive Summary** (200-300 words) — key findings and recommendation
 2. **Comparative Analysis** (1,000-1,500 words) — player-by-player assessment
 3. **Field Trajectory** (600-800 words) — where this is heading and why
@@ -181,6 +192,7 @@ Structure:
 ### Step 6: Add Excel Tabs
 
 Add to the Task 2 workbook:
+
 - **Tab: Comparative Analysis** — structured player comparison matrix with ratings
 - **Tab: Trajectory Forecast** — field and player trajectory table with confidence levels
 - **Tab: Recommendation Summary** — WRITE/MONITOR/SKIP decision with rationale bullets
@@ -198,8 +210,8 @@ Add to the Task 2 workbook:
 
 ---
 
-## File Naming Convention
+## Output Path
 
-`[Topic]_Analysis_[Date].md`
+Save to: `ai-content-output/deep-research/<slug>/analysis.md`
 
-Example: `AI_Agents_Analysis_2026-02-25.md`
+Example: `ai-content-output/deep-research/llm-agents/analysis.md`

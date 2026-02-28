@@ -187,8 +187,8 @@ For each scenario, project:
 
 ---
 
-## File Naming Convention
+## Output Path
 
-`[Topic]_Data_Workbook_[Date].xlsx`
+Save to: `ai-content-output/deep-research/<slug>/data-workbook.md`
 
-Example: `AI_Agents_Data_Workbook_2026-02-25.xlsx`
+Example: `ai-content-output/deep-research/llm-agents/data-workbook.md`

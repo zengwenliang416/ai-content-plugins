@@ -349,8 +349,8 @@ A successful Task 1 completion:
 
 ---
 
-## File Naming Convention
+## Output Path
 
-`[Topic]_Research_Document_[Date].md`
+Save to: `ai-content-output/deep-research/<slug>/research.md`
 
-Example: `AI_Agents_Research_Document_2026-02-25.md`
+Example: `ai-content-output/deep-research/llm-agents/research.md`

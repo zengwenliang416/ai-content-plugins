@@ -15,6 +15,25 @@ A structured topic brainstorming session that generates 20+ ideas, applies a sco
 
 ---
 
+## Input Handling
+
+This skill accepts an optional input file path pointing to upstream data (typically a daily-brief).
+
+**When input file is provided** (e.g., `/topic-research:brainstorm path/to/daily-brief.md`):
+
+1. Read the file content
+2. Extract news items, top stories, and trend signals as seed material
+3. Skip redundant web searches for data already present in the input file
+4. Use the input's categories and items as the basis for Step 1 trend analysis
+
+**When no input file is provided**:
+
+1. Check `ai-content-output/daily-brief/` for today's brief (YYYY-MM-DD pattern)
+2. If found, read and use as seed material (same as above)
+3. If not found, proceed with fresh data gathering (existing Step 1 workflow)
+
+---
+
 ## Workflow
 
 ### Step 1: Analyze Current Trends and Gaps
@@ -189,6 +208,41 @@ For each of the top 3 topics, write a 200-300 word brief covering:
 
 [Any caveats on scoring or time-sensitive considerations]
 ```
+
+---
+
+## Output Persistence
+
+**MANDATORY**: Save the brainstorm results to file immediately after generation. Do NOT only display in conversation.
+
+**Output path**: `ai-content-output/brainstorm/YYYY-MM-DD-topic-brainstorm.md`
+
+**YAML frontmatter** (prepend to output):
+
+```yaml
+---
+title: "Topic Brainstorm"
+date: YYYY-MM-DD
+type: topic-brainstorm
+language: <user-selected-language>
+input_source: <path-to-input-file-or-"fresh">
+top3_topics:
+  - title: "<topic 1 title>"
+    score: <N>
+  - title: "<topic 2 title>"
+    score: <N>
+  - title: "<topic 3 title>"
+    score: <N>
+---
+```
+
+**Steps**:
+
+1. Create directory: `ai-content-output/brainstorm/` (if not exists)
+2. Write the complete brainstorm with frontmatter to the file
+3. Confirm save path to user
+
+**Downstream consumers**: `deep-research` Task 1 reads this file for topic context and brief.
 
 ---
 

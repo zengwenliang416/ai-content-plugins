@@ -182,6 +182,35 @@ Request 5: Task 5 - Article Assembly (requires ALL previous task outputs)
 
 ---
 
+## Output Directory Convention
+
+**ALL task outputs** are saved to a shared article directory:
+
+```
+ai-content-output/deep-research/<article-slug>/
+├── research.md              # Task 1 output
+├── data-workbook.md         # Task 2 output
+├── analysis.md              # Task 3 output
+├── images/                  # Task 4 output
+│   ├── chart_01_*.png
+│   ├── ...
+│   ├── cover.png            # cover-generator output
+│   └── chart_index.txt
+└── article.md               # Task 5 output
+```
+
+**Slug derivation**: Kebab-case from topic name (e.g., "LLM Agents" → `llm-agents`).
+
+**MANDATORY**: Each task MUST:
+
+1. Create `ai-content-output/deep-research/<slug>/` on first run (if not exists)
+2. Save its output to the path shown above
+3. Confirm the save path to user after delivery
+
+**Downstream consumers**: `article-builder`, `cover-generator`, `md-to-html`, `quality-check`, and `wechat-publisher` all read from this directory.
+
+---
+
 ## Task 1: Topic Research
 
 **Purpose**: Research the topic's background, key players, development history, current state, competing approaches, applications, and risks.
@@ -189,6 +218,25 @@ Request 5: Task 5 - Article Assembly (requires ALL previous task outputs)
 **Prerequisites**: None (fully independent)
 
 - Topic name or technology name only
+
+**Input Context** (optional but recommended):
+
+Before starting research from scratch, check for upstream artifacts:
+
+1. **Brainstorm brief**: Check `ai-content-output/brainstorm/` for a matching topic brief
+   - If found, extract: core angle, target audience, key questions, data requirements, potential sources
+   - Use these as research focus areas (skip re-discovering what's already known)
+2. **Daily brief**: Check `ai-content-output/daily-brief/` for relevant daily brief data
+   - If found, extract relevant news items and data points
+   - Avoid re-searching for information already gathered
+
+When upstream artifacts exist, reference them in the research document's frontmatter:
+
+```yaml
+input_context:
+  brainstorm_brief: <path>
+  daily_brief: <path>
+```
 
 **Process**:
 
@@ -214,7 +262,7 @@ Request 5: Task 5 - Article Assembly (requires ALL previous task outputs)
 - Competitive landscape (5-10 approaches or alternatives)
 - Risks & challenges (technical, adoption, ethical, regulatory)
 
-**File name**: `[Topic]_Research_Document_[Date].md`
+**File name**: `research.md` (saved to `ai-content-output/deep-research/<slug>/research.md` per Output Directory Convention)
 
 **DELIVER ONLY THIS 1 FILE. NO completion summaries, no extra documents.**
 
@@ -286,7 +334,7 @@ Optional:
   5. **Timeline** - Chronological milestones, paper releases, product launches
   6. **Scenarios** - Optimistic/Base/Pessimistic projections for the field
 
-**File name**: `[Topic]_Data_Workbook_[Date].xlsx`
+**File name**: `data-workbook.md` (saved to `ai-content-output/deep-research/<slug>/data-workbook.md` per Output Directory Convention)
 
 **DELIVER ONLY THIS 1 FILE. NO completion summaries, no extra documents.**
 
@@ -362,14 +410,14 @@ Required from workbook:
 
 **Files**:
 
-- `[Topic]_Analysis_[Date].md` (written analysis document)
-- Excel tabs added to `[Topic]_Data_Workbook_[Date].xlsx` (from Task 2)
+- `analysis.md` (saved to `ai-content-output/deep-research/<slug>/analysis.md` per Output Directory Convention)
+- Additional sections appended to `data-workbook.md`:
   - Comparative Analysis tab
   - Trajectory Forecast tab
   - Recommendation Summary tab
   - Talking Points tab
 
-**DELIVER ONLY: 1 markdown file + 4 tabs added to existing Excel. NO completion summaries, no extra documents.**
+**DELIVER ONLY: 1 markdown file + additional sections added to data-workbook.md. NO completion summaries, no extra documents.**
 
 **DO NOT TAKE SHORTCUTS:**
 
@@ -624,7 +672,7 @@ IF ANY VERIFICATION FAILS: Stop and complete missing task first.
 - Section 8: Takeaways & Content Angle (200-300 words)
 - Sources & References (all sources with clickable hyperlinks)
 
-**File name**: `[Topic]_Article_[Date].md` (or .docx)
+**File name**: `article.md` (saved to `ai-content-output/deep-research/<slug>/article.md` per Output Directory Convention)
 
 **DELIVER ONLY THIS 1 FILE. NO executive summaries, no "highlights" documents, no extra files.**
 
@@ -755,21 +803,18 @@ All outputs meet high-quality content standards for AI-focused publications:
 
 ### File Organization
 
-Recommended structure during workflow:
+All outputs go to the shared article directory (see **Output Directory Convention** above):
 
 ```
-[Topic]_Research/
-├── Task1_Research/
-│   └── [Topic]_Research_Document.md
-├── Task2_Data/
-│   └── [Topic]_Data_Workbook.xlsx
-├── Task3_Analysis/
-│   └── [Topic]_Analysis.md
-├── Task4_Visuals/
-│   ├── chart_01.png
-│   └── ... (15-25 files)
-└── Task5_Article/
-    └── [Topic]_Article.md
+ai-content-output/deep-research/<slug>/
+├── research.md              # Task 1
+├── data-workbook.md         # Task 2
+├── analysis.md              # Task 3
+├── images/                  # Task 4
+│   ├── chart_01_*.png
+│   ├── ...
+│   └── chart_index.txt
+└── article.md               # Task 5
 ```
 
 ### No End-to-End Execution

@@ -206,6 +206,38 @@ _Sources: [list all sources checked with dates]_
 
 ---
 
+## Output Persistence
+
+**MANDATORY**: Save the briefing to file immediately after generation. Do NOT only display in conversation.
+
+**Output path**: `ai-content-output/daily-brief/YYYY-MM-DD-ai-daily-brief.md`
+
+**YAML frontmatter** (prepend to output):
+
+```yaml
+---
+title: "AI Daily Brief"
+date: YYYY-MM-DD
+type: daily-brief
+language: <user-selected-language>
+sources:
+  - hacker-news
+  - arxiv
+  - web-search
+  - news-search
+---
+```
+
+**Steps**:
+
+1. Create directory: `ai-content-output/daily-brief/` (if not exists)
+2. Write the complete briefing with frontmatter to the file
+3. Confirm save path to user
+
+**Downstream consumers**: `topic-brainstorm` skill reads this file as input context.
+
+---
+
 ## Quality Standards
 
 - Minimum 10 items total across all categories

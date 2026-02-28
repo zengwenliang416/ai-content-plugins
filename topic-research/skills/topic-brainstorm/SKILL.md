@@ -41,7 +41,10 @@ This skill accepts an optional input file path pointing to upstream data (typica
 Before brainstorming, survey:
 
 - What are the top trends in AI right now? (use news-search CLI + HN MCP + arXiv MCP)
-  - **Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+  - **Platform sources** (via news-search CLI, 24h freshness enforced):
+
+    > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
+
     - Twitter/X: `bun news-search/scripts/search.ts twitter "AI trending" 20` — hot topics and discourse
     - Reddit: `bun news-search/scripts/search.ts reddit "artificial intelligence" 10` — community buzz
     - YouTube: `bun news-search/scripts/search.ts youtube "AI news this week" 5` — trending video topics

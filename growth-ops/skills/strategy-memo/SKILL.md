@@ -18,7 +18,10 @@ Collect from the user (or from prior analysis in the session):
 - Stakeholders who will read or act on this memo
 - Any prior decisions or commitments that constrain options
 
-**Market and platform data** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+**Market and platform data** (via news-search CLI, 24h freshness enforced):
+
+> **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
+
 - Twitter/X: `bun news-search/scripts/search.ts twitter "[topic] trend" 10` — audience sentiment signals
 - Reddit: `bun news-search/scripts/search.ts reddit "[niche]" 10` — community discussion themes
 - Web: `bun news-search/scripts/search.ts web "[market topic]" 10` — industry reports and data

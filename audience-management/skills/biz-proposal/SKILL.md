@@ -18,7 +18,10 @@ Gather:
 - **Competition**: Are there other creators being considered?
 - **Budget signals**: Any indication of budget range shared?
 
-**Research the brand** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+**Research the brand** (via news-search CLI, 24h freshness enforced):
+
+> **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
+
 - Twitter/X: `bun news-search/scripts/search.ts twitter "[brand name]" 10` — brand presence and engagement
 - Web: `bun news-search/scripts/search.ts web "[brand name] marketing" 10` — campaigns and press
 - LinkedIn: `bun news-search/scripts/search.ts linkedin "[brand name]"` — company profile

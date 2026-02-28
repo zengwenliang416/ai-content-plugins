@@ -44,7 +44,10 @@ Collect all primary source materials:
 - Reproduction or commentary from the community (Twitter/X, HN)
 - Prior work the paper builds on (cited foundations)
 
-**Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+**Platform sources** (via news-search CLI, 24h freshness enforced):
+
+> **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
+
 - Twitter/X: `bun news-search/scripts/search.ts twitter "[product/model name]" 20` — community reactions and expert commentary
 - Reddit: `bun news-search/scripts/search.ts reddit "[product/model name]" 10` — technical discussions
 - GitHub: `bun news-search/scripts/search.ts github "[product/model name]" 10` — code releases and repos

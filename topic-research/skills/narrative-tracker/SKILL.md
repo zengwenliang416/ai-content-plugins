@@ -46,7 +46,10 @@ For each piece of evidence:
 - Quote or data point
 - Context (why this matters for the narrative)
 
-**Platform evidence sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+**Platform evidence sources** (via news-search CLI, 24h freshness enforced):
+
+> **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
+
 - Twitter/X: `bun news-search/scripts/search.ts twitter "<narrative-keyword>" 20`
 - Reddit: `bun news-search/scripts/search.ts reddit "<narrative-keyword>" 10`
 - GitHub: `bun news-search/scripts/search.ts github "<narrative-keyword>" 10`

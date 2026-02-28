@@ -245,7 +245,9 @@ input_context:
 3. Execute qualitative research workflow
 4. Deliver research document
 
-**Optional platform data** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+**Optional platform data** (via news-search CLI, 24h freshness enforced):
+
+> **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
 - Twitter/X discourse: `bun news-search/scripts/search.ts twitter "<topic>" 20`
 - Reddit discussions: `bun news-search/scripts/search.ts reddit "<topic>" 10`
@@ -317,7 +319,9 @@ Optional:
 4. Build structured Excel workbook with 6 tabs
 5. Deliver workbook
 
-**Optional platform data** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+**Optional platform data** (via news-search CLI, 24h freshness enforced):
+
+> **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
 
 - YouTube metrics: `bun news-search/scripts/search.ts youtube "<topic>" 10`
 - Bilibili metrics: `bun news-search/scripts/search.ts bilibili "<topic>" 10`

@@ -32,7 +32,10 @@ Current format distribution:
 
 Define where the content mix should be:
 - **Based on audience data**: Which topics and formats generate the strongest engagement?
-  - **Platform signals** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+  - **Platform signals** (via news-search CLI, 24h freshness enforced):
+
+    > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
+
     - Twitter/X: `bun news-search/scripts/search.ts twitter "[your niche]" 10` — what resonates with audience
     - Reddit: `bun news-search/scripts/search.ts reddit "[your niche]" 10` — community demand signals
     - See `news-search` skill for full platform reference.

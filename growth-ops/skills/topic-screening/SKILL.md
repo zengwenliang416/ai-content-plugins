@@ -29,7 +29,10 @@ Evaluate the topic across five dimensions:
 | Expertise fit | Can you credibly cover this well? | | |
 | Timeliness | Is this trending now or evergreen? | | |
 
-**Platform signal check** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+**Platform signal check** (via news-search CLI, 24h freshness enforced):
+
+> **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
+
 - Twitter/X: `bun news-search/scripts/search.ts twitter "[topic]" 10` — gauge current discourse volume
 - Reddit: `bun news-search/scripts/search.ts reddit "[topic]" 5` — check community interest
 - YouTube: `bun news-search/scripts/search.ts youtube "[topic]" 5` — assess existing video coverage

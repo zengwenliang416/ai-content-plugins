@@ -50,7 +50,10 @@ For each: Look up the current year's dates, location, paper submission deadline,
 - Quarterly earnings calls for public AI companies (NVIDIA, Google, Microsoft, Meta, Amazon)
 - Key dates: January, April, July, October (approximately)
 
-**Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+**Platform sources** (via news-search CLI, 24h freshness enforced):
+
+> **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
+
 - Twitter/X: `bun news-search/scripts/search.ts twitter "AI conference 2026" 20` — track announcements and CFPs
 - GitHub: `bun news-search/scripts/search.ts github "awesome-ai-conferences" 5` — curated event lists
 - Web: `bun news-search/scripts/search.ts web "AI events calendar 2026" 10` — aggregator sites

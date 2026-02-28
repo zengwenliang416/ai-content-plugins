@@ -17,42 +17,90 @@ The daily brief aggregates AI news from multiple sources, filters for relevance,
 
 ## Workflow
 
+### Step 0: Pre-flight — Resolve Paths and Check Environment
+
+**MANDATORY** before any data collection.
+
+1. Locate the news-search scripts directory. It lives at `news-search/scripts/` relative to the skills directory. Resolve the absolute path:
+
+```bash
+# Find the absolute path (run once, reuse for all subsequent commands)
+NS_SCRIPTS="$(cd "$(dirname "$0")/../topic-research/skills/news-search/scripts" 2>/dev/null && pwd)" \
+  || NS_SCRIPTS="$(find . -path '*/news-search/scripts/search.ts' -exec dirname {} \; | head -1)"
+```
+
+> If running from the project root, the path is: `topic-research/skills/news-search/scripts/`
+
+2. Run the environment diagnostic:
+
+```bash
+bun ${NS_SCRIPTS}/doctor.ts
+```
+
+3. Record which platforms are available. Skip unavailable platforms gracefully but **never skip news-search entirely**.
+
 ### Step 1: Gather Sources
 
-Pull from all available sources in parallel:
+Pull from **both** MCP tools and news-search in parallel. **Both layers are MANDATORY** — they serve different purposes and are not interchangeable.
 
-**HuggingFace** (via hacker-news MCP):
+> **CONSTRAINT**: Do NOT substitute Claude's built-in WebSearch for `news-search` commands. WebSearch may be used as a **supplement** for follow-up queries on specific stories, but the primary data collection MUST go through news-search. news-search provides structured, freshness-controlled, multi-platform results that WebSearch cannot replicate.
 
-- Check Hacker News for AI-tagged stories (top 50)
+#### Layer 1: MCP Tools (structured API data)
+
+**Hacker News** (via hacker-news MCP):
+
+- `getTopStories(50)` — AI-tagged stories
+- `getBestStories(30)` — algorithmically ranked
 - Focus on: Show HN posts about AI tools, papers posted to HN, AI company announcements
 
 **arXiv** (via arxiv MCP):
 
-- Pull recent submissions in: cs.AI, cs.LG, cs.CL, cs.CV, cs.RO
+- `search_papers()` in categories: cs.AI, cs.LG, cs.CL, cs.CV, cs.RO
+- Time window: last 24-48 hours
 - Filter for: high-engagement papers, papers from major labs, papers with unusual titles/claims
-- Time window: Last 24-48 hours
 
-**RSS feeds** (via news-search):
+#### Layer 2: news-search (multi-platform, freshness-controlled)
 
-- `bun news-search/scripts/search.ts rss "https://importai.substack.com/feed" 10` — Import AI (Jack Clark)
-- `bun news-search/scripts/search.ts rss "https://deeplearning.ai/the-batch/feed" 10` — The Batch (Andrew Ng)
-- `bun news-search/scripts/search.ts rss "https://www.technologyreview.com/feed/" 10` — MIT Technology Review
-- `bun news-search/scripts/search.ts rss "https://venturebeat.com/category/ai/feed/" 10` — VentureBeat AI
-- `bun news-search/scripts/search.ts rss "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml" 10` — The Verge AI
+**All commands below use Bash tool.** Run in parallel where possible.
 
-**Web search** (via news-search | `bun news-search/scripts/doctor.ts` for status):
+**RSS feeds** (5 sources):
 
-- `bun news-search/scripts/search.ts web "AI news today" 10`
-- `bun news-search/scripts/search.ts exa "AI model launch" 10`
-- `bun news-search/scripts/search.ts web "AI research paper" 10`
-- `bun news-search/scripts/search.ts web "AI company announcement" 10`
+```bash
+bun ${NS_SCRIPTS}/search.ts rss "https://importai.substack.com/feed" 10
+bun ${NS_SCRIPTS}/search.ts rss "https://deeplearning.ai/the-batch/feed" 10
+bun ${NS_SCRIPTS}/search.ts rss "https://www.technologyreview.com/feed/" 10
+bun ${NS_SCRIPTS}/search.ts rss "https://venturebeat.com/category/ai/feed/" 10
+bun ${NS_SCRIPTS}/search.ts rss "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml" 10
+```
 
-**Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+**Web + Exa search** (4 queries):
 
-- Twitter/X: `bun news-search/scripts/search.ts twitter "AI news" 20`
-- Reddit: `bun news-search/scripts/search.ts reddit "artificial intelligence" 10`
-- GitHub trending: `bun news-search/scripts/search.ts github "AI" 10`
-- See `news-search` skill for full platform reference.
+```bash
+bun ${NS_SCRIPTS}/search.ts web "AI news today" 10
+bun ${NS_SCRIPTS}/search.ts exa "AI model launch" 10
+bun ${NS_SCRIPTS}/search.ts web "AI research paper" 10
+bun ${NS_SCRIPTS}/search.ts web "AI company announcement" 10
+```
+
+**Platform sources** (24h freshness auto-enforced):
+
+```bash
+bun ${NS_SCRIPTS}/search.ts twitter "AI news" 20
+bun ${NS_SCRIPTS}/search.ts reddit "artificial intelligence" 10
+bun ${NS_SCRIPTS}/search.ts github "AI" 10
+```
+
+> See `news-search` skill for full platform reference and additional platforms (YouTube, XiaoHongShu, etc.)
+
+#### Layer 3: WebSearch (supplementary only)
+
+Use Claude's built-in WebSearch **only** for:
+
+- Following up on specific stories discovered in Layer 1 or Layer 2
+- Filling gaps if a specific topic is underrepresented in news-search results
+- Verifying claims or finding additional context for top stories
+
+Do NOT use WebSearch as a primary data source.
 
 ### Step 2: Filter for AI/ML Relevance
 

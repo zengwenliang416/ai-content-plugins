@@ -47,7 +47,10 @@ Scan for early indicators of emerging or accelerating trends:
 - Twitter/X discourse clusters
 - Reddit and Discord communities growing fast
 
-**Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+**Platform sources** (via news-search CLI, 24h freshness enforced):
+
+> **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
+
 - Twitter/X: `bun news-search/scripts/search.ts twitter "<trend-keyword>" 20`
 - Reddit: `bun news-search/scripts/search.ts reddit "<trend-keyword>" 10`
 - GitHub: `bun news-search/scripts/search.ts github "<trend-keyword>" 10`

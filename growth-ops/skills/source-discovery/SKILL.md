@@ -17,7 +17,10 @@ Research and identify potential sources based on the user's topic or niche:
 - **Content goal**: What will these sources be used for? (background research, expert quotes, data, inspiration)
 - **Source types needed**: Primary research, expert opinion, data/statistics, community discussion, news
 - **Sources to search**: Use web search to find blogs, newsletters, Substack writers, LinkedIn voices, subreddits, YouTube channels, podcasts, academic papers, and industry reports matching the topic
-  - **Platform sources** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
+  - **Platform sources** (via news-search CLI, 24h freshness enforced):
+
+    > **CONSTRAINT**: Execute all `news-search` commands below via Bash tool. Do NOT substitute with Claude's built-in WebSearch — it lacks freshness control and structured multi-platform output. WebSearch may only supplement, never replace, news-search. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
+
     - Twitter/X: `bun news-search/scripts/search.ts twitter "[topic] expert" 20` — find thought leaders
     - Reddit: `bun news-search/scripts/search.ts reddit "[topic]" 10` — discover active subreddits and communities
     - YouTube: `bun news-search/scripts/search.ts youtube "[topic]" 10` — find content creators and channels

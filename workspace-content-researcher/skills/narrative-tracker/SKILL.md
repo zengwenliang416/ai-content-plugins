@@ -56,12 +56,12 @@ For each piece of evidence:
 - Quote or data point
 - Context (why this matters for the narrative)
 
-**Platform evidence sources** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
+**Platform evidence sources** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
 
-- Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "<narrative-keyword>" 20`
-- Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "<narrative-keyword>" 10`
-- GitHub: `bun {baseDir}/../news-search/scripts/search.ts github "<narrative-keyword>" 10`
-- Read specific URLs: `bun {baseDir}/../news-search/scripts/read.ts <url>`
+- Twitter/X: `bun skills/news-search/scripts/search.ts twitter "<narrative-keyword>" 20`
+- Reddit: `bun skills/news-search/scripts/search.ts reddit "<narrative-keyword>" 10`
+- GitHub: `bun skills/news-search/scripts/search.ts github "<narrative-keyword>" 10`
+- Read specific URLs: `bun skills/news-search/scripts/read.ts <url>`
 - See `news-search` skill for full platform reference.
 
 ### Step 3: Collect Opposing Evidence

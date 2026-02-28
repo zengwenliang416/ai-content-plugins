@@ -22,6 +22,28 @@ This agent can use the following MCP servers when available:
 - **arxiv**: Search papers, download and read full text
 - **rss-reader**: Aggregate RSS feeds
 
+## Tool Usage Notes
+
+### exec Tool — Command Format
+
+The `exec` tool's `command` parameter **MUST be a string**, NOT an array.
+
+```
+✅ Correct: {"command": "bun search.ts twitter 'AI agent' 10 --since 24h"}
+❌ Wrong:   {"command": ["bun", "search.ts", "twitter", "AI agent"]}
+```
+
+This applies to ALL exec calls (news-search, doctor.ts, etc.). The shell will parse the string.
+
+### news-search CLI — Always Include Freshness Flag
+
+When running `news-search/scripts/search.ts`, **always include `--since 24h`** for time-sensitive data (daily briefs, trend tracking). Only omit it (or use `--no-freshness`) for background/historical research.
+
+```
+bun skills/news-search/scripts/search.ts twitter "AI agent" 20 --since 24h
+bun skills/news-search/scripts/search.ts rss "https://feed-url" 10 --since 24h
+```
+
 ## Skill Invocation
 
 Skills are invoked by name. Each skill's SKILL.md contains the full workflow. Follow the workflow steps precisely.

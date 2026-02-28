@@ -27,12 +27,12 @@ This document provides step-by-step instructions for executing Task 1 (Topic Res
 ### Secondary Sources (via news-search CLI)
 
 - **Tech media**: The Verge, Wired, MIT Technology Review, VentureBeat, The Information
-  - `bun {baseDir}/../news-search/scripts/search.ts web "<topic>" 10`
-  - `bun {baseDir}/../news-search/scripts/search.ts exa "<topic> research" 10`
+  - `bun skills/news-search/scripts/search.ts web "<topic>" 10`
+  - `bun skills/news-search/scripts/search.ts exa "<topic> research" 10`
 - **Industry analysts**: Gartner, Forrester, IDC, a16z, Sequoia AI reports
 - **Newsletters** (via news-search RSS):
-  - `bun {baseDir}/../news-search/scripts/search.ts rss "https://importai.substack.com/feed" 10`
-  - `bun {baseDir}/../news-search/scripts/search.ts rss "https://deeplearning.ai/the-batch/feed" 10`
+  - `bun skills/news-search/scripts/search.ts rss "https://importai.substack.com/feed" 10`
+  - `bun skills/news-search/scripts/search.ts rss "https://deeplearning.ai/the-batch/feed" 10`
 - **Podcasts/videos**: Lex Fridman, Dwarkesh Patel, 80,000 Hours, conference talks
 
 ### Key Information to Extract

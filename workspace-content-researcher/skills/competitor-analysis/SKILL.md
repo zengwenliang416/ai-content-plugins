@@ -116,13 +116,13 @@ Use these metrics consistently across all competitor comparisons.
 
 ### Step 1: Content Landscape Context
 
-**Platform research** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
+**Platform research** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
 
-- Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "[competitor] OR [niche]" 20` — track competitor activity
-- YouTube: `bun {baseDir}/../news-search/scripts/search.ts youtube "[competitor name]" 10` — content and engagement data
-- Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "[niche]" 10` — community sentiment on competitors
-- Web: `bun {baseDir}/../news-search/scripts/search.ts web "[competitor] content strategy" 10` — coverage and analysis
-- Read competitor pages: `bun {baseDir}/../news-search/scripts/read.ts <competitor-url>` — extract content details
+- Twitter/X: `bun skills/news-search/scripts/search.ts twitter "[competitor] OR [niche]" 20` — track competitor activity
+- YouTube: `bun skills/news-search/scripts/search.ts youtube "[competitor name]" 10` — content and engagement data
+- Reddit: `bun skills/news-search/scripts/search.ts reddit "[niche]" 10` — community sentiment on competitors
+- Web: `bun skills/news-search/scripts/search.ts web "[competitor] content strategy" 10` — coverage and analysis
+- Read competitor pages: `bun skills/news-search/scripts/read.ts <competitor-url>` — extract content details
 - See `news-search` skill for full platform reference.
 
 - Niche size and estimated audience (total addressable viewers/readers)

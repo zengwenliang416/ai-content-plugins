@@ -24,13 +24,13 @@ Install [Cookie-Editor](https://cookie-editor.cgagnier.ca/) browser extension (C
 ### Step 3: Configure
 
 ```bash
-bun {baseDir}/../news-search/scripts/config.ts parse-cookies '<paste-cookie-string-here>'
+bun skills/news-search/scripts/config.ts parse-cookies '<paste-cookie-string-here>'
 ```
 
 ### Step 4: Verify
 
 ```bash
-bun {baseDir}/../news-search/scripts/doctor.ts --json
+bun skills/news-search/scripts/doctor.ts --json
 # twitter should show "ok"
 ```
 

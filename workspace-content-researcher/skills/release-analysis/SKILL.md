@@ -53,12 +53,12 @@ Collect all primary source materials:
 - Reproduction or commentary from the community (Twitter/X, HN)
 - Prior work the paper builds on (cited foundations)
 
-**Platform sources** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
+**Platform sources** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
 
-- Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "[product/model name]" 20` — community reactions and expert commentary
-- Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "[product/model name]" 10` — technical discussions
-- GitHub: `bun {baseDir}/../news-search/scripts/search.ts github "[product/model name]" 10` — code releases and repos
-- Read release page: `bun {baseDir}/../news-search/scripts/read.ts <announcement-url>` — extract details from blog posts
+- Twitter/X: `bun skills/news-search/scripts/search.ts twitter "[product/model name]" 20` — community reactions and expert commentary
+- Reddit: `bun skills/news-search/scripts/search.ts reddit "[product/model name]" 10` — technical discussions
+- GitHub: `bun skills/news-search/scripts/search.ts github "[product/model name]" 10` — code releases and repos
+- Read release page: `bun skills/news-search/scripts/read.ts <announcement-url>` — extract details from blog posts
 - See `news-search` skill for full platform reference.
 
 ### Step 2: Analyze Key Claims and Capabilities

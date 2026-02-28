@@ -28,10 +28,10 @@ A structured topic brainstorming session that generates 20+ ideas, applies a sco
 Before brainstorming, survey:
 
 - What are the top trends in AI right now? (use news-search CLI + HN MCP + arXiv MCP)
-  - **Platform sources** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
-    - Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "AI trending" 20` — hot topics and discourse
-    - Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "artificial intelligence" 10` — community buzz
-    - YouTube: `bun {baseDir}/../news-search/scripts/search.ts youtube "AI news this week" 5` — trending video topics
+  - **Platform sources** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
+    - Twitter/X: `bun skills/news-search/scripts/search.ts twitter "AI trending" 20` — hot topics and discourse
+    - Reddit: `bun skills/news-search/scripts/search.ts reddit "artificial intelligence" 10` — community buzz
+    - YouTube: `bun skills/news-search/scripts/search.ts youtube "AI news this week" 5` — trending video topics
     - See `news-search` skill for full platform reference.
 - What topics are over-covered (hard to differentiate)?
 - What topics are under-covered (gaps in existing content)?

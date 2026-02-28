@@ -73,12 +73,12 @@ Search for everything that has changed since the document's last update date:
 - Significant GitHub activity
 - Community adoption data (downloads, stars)
 
-**Platform sources** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
+**Platform sources** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
 
-- Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "[topic] since:[last-update]" 20` — recent announcements
-- Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "[topic] new" 10` — community discussions
-- GitHub: `bun {baseDir}/../news-search/scripts/search.ts github "[topic]" 10` — new repos and releases
-- YouTube: `bun {baseDir}/../news-search/scripts/search.ts youtube "[topic] 2026" 5` — recent talks and demos
+- Twitter/X: `bun skills/news-search/scripts/search.ts twitter "[topic] since:[last-update]" 20` — recent announcements
+- Reddit: `bun skills/news-search/scripts/search.ts reddit "[topic] new" 10` — community discussions
+- GitHub: `bun skills/news-search/scripts/search.ts github "[topic]" 10` — new repos and releases
+- YouTube: `bun skills/news-search/scripts/search.ts youtube "[topic] 2026" 5` — recent talks and demos
 - See `news-search` skill for full platform reference.
 
 ### Step 3: Identify What Changed

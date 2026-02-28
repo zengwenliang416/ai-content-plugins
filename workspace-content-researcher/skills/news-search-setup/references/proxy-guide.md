@@ -29,12 +29,12 @@
 
 4. Configure:
    ```bash
-   bun {baseDir}/../news-search/scripts/config.ts set reddit_proxy "http://user:pass@host:port"
+   bun skills/news-search/scripts/config.ts set reddit_proxy "http://user:pass@host:port"
    ```
 
 5. Verify:
    ```bash
-   bun {baseDir}/../news-search/scripts/doctor.ts --json
+   bun skills/news-search/scripts/doctor.ts --json
    # reddit should show "ok"
    ```
 
@@ -43,7 +43,7 @@
 If proxy setup is not desired, Exa semantic search can find Reddit content:
 
 ```bash
-bun {baseDir}/../news-search/scripts/search.ts exa "site:reddit.com AI agents"
+bun skills/news-search/scripts/search.ts exa "site:reddit.com AI agents"
 ```
 
 This doesn't require a proxy but returns results via Exa's index (may not be real-time).

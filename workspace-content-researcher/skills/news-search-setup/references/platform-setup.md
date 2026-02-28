@@ -21,7 +21,7 @@ See `cookie-guide.md` for detailed steps.
 Quick setup:
 1. `npm install -g @steipete/bird`
 2. Export cookies from browser via Cookie-Editor
-3. `bun {baseDir}/../news-search/scripts/config.ts parse-cookies '<cookies>'`
+3. `bun skills/news-search/scripts/config.ts parse-cookies '<cookies>'`
 
 ### Reddit
 
@@ -51,7 +51,7 @@ Free, no API key needed.
    mcporter config add xiaohongshu http://localhost:18060/mcp
    ```
 4. Open `http://localhost:18060` in browser and scan QR code with XiaoHongShu app
-5. Verify: `bun {baseDir}/../news-search/scripts/doctor.ts --json`
+5. Verify: `bun skills/news-search/scripts/doctor.ts --json`
 
 **Persistence**: Mount a Docker volume to persist login:
 ```bash

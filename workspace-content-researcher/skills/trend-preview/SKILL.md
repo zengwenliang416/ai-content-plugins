@@ -58,12 +58,12 @@ Scan for early indicators of emerging or accelerating trends:
 - Twitter/X discourse clusters
 - Reddit and Discord communities growing fast
 
-**Platform sources** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
+**Platform sources** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
 
-- Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "<trend-keyword>" 20`
-- Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "<trend-keyword>" 10`
-- GitHub: `bun {baseDir}/../news-search/scripts/search.ts github "<trend-keyword>" 10`
-- YouTube: `bun {baseDir}/../news-search/scripts/search.ts youtube "<trend-keyword>" 10`
+- Twitter/X: `bun skills/news-search/scripts/search.ts twitter "<trend-keyword>" 20`
+- Reddit: `bun skills/news-search/scripts/search.ts reddit "<trend-keyword>" 10`
+- GitHub: `bun skills/news-search/scripts/search.ts github "<trend-keyword>" 10`
+- YouTube: `bun skills/news-search/scripts/search.ts youtube "<trend-keyword>" 10`
 - See `news-search` skill for full platform reference.
 
 ### Step 2: Analyze Momentum and Trajectory

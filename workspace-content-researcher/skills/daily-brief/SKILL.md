@@ -21,15 +21,46 @@ The daily brief aggregates AI news from multiple sources, filters for relevance,
 
 ---
 
+## Path Convention
+
+All `news-search` commands use paths relative to the workspace root. The news-search scripts live at:
+
+```
+skills/news-search/scripts/search.ts   ← main search CLI
+skills/news-search/scripts/doctor.ts   ← platform availability checker
+```
+
+When running from this skill's directory, use: `bun skills/news-search/scripts/search.ts ...`
+
+**⚠️ Do NOT use `{baseDir}/../news-search/` — it resolves incorrectly. Always use `skills/news-search/scripts/` from the workspace root.**
+
+---
+
 ## Workflow
+
+### ⛔ NEVER Skip Data Gathering
+
+**ALWAYS execute the full workflow from Step 1, even if an existing briefing file exists in the workspace.** The user is asking for fresh data — never return a cached/stale file. If you find an existing `daily-brief-*.md` file, ignore it and regenerate from scratch.
 
 ### Step 1: Gather Sources
 
-Pull from all available sources in parallel:
+Pull from all available sources. **Follow priority order** — higher-priority sources are more reliable and should be fetched first. If a source fails, log the error and continue (never silently skip).
 
-**HuggingFace** (via hacker-news MCP):
+**⚠️ Important: All news-search commands MUST include `--since 24h` for freshness filtering.**
 
-- Check Hacker News for AI-tagged stories (top 50)
+**Run platform check first:**
+
+```
+bun skills/news-search/scripts/doctor.ts
+```
+
+This tells you which platforms are available. Skip unavailable platforms gracefully.
+
+**Priority 1 — MCP (most reliable, no external deps):**
+
+**Hacker News** (via hacker-news MCP):
+
+- Check HN for AI-tagged stories (top 50)
 - Focus on: Show HN posts about AI tools, papers posted to HN, AI company announcements
 
 **arXiv** (via arxiv MCP):
@@ -38,27 +69,28 @@ Pull from all available sources in parallel:
 - Filter for: high-engagement papers, papers from major labs, papers with unusual titles/claims
 - Time window: Last 24-48 hours
 
-**RSS feeds** (via news-search):
+**Priority 2 — RSS feeds (reliable if feedparser installed):**
 
-- `bun {baseDir}/../news-search/scripts/search.ts rss "https://importai.substack.com/feed" 10` — Import AI (Jack Clark)
-- `bun {baseDir}/../news-search/scripts/search.ts rss "https://deeplearning.ai/the-batch/feed" 10` — The Batch (Andrew Ng)
-- `bun {baseDir}/../news-search/scripts/search.ts rss "https://www.technologyreview.com/feed/" 10` — MIT Technology Review
-- `bun {baseDir}/../news-search/scripts/search.ts rss "https://venturebeat.com/category/ai/feed/" 10` — VentureBeat AI
-- `bun {baseDir}/../news-search/scripts/search.ts rss "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml" 10` — The Verge AI
+- `bun skills/news-search/scripts/search.ts rss "https://importai.substack.com/feed" 10 --since 24h` — Import AI
+- `bun skills/news-search/scripts/search.ts rss "https://deeplearning.ai/the-batch/feed" 10 --since 24h` — The Batch
+- `bun skills/news-search/scripts/search.ts rss "https://www.technologyreview.com/feed/" 10 --since 24h` — MIT Tech Review
+- `bun skills/news-search/scripts/search.ts rss "https://venturebeat.com/category/ai/feed/" 10 --since 24h` — VentureBeat AI
+- `bun skills/news-search/scripts/search.ts rss "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml" 10 --since 24h` — The Verge AI
 
-**Web search** (via news-search | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
+**Priority 3 — Platform sources (24h freshness enforced):**
 
-- `bun {baseDir}/../news-search/scripts/search.ts web "AI news today" 10`
-- `bun {baseDir}/../news-search/scripts/search.ts exa "AI model launch" 10`
-- `bun {baseDir}/../news-search/scripts/search.ts web "AI research paper" 10`
-- `bun {baseDir}/../news-search/scripts/search.ts web "AI company announcement" 10`
+- Twitter/X: `bun skills/news-search/scripts/search.ts twitter "AI news" 20 --since 24h`
+- Reddit: `bun skills/news-search/scripts/search.ts reddit "artificial intelligence" 10 --since 24h`
+- GitHub trending: `bun skills/news-search/scripts/search.ts github "AI" 10 --since 24h`
 
-**Platform sources** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
+**Priority 4 — Web search (supplementary, may return lower-quality results):**
 
-- Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "AI news" 20`
-- Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "artificial intelligence" 10`
-- GitHub trending: `bun {baseDir}/../news-search/scripts/search.ts github "AI" 10`
-- See `news-search` skill for full platform reference.
+- `bun skills/news-search/scripts/search.ts web "AI news today" 10 --since 24h`
+- `bun skills/news-search/scripts/search.ts exa "AI model launch" 10 --since 24h`
+
+Web search results often include older content despite freshness filters. **Cross-check dates** and discard any result older than 48h.
+
+**Error handling**: If a source fails, log `[WARN] <platform> failed: <error>` and continue. Include failed sources in the final `_Sources_` footer.
 
 ### Step 2: Filter for AI/ML Relevance
 

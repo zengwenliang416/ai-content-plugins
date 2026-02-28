@@ -3,58 +3,66 @@
 ## Branch Strategy
 
 - **`main`** — single long-lived branch; production-ready at all times.
-- **Feature branches** — use for new plugins or cross-plugin changes. Name as `<topic>` or `<owner>/<topic>`. Claude-automated branches may use `claude/<topic>-<hash>`.
-- **Direct `main` commits** — acceptable for small, single-plugin fixes (typo corrections, minor wording changes).
-- **Worktrees** — `.claude/worktrees/` provides isolated development environments; gitignored, never committed.
+- **Feature branches** — for multi-commit work. Name as `<topic>` or `<owner>/<topic>`.
+- **Direct `main` commits** — acceptable for small, isolated fixes.
+- **Worktrees** — `.claude/worktrees/` provides isolated dev environments; gitignored, never committed.
 
-## Commit Messages
+## Commit Message Format
 
-Format: imperative mood, single sentence, no trailing period.
-
-For plugin-scoped changes, prefix with the plugin directory name:
+Uses [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
-content-analysis: add competitor benchmarking command
-topic-research: fix trend scoring formula in skill
-growth-ops: update channel-mix output format
+<type>(<scope>): <description>
 ```
 
-For cross-cutting or repo-level changes, use a descriptive prefix:
+### Types
+
+| Type       | Usage                                    |
+| ---------- | ---------------------------------------- |
+| `feat`     | New feature or skill                     |
+| `fix`      | Bug fix                                  |
+| `docs`     | Documentation only                       |
+| `chore`    | Maintenance, cleanup, config             |
+| `refactor` | Code restructure without behavior change |
+
+### Scopes
+
+Scopes map to agent workspaces, skill names, or infrastructure:
 
 ```
-marketplace: register new audience-management plugin
-llmdoc: add git conventions reference
-docs: update root README
+feat(install): remove ~/.openclaw symlinks, make repo self-contained
+docs(changelog): add news-search feature entries to CHANGELOG
+refactor(topic-research): migrate data fetching to news-search CLI
+fix(mcp): remove rss-reader MCP server due to connection failures
+chore(config): add MCP config and update marketplace manifest
 ```
 
-Guidelines:
+Omit scope for broad changes: `docs: update Chinese README for OpenClaw architecture`
+
+### Guidelines
+
+- Imperative mood, lowercase start, no trailing period.
 - Keep under ~72 characters.
-- One plugin per commit — don't mix changes across plugin directories.
-- Use action verbs: `add`, `fix`, `update`, `remove`, `refactor`.
+- One logical change per commit.
 
 ## .gitignore Patterns
 
-| Pattern | Rationale |
-|---|---|
-| `.DS_Store`, `Thumbs.db` | OS metadata |
-| `.vscode/`, `.idea/`, `*.swp` | Editor/IDE state |
-| `node_modules/`, `venv/`, `__pycache__/` | Runtime dependencies (if any plugin adds scripts) |
-| `.env`, `.env.local`, `*.key`, `*.pem` | Secrets and credentials |
-| `dist/`, `build/`, `coverage/` | Build/test artifacts |
-| `TASKS.md`, `MEMORY.md` | Agent-local working files |
-| `.claude/worktrees/` | Worktree isolation directories |
+| Pattern                                  | Rationale                        |
+| ---------------------------------------- | -------------------------------- |
+| `TASKS.md`, `MEMORY.md`                  | Agent-local working files        |
+| `.claude/worktrees/`                     | Worktree isolation directories   |
+| `.brainstorm-runs/`, `backups`           | Generated output and backup dirs |
+| `node_modules/`, `venv/`, `__pycache__/` | Runtime dependencies             |
+| `.env`, `.env.local`, `*.key`, `*.pem`   | Secrets and credentials          |
+| `.DS_Store`, `.vscode/`, `.idea/`        | OS/editor metadata               |
 
-## File Sensitivity
+## Contribution Workflow
 
-- **`*.local.md`** — user-specific plugin configuration (API keys, account handles, platform credentials). Always gitignored. Provide an `.example` variant as a template when needed.
-- **`.env*`** — environment secrets. Never committed.
-- **`*.key`, `*.pem`** — cryptographic material. Never committed.
+1. Edit markdown files directly — changes take effect immediately.
+2. Skills are defined in `skills/*/SKILL.md` with OpenClaw frontmatter.
+3. Commit with scoped conventional messages; one logical change per commit.
+4. No CI/CD pipeline — validation is review-based.
 
-## Plugin Contribution Workflow
+## Migration Note
 
-1. Create a feature branch from `main`.
-2. Add or modify plugin files following the standard structure (`commands/`, `skills/`, `hooks/`, `.claude-plugin/plugin.json`).
-3. Register the plugin in root `marketplace.json` if new.
-4. Commit with plugin-prefixed messages; one plugin per commit.
-5. Open a PR to `main`; merge after review.
-6. No CI/CD pipeline — validation is review-based.
+Project migrated from a Claude Code plugin marketplace to OpenClaw 3-agent architecture in commit `dd0bc26`. Commit scopes shifted from plugin directory names (e.g., `content-analysis`, `growth-ops`) to agent workspace and infrastructure scopes (e.g., `install`, `mcp`, `config`).

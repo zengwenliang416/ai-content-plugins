@@ -1,81 +1,130 @@
-# Project Overview: AI Content Plugins
+# Project Overview: AI Content Agents
 
 ## Purpose
 
-A marketplace of Claude Cowork plugins for AI content creators and account operators. All plugins are file-based (markdown + JSON) with no compiled code. Plugins extend Claude's capabilities with domain-specific slash commands, skills (knowledge files), and MCP data connectors.
+Three autonomous OpenClaw agents for AI content creators. Each agent is a self-contained workspace with its own identity, personality, tools, memory, and skills. Together they cover the full content lifecycle: research, writing, and operations.
 
 ## Architecture
 
+The system uses a **workspace-per-agent** pattern. Each agent workspace is a directory containing markdown files that define the agent's behavior and a `skills/` directory with SKILL.md-based workflows.
+
 ```
-marketplace (repo root)
-  └── plugin/
-       ├── .claude-plugin/plugin.json   # manifest: name, version, description
-       ├── commands/*.md                # slash commands (thin wrappers -> skill delegation)
-       ├── skills/*/SKILL.md            # knowledge + workflows (auto-triggered by name/description match)
-       │    └── references/             # supplementary knowledge files
-       ├── hooks/hooks.json             # event-driven automation (currently empty across all plugins)
-       ├── .mcp.json                    # MCP server connections (HTTP remote)
-       └── .claude/*.local.md           # user-specific config (gitignored)
+workspace-*/
+├── IDENTITY.md    # Agent name + emoji (YAML frontmatter)
+├── SOUL.md        # Personality traits and communication style
+├── AGENTS.md      # Operating instructions (language, tools, protocols)
+├── TOOLS.md       # Required and optional tool inventory
+├── MEMORY.md      # Persistent cross-session memory (auto-loaded, 200-line cap)
+├── memory/        # Detailed topic memory files (linked from MEMORY.md)
+├── USER.md        # User-specific preferences (gitignored)
+└── skills/        # SKILL.md workflows with optional scripts/ and references/
 ```
 
-**Key flow:** User invokes `/plugin:command` -> command.md loads named skill -> SKILL.md provides full workflow + references.
+Registration manifest: `openclaw.json` declares all three agents with workspace paths. The OpenClaw gateway reads this to discover agents.
 
-## Plugin Inventory
+## Agent Inventory
 
-| Plugin | Path | Commands | Skills | MCP Servers | Focus |
-|--------|------|----------|--------|-------------|-------|
-| content-analysis | `content-analysis/` | 6 | 7 | 0 | Competitor analysis, benchmarking, quality checks, trend analysis, template creation, draft debugging |
-| topic-research | `topic-research/` | 9 | 8 | 3 | Deep research pipeline, daily briefs, brainstorming, trend preview, field overview, event calendar |
-| content-production | `content-production/` | 7 | 9 | 0 | Long articles, short posts, infographics, A/B testing, collaboration letters |
-| growth-ops | `growth-ops/` | 9 | 9 | 2 | Source discovery, topic screening, review checklists, growth planning, performance analysis |
-| audience-management | `audience-management/` | 6 | 6 | 0 | Operations reports, audience reviews, content planning, business proposals |
-| **Totals** | | **37** | **39** | **5** | |
+| Agent              | Workspace                       | Emoji | Skills | Focus Areas                                                                                                   |
+| ------------------ | ------------------------------- | ----- | ------ | ------------------------------------------------------------------------------------------------------------- |
+| Content Researcher | `workspace-content-researcher/` | 🔍    | 18     | Deep research, daily briefs, trend analysis, competitor intelligence, news monitoring, content quality review |
+| Content Writer     | `workspace-content-writer/`     | ✍️    | 16     | Long-form articles, social posts, image generation (4 providers), infographics, slide decks, knowledge comics |
+| Content Operator   | `workspace-content-operator/`   | ⚡    | 22     | Publishing (WeChat, X/Twitter), analytics, growth planning, content strategy, formatting utilities            |
+
+**Total: 56 skills** across 3 agents.
 
 ## Key Architectural Patterns
 
-### 1. Command-to-Skill Delegation
-All commands are thin wrappers: parse argument -> load named skill -> skill provides full workflow. No commands embed inline workflows.
+### SKILL.md Workflow Format
 
-### 2. MCP Integrations
-Two plugins use MCP servers. `topic-research` connects to hacker-news, arxiv, and rss-reader (3 servers). `growth-ops` connects to hacker-news and rss-reader (2 servers). Other plugins rely on implicit web search only.
+Skills are defined as markdown files with OpenClaw YAML frontmatter (`name`, `description`, `user-invocable`, `metadata.openclaw`) followed by a step-by-step workflow body. Supporting data lives in `references/` subdirectories.
 
-### 3. SKILL.md Format
-Skills use a consistent structure: trigger phrases, numbered workflow steps, output specifications. Auto-activate via `name` + `description` frontmatter.
+### Symlink Sharing
 
-### 4. WRITE/MONITOR/SKIP Decision Framework
-`topic-research` defines a shared decision vocabulary (WRITE/MONITOR/SKIP) for topic evaluation. Partially adopted by other plugins.
+The `news-search` skill is the shared data-gathering infrastructure. It lives canonically in the researcher workspace and is symlinked into writer and operator workspaces:
 
-### 5. Two Tool Tiers
-- Implicit: web search (always available, no configuration)
-- Explicit: MCP servers (declared in `.mcp.json`, requires endpoint setup)
+```
+workspace-content-writer/skills/news-search   -> ../../workspace-content-researcher/skills/news-search
+workspace-content-operator/skills/news-search -> ../../workspace-content-researcher/skills/news-search
+```
 
-### 6. Chinese Platform Support
-`content-production` includes skills targeting Chinese social platforms (Xiaohongshu, WeChat, Weibo) with platform-specific formatting and conventions.
+### EXTEND.md Configuration
 
-## Cross-Cutting Conventions
+Visual skills support two-level persistent config: project-level (`.content-skills/<skill>/EXTEND.md`) then user-level (`~/.content-skills/<skill>/EXTEND.md`). Controls default provider, quality, aspect ratio, style, and language.
 
-### Output Formats
-Markdown is the universal output format. `topic-research` also produces xlsx and zip artifacts for structured deliverables.
+### Memory Hierarchy
 
-### Data Integrity
-- `topic-research`: prohibits fabrication entirely
-- `content-analysis`: allows labeled estimates marked with `[E]`
+`MEMORY.md` is auto-loaded into context (truncated at 200 lines). Detailed notes go in `memory/*.md` files linked from `MEMORY.md`.
 
-### Trigger-Only Skills
-Two skills in `content-production` (asset-pack, presentation) have no corresponding commands and activate only via skill trigger matching.
+### Data Freshness Protocol
 
-### Meta-Skill
-`content-analysis` includes a skill-creator meta-skill for generating new skills within the plugin framework.
+24-hour default window for all search data. Enforced via `--since 24h` flag. Breaking news can use `--since 2h`; background research allows `--no-freshness`.
 
-## Known Gaps
+### Language Matching
 
-### Structural
-- **Cross-plugin handoffs are implicit** — no orchestration layer connects plugin outputs to downstream plugin inputs
-- **WRITE/MONITOR/SKIP vocabulary inconsistent** — fully adopted in `topic-research`, partially elsewhere
-- **Trigger phrase ambiguity** — "editorial calendar" matches skills in both `content-production` and `audience-management`
+All three agents auto-detect Chinese or English from user input and respond in the same language.
 
-### Automation
-- **No event-driven automation** — all plugins have empty `hooks.json`; everything is user-triggered
+## Technology Stack
 
-### Flagship Workflow
-`topic-research` includes a deep-research command that orchestrates a 5-task pipeline, the most complex workflow in the marketplace.
+| Component             | Technology                                  | Purpose                                                             |
+| --------------------- | ------------------------------------------- | ------------------------------------------------------------------- |
+| Agent framework       | OpenClaw                                    | Agent registration, gateway, lifecycle                              |
+| Script runtime        | Bun                                         | TypeScript execution for skill scripts                              |
+| Browser automation    | Chrome CDP                                  | Publishing (WeChat, X/Twitter), web clipping                        |
+| MCP servers           | hacker-news, arxiv, rss-reader              | Structured data access for researcher                               |
+| Multi-platform search | news-search CLI                             | 12+ platforms (Twitter, Reddit, YouTube, GitHub, XiaoHongShu, etc.) |
+| Image generation      | Google Gemini, OpenAI, DashScope, Replicate | 4-provider support with fallback                                    |
+| Platform config       | mcporter (Exa MCP)                          | Multi-platform scraping coordination                                |
+
+## Installation
+
+`install.sh` performs four steps:
+
+1. Validates runtime dependencies (bun, Python feedparser)
+2. Registers agents in OpenClaw via `openclaw agents add`
+3. Creates `news-search` symlinks across workspaces
+4. Installs npm/bun dependencies in skill `scripts/` directories
+
+## Skill Distribution by Category
+
+### Researcher (18 skills)
+
+| Category          | Skills                                                                   | Count |
+| ----------------- | ------------------------------------------------------------------------ | ----- |
+| Core Research     | deep-research, field-overview, topic-brainstorm, research-updater        | 4     |
+| News & Monitoring | daily-brief, news-search, news-search-setup                              | 3     |
+| Trend Analysis    | trend-analysis, trend-preview, narrative-tracker                         | 3     |
+| Competitive Intel | competitor-analysis, content-benchmark, release-analysis, event-calendar | 4     |
+| Content Quality   | quality-check, draft-debugger, template-creator                          | 3     |
+| Meta              | skill-creator                                                            | 1     |
+
+### Writer (16 skills)
+
+| Category           | Skills                                                                                         | Count |
+| ------------------ | ---------------------------------------------------------------------------------------------- | ----- |
+| Long-Form Writing  | article-builder, short-post                                                                    | 2     |
+| Visual Generation  | ai-image-gen, cover-generator, infographic-gen, article-illustrator, xhs-card, slide-generator | 6     |
+| Structured Visual  | infographic, presentation                                                                      | 2     |
+| Creative Formats   | knowledge-comic                                                                                | 1     |
+| Content Operations | asset-pack, audience-targeting, content-experiment, content-tracker, collab-letter             | 5     |
+
+### Operator (22 skills)
+
+| Category            | Skills                                                                                   | Count |
+| ------------------- | ---------------------------------------------------------------------------------------- | ----- |
+| Publishing          | wechat-publisher, x-publisher, review-checklist                                          | 3     |
+| Analytics           | account-monitor, performance-analysis, ops-report, content-roi                           | 4     |
+| Audience & Growth   | audience-review, growth-plan, content-rebalance                                          | 3     |
+| Strategy & Planning | content-plan, strategy-memo, content-cleanup, topic-screening                            | 4     |
+| Business Dev        | biz-proposal, collab-prep                                                                | 2     |
+| Utilities           | md-to-html, md-formatter, image-compressor, web-clipper, tweet-clipper, source-discovery | 6     |
+
+## Known Gaps and Risks
+
+| Risk                          | Severity | Description                                                                                                                    |
+| ----------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| No inter-agent messaging      | Medium   | Agents share data only via filesystem (symlinks, output files). No runtime protocol for task handoff or coordination.          |
+| news-search symlink coupling  | Low      | Writer and operator depend on researcher's news-search directory structure. Breaking changes in researcher propagate silently. |
+| Empty memories                | Low      | All three agents have empty `MEMORY.md` and `memory/` directories. No accumulated operational knowledge yet.                   |
+| Stale llmdoc                  | Medium   | Legacy documentation in `llmdoc/` still references the old plugin marketplace architecture (being updated).                    |
+| MEMORY.md gitignore ambiguity | Low      | Root `.gitignore` has `MEMORY.md` which may conflict with workspace-specific memory files.                                     |
+| HEARTBEAT.md undocumented     | Low      | Each workspace has a `HEARTBEAT.md` file with unclear purpose (possibly OpenClaw liveness signaling).                          |

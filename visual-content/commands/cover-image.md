@@ -14,4 +14,20 @@ All output artifacts must be produced in the user's chosen language.
 
 Load the `cover-generator` skill and generate a cover image.
 
-If an article file path is provided, use it. Otherwise ask the user for the article content or file path.
+## Artifact Handoff
+
+**Input**: If an article file path is provided, use it directly.
+
+If no argument is provided, check for recent articles:
+
+- `ai-content-output/deep-research/` — look for `article.md` files
+- `ai-content-output/articles/` — look for `.md` files
+
+If multiple articles exist, use AskUserQuestion to let the user choose which article to generate a cover for.
+
+**Output**: Cover image saved to:
+
+- `ai-content-output/deep-research/<slug>/images/cover.png` (if article is from deep-research)
+- `cover-image/<topic-slug>/cover.png` (if standalone)
+
+**Next step**: Suggest running `/content-utilities:markdown-to-html` to convert the article (with cover) for WeChat publishing.

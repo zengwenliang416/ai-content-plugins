@@ -23,3 +23,22 @@ This is a 5-task pipeline that must be executed one task at a time:
 3. Analysis & Synthesis - Comparative analysis and content recommendation
 4. Visual Asset Generation - Charts, diagrams, infographics
 5. Article Assembly - Final publication-ready article
+
+## Artifact Handoff
+
+**Input**: Before starting Task 1, check for upstream artifacts:
+
+- `ai-content-output/brainstorm/` — for a matching topic brief
+- `ai-content-output/daily-brief/` — for relevant news data
+
+If multiple brainstorm files exist, use AskUserQuestion to let the user choose which one to use (or skip).
+
+**Output**: All task outputs are saved to `ai-content-output/deep-research/<slug>/`:
+
+- Task 1 → `research.md`
+- Task 2 → `data-workbook.md`
+- Task 3 → `analysis.md`
+- Task 4 → `images/` + `images/chart_index.txt`
+- Task 5 → `article.md`
+
+**Next step**: After Task 5, suggest running `/content-production:long-article` (to refine) or `/visual-content:cover-image` (to generate cover).

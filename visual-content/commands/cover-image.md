@@ -12,18 +12,30 @@ Before generating any output, use AskUserQuestion to ask the user:
 
 All output artifacts must be produced in the user's chosen language.
 
-Load the `cover-generator` skill and generate a cover image.
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
+
+**CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for input. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**: If the user passed an article file path as argument, use it directly. Skip to Step 2.
+
+2. **Auto-scan articles**: Run these Bash commands immediately:
+
+```bash
+ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
+ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
+```
+
+If files found → present them to the user via AskUserQuestion: "检测到以下文章，请选择要生成封面的文章：" with the files as options.
+
+3. **No upstream found**: Only in this case, ask the user for an article file path.
+
+## Step 2: Load Skill and Execute
+
+Load the `cover-generator` skill and generate a cover image for the selected article.
 
 ## Artifact Handoff
-
-**Input**: If an article file path is provided, use it directly.
-
-If no argument is provided, check for recent articles:
-
-- `ai-content-output/deep-research/` — look for `article.md` files
-- `ai-content-output/articles/` — look for `.md` files
-
-If multiple articles exist, use AskUserQuestion to let the user choose which article to generate a cover for.
 
 **Output**: Cover image saved to:
 

@@ -12,9 +12,35 @@ Before generating any output, use AskUserQuestion to ask the user:
 
 All output artifacts must be produced in the user's chosen language.
 
-Load the `deep-research` skill and begin the 5-task pipeline to create a comprehensive AI topic research article.
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
 
-If a topic is provided, use it. Otherwise ask the user which AI topic or technology to research.
+**CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for a topic. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**: If the user passed a topic or file path as argument, use it directly. Skip to Step 2.
+
+2. **Auto-scan brainstorm output**: Run this Bash command immediately:
+
+```bash
+TODAY=$(date +%Y-%m-%d) && ls -t ai-content-output/brainstorm/${TODAY}*.md ai-content-output/brainstorm/*.md 2>/dev/null | head -3
+```
+
+If files found → Read the most recent one, extract the top-3 topic briefs. Present them to the user via AskUserQuestion: "检测到最近的选题报告，请选择一个话题进入深度研究：" with the top-3 topics as options (plus a "自定义话题" option).
+
+3. **Auto-scan daily brief**: If no brainstorm output, check:
+
+```bash
+ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -1
+```
+
+If found → Read the file, extract top stories as potential topics. Present them to the user via AskUserQuestion.
+
+4. **No upstream found**: Only in this case, ask the user which AI topic or technology to research.
+
+## Step 2: Load Skill and Execute
+
+Load the `deep-research` skill. Pass the selected topic and any upstream context.
 
 This is a 5-task pipeline that must be executed one task at a time:
 
@@ -25,13 +51,6 @@ This is a 5-task pipeline that must be executed one task at a time:
 5. Article Assembly - Final publication-ready article
 
 ## Artifact Handoff
-
-**Input**: Before starting Task 1, check for upstream artifacts:
-
-- `ai-content-output/brainstorm/` — for a matching topic brief
-- `ai-content-output/daily-brief/` — for relevant news data
-
-If multiple brainstorm files exist, use AskUserQuestion to let the user choose which one to use (or skip).
 
 **Output**: All task outputs are saved to `ai-content-output/deep-research/<slug>/`:
 

@@ -12,17 +12,33 @@ Before generating any output, use AskUserQuestion to ask the user:
 
 All output artifacts must be produced in the user's chosen language.
 
-Load the `article-builder` skill and write a long-form article for the specified topic or outline.
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
+
+**CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for a topic. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**: If the user passed a path or topic as argument, use it directly. Skip to Step 2.
+
+2. **Auto-scan deep-research output**: Run this Bash command immediately:
+
+```bash
+ls -dt ai-content-output/deep-research/*/ 2>/dev/null | head -3
+```
+
+If directories found → list them and present to the user via AskUserQuestion: "检测到以下深度研究产物，请选择一个作为文章素材：" with the directories as options (plus "自定义话题" option).
+
+3. **No upstream found**: Only in this case, ask the user for a topic or outline.
+
+## Step 2: Load Skill and Execute
+
+Load the `article-builder` skill. Pass the selected input.
+
+- Deep-research directory → loads all research documents as source material
+- Single file → uses as reference input
+- Topic name → starts from scratch
 
 ## Artifact Handoff
-
-**Input**: The argument can be:
-
-1. A deep-research directory path (e.g., `ai-content-output/deep-research/llm-agents/`) — loads all research documents as source material
-2. A single file path — uses it as reference input
-3. A topic name — starts from scratch
-
-If no argument is provided, check `ai-content-output/deep-research/` for recent research directories. If multiple exist, use AskUserQuestion to let the user choose which topic to write about (or start fresh).
 
 **Output**: Article saved to:
 

@@ -12,20 +12,33 @@ Before generating any output, use AskUserQuestion to ask the user:
 
 All output artifacts must be produced in the user's chosen language.
 
-Load the `wechat-publisher` skill and publish the content to WeChat Official Account.
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
+
+**CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for input. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**: If the user passed a file path as argument, use it directly. HTML files skip conversion; markdown files are converted first. Skip to Step 2.
+
+2. **Auto-scan publishable content**: Run these Bash commands immediately:
+
+```bash
+# Prefer HTML (ready to publish), fallback to Markdown
+ls -t ai-content-output/deep-research/*/article.html 2>/dev/null | head -3
+ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
+ls -t ai-content-output/articles/*.html 2>/dev/null | head -3
+ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
+```
+
+If files found → present them to the user via AskUserQuestion: "检测到以下可发布内容，请选择要发布的文件：" with the files as options. If only `.md` files found (no `.html`), note: "建议先运行 `/content-utilities:markdown-to-html` 转换格式".
+
+3. **No upstream found**: Only in this case, ask the user for an article file path.
+
+## Step 2: Load Skill and Execute
+
+Load the `wechat-publisher` skill and publish the selected content to WeChat Official Account.
 
 ## Artifact Handoff
-
-**Input**: If a file path is provided, use it directly. HTML files skip conversion; markdown files are converted first.
-
-If no argument is provided, check for publishable content:
-
-- `ai-content-output/deep-research/` — look for `article.html` files first, then `article.md`
-- `ai-content-output/articles/` — look for `.html` files first, then `.md`
-
-If multiple files exist, use AskUserQuestion to let the user choose which article to publish.
-
-If only `.md` files found (no `.html`), suggest running `/content-utilities:markdown-to-html` first.
 
 **Output**: Draft published to WeChat Official Account. Completion report with draft media_id.
 

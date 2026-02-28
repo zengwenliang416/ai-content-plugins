@@ -221,7 +221,7 @@ ai-content-output/deep-research/<article-slug>/
 
 **Input Context**:
 
-> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user for topic details or starting research from scratch, you MUST first scan for existing upstream artifacts. If upstream artifacts are found, load them automatically and inform the user — do NOT ask for confirmation. Only ask the user for topic input when NO upstream artifact is found.
+> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user for topic details or starting research from scratch, you MUST first scan for existing upstream artifacts. If upstream artifacts are found, present them to the user via AskUserQuestion for confirmation before using. Only ask the user for topic input when NO upstream artifact is found.
 
 **Detection order** (stop at first hit):
 

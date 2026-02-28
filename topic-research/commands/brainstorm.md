@@ -20,23 +20,16 @@ All output artifacts must be produced in the user's chosen language.
 
 1. **Explicit argument**: If the user passed a file path as argument (e.g., `/topic-research:brainstorm ai-content-output/daily-brief/2026-02-28.md`), use that file directly. Skip to Step 2.
 
-2. **Auto-scan today's daily brief**: Run this Bash command immediately:
+2. **Auto-scan daily brief**: Run these Bash commands immediately:
 
 ```bash
 TODAY=$(date +%Y-%m-%d) && ls ai-content-output/daily-brief/${TODAY}*.md 2>/dev/null
-```
-
-If a file is found → Read the file, inform the user "已自动加载今日简报: [filename]", and skip to Step 2 with this file as input. Do NOT ask the user whether to use it — just use it.
-
-3. **Auto-scan recent daily brief** (within 3 days): Run:
-
-```bash
 ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
 ```
 
-If files found → use the most recent one. Inform the user which file was loaded and its date.
+If files found → present them to the user via AskUserQuestion: "检测到以下每日简报，请选择要用作素材的文件：" with the files as options (plus a "自定义话题" option for starting fresh).
 
-4. **No upstream found**: Only in this case, ask the user if they have a seed topic or niche to focus on.
+3. **No upstream found**: Only in this case, ask the user if they have a seed topic or niche to focus on.
 
 ## Step 2: Load Skill and Execute
 

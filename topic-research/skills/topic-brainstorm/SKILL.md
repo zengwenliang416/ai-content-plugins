@@ -17,14 +17,13 @@ A structured topic brainstorming session that generates 20+ ideas, applies a sco
 
 ## Input Handling
 
-> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user ANY question about seed topics or materials, you MUST first scan for existing upstream artifacts. Do NOT ask "do you have a seed topic" or "provide materials" if an upstream artifact already exists. Only ask the user when NO upstream artifact is found.
+> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user ANY question about seed topics or materials, you MUST first scan for existing upstream artifacts. If upstream artifacts are found, present them to the user via AskUserQuestion for confirmation before using. Only ask the user when NO upstream artifact is found.
 
 **Detection order** (stop at first hit):
 
 1. **Explicit argument**: If user passes a file path (e.g., `/topic-research:brainstorm path/to/file.md`), use that file directly
-2. **Today's daily brief**: Scan `ai-content-output/daily-brief/` for files matching today's date (`YYYY-MM-DD` pattern). If found, read and use as seed material automatically — inform the user which file was loaded, do NOT ask for confirmation
-3. **Recent daily brief**: If no today's brief, check for the most recent file in `ai-content-output/daily-brief/` (within last 3 days). If found, use it with a note about the date
-4. **No upstream found**: Only in this case, ask the user if they have a seed topic or niche to focus on
+2. **Daily brief files**: Scan `ai-content-output/daily-brief/` for files matching today's date first, then recent files (within 3 days). If found, present them to the user via AskUserQuestion: "检测到以下每日简报，请选择要用作素材的文件：" with the files as options (plus a "自定义话题" option)
+3. **No upstream found**: Only in this case, ask the user if they have a seed topic or niche to focus on
 
 **When upstream artifact is loaded**:
 
@@ -47,9 +46,8 @@ TODAY=$(date +%Y-%m-%d)
 ls ai-content-output/daily-brief/${TODAY}*.md 2>/dev/null
 ```
 
-- If file found → load it, extract seed material, inform user: "已自动加载今日简报: [filename]"
-- If not found → check recent files: `ls -t ai-content-output/daily-brief/ | head -3`
-- If still nothing → proceed to ask user for seed topic
+- If files found → present to user via AskUserQuestion: "检测到以下每日简报，请选择要用作素材的文件：" with options (plus "自定义话题")
+- If nothing found → proceed to ask user for seed topic
 
 **Only after Step 0 completes**, continue to Step 1.
 

@@ -7,14 +7,13 @@ description: Write comprehensive long-form articles for blogs, newsletters, and 
 
 ## Input Handling
 
-> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user for article topics or starting from scratch, you MUST first scan for existing upstream artifacts. If found, load them automatically and inform the user — do NOT ask for confirmation unless multiple candidates exist. Only ask the user for input when NO upstream artifact is found.
+> **CONSTRAINT — Upstream Artifact Auto-Detection is MANDATORY**: Before asking the user for article topics or starting from scratch, you MUST first scan for existing upstream artifacts. If found, present them to the user via AskUserQuestion for confirmation before using. Only ask the user for input when NO upstream artifact is found.
 
 **Detection order** (stop at first hit):
 
 1. **Explicit argument**: If user passes a file/directory path, use it directly
 2. **Auto-scan deep-research**: Check `ai-content-output/deep-research/` for recent research directories
-   - If exactly one found (within 3 days), load it automatically
-   - If multiple found, list available topics and ask user which to use
+   - Present found directories to the user via AskUserQuestion for selection
 3. **No upstream found**: Only in this case, proceed with fresh source gathering
 
 **When a deep-research directory is loaded** (e.g., `ai-content-output/deep-research/<slug>/`):

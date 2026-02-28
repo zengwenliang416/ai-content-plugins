@@ -35,11 +35,11 @@ Evaluate the topic across five dimensions:
 | Expertise fit | Can you credibly cover this well? | | |
 | Timeliness | Is this trending now or evergreen? | | |
 
-**Platform signal check** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
-- Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "[topic]" 10` — gauge current discourse volume
-- Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "[topic]" 5` — check community interest
-- YouTube: `bun {baseDir}/../news-search/scripts/search.ts youtube "[topic]" 5` — assess existing video coverage
-- Web: `bun {baseDir}/../news-search/scripts/search.ts web "[topic]" 10` — evaluate competition and demand
+**Platform signal check** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
+- Twitter/X: `bun skills/news-search/scripts/search.ts twitter "[topic]" 10` — gauge current discourse volume
+- Reddit: `bun skills/news-search/scripts/search.ts reddit "[topic]" 5` — check community interest
+- YouTube: `bun skills/news-search/scripts/search.ts youtube "[topic]" 5` — assess existing video coverage
+- Web: `bun skills/news-search/scripts/search.ts web "[topic]" 10` — evaluate competition and demand
 - See `news-search` skill for full platform reference.
 
 **Scoring guide**:

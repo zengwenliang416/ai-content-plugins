@@ -211,7 +211,7 @@ B) Continue - provide HTML file manually
 2. **Execute conversion** (using the discovered skill), **always pass `--theme`**:
 
 ```bash
-npx -y bun {baseDir}/../md-to-html/scripts/main.ts <markdown_file> --theme <theme>
+npx -y bun skills/md-to-html/scripts/main.ts <markdown_file> --theme <theme>
 ```
 
 **CRITICAL**: Always include `--theme` parameter. Never omit it, even if using `default`.

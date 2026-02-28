@@ -24,11 +24,11 @@ Gather:
 - **Competition**: Are there other creators being considered?
 - **Budget signals**: Any indication of budget range shared?
 
-**Research the brand** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
-- Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "[brand name]" 10` — brand presence and engagement
-- Web: `bun {baseDir}/../news-search/scripts/search.ts web "[brand name] marketing" 10` — campaigns and press
-- LinkedIn: `bun {baseDir}/../news-search/scripts/search.ts linkedin "[brand name]"` — company profile
-- Read brand pages: `bun {baseDir}/../news-search/scripts/read.ts <brand-url>` — extract product and positioning info
+**Research the brand** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
+- Twitter/X: `bun skills/news-search/scripts/search.ts twitter "[brand name]" 10` — brand presence and engagement
+- Web: `bun skills/news-search/scripts/search.ts web "[brand name] marketing" 10` — campaigns and press
+- LinkedIn: `bun skills/news-search/scripts/search.ts linkedin "[brand name]"` — company profile
+- Read brand pages: `bun skills/news-search/scripts/read.ts <brand-url>` — extract product and positioning info
 - See `news-search` skill for full platform reference.
 
 ### Step 2: Proposal Structure

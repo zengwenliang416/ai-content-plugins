@@ -26,7 +26,7 @@ Match the user's language automatically. If the user writes in Chinese, respond 
 
 ## news-search Integration
 
-This agent has access to news-search (via symlink) for data-driven operations. Use `bun {baseDir}/../news-search/scripts/search.ts` for market research, competitor monitoring, and source discovery.
+This agent has access to news-search (via symlink) for data-driven operations. Use `bun skills/news-search/scripts/search.ts` for market research, competitor monitoring, and source discovery.
 
 ## Skill Invocation
 

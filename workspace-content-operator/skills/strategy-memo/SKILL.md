@@ -24,10 +24,10 @@ Collect from the user (or from prior analysis in the session):
 - Stakeholders who will read or act on this memo
 - Any prior decisions or commitments that constrain options
 
-**Market and platform data** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
-- Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "[topic] trend" 10` — audience sentiment signals
-- Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "[niche]" 10` — community discussion themes
-- Web: `bun {baseDir}/../news-search/scripts/search.ts web "[market topic]" 10` — industry reports and data
+**Market and platform data** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
+- Twitter/X: `bun skills/news-search/scripts/search.ts twitter "[topic] trend" 10` — audience sentiment signals
+- Reddit: `bun skills/news-search/scripts/search.ts reddit "[niche]" 10` — community discussion themes
+- Web: `bun skills/news-search/scripts/search.ts web "[market topic]" 10` — industry reports and data
 - See `news-search` skill for full platform reference.
 
 ### Step 2: Draft Memo Structure

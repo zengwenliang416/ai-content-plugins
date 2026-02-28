@@ -38,9 +38,9 @@ Current format distribution:
 
 Define where the content mix should be:
 - **Based on audience data**: Which topics and formats generate the strongest engagement?
-  - **Platform signals** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
-    - Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "[your niche]" 10` — what resonates with audience
-    - Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "[your niche]" 10` — community demand signals
+  - **Platform signals** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
+    - Twitter/X: `bun skills/news-search/scripts/search.ts twitter "[your niche]" 10` — what resonates with audience
+    - Reddit: `bun skills/news-search/scripts/search.ts reddit "[your niche]" 10` — community demand signals
     - See `news-search` skill for full platform reference.
 - **Based on strategy**: What topics need more coverage to build authority or attract a new segment?
 - **Based on platform requirements**: Each platform favors certain formats (short video on TikTok/Reels, long-form on YouTube/Substack)

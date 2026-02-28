@@ -23,14 +23,14 @@ Research and identify potential sources based on the user's topic or niche:
 - **Content goal**: What will these sources be used for? (background research, expert quotes, data, inspiration)
 - **Source types needed**: Primary research, expert opinion, data/statistics, community discussion, news
 - **Sources to search**: Use web search to find blogs, newsletters, Substack writers, LinkedIn voices, subreddits, YouTube channels, podcasts, academic papers, and industry reports matching the topic
-  - **Platform sources** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
-    - Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "[topic] expert" 20` — find thought leaders
-    - Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "[topic]" 10` — discover active subreddits and communities
-    - YouTube: `bun {baseDir}/../news-search/scripts/search.ts youtube "[topic]" 10` — find content creators and channels
-    - GitHub: `bun {baseDir}/../news-search/scripts/search.ts github "[topic]" 10` — find open-source projects and contributors
-    - LinkedIn: `bun {baseDir}/../news-search/scripts/search.ts linkedin "[topic] expert" 10` — professional voices
-    - Web/Exa: `bun {baseDir}/../news-search/scripts/search.ts web "[topic] newsletter blog" 10` — discover publications
-    - Read any source: `bun {baseDir}/../news-search/scripts/read.ts <url>` — extract content from discovered URLs
+  - **Platform sources** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
+    - Twitter/X: `bun skills/news-search/scripts/search.ts twitter "[topic] expert" 20` — find thought leaders
+    - Reddit: `bun skills/news-search/scripts/search.ts reddit "[topic]" 10` — discover active subreddits and communities
+    - YouTube: `bun skills/news-search/scripts/search.ts youtube "[topic]" 10` — find content creators and channels
+    - GitHub: `bun skills/news-search/scripts/search.ts github "[topic]" 10` — find open-source projects and contributors
+    - LinkedIn: `bun skills/news-search/scripts/search.ts linkedin "[topic] expert" 10` — professional voices
+    - Web/Exa: `bun skills/news-search/scripts/search.ts web "[topic] newsletter blog" 10` — discover publications
+    - Read any source: `bun skills/news-search/scripts/read.ts <url>` — extract content from discovered URLs
     - See `news-search` skill for full platform reference.
 - **Output**: A shortlist of sources with: name, type, URL, brief description, and why it's relevant
 

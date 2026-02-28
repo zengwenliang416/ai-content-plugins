@@ -47,10 +47,10 @@ Content pillars: 3-5 recurring topic areas that define the creator's niche. Each
 
 ### Step 3: Theme Planning
 
-**Trend research for themes** (24h freshness enforced | `bun {baseDir}/../news-search/scripts/doctor.ts` for status):
-- Twitter/X: `bun {baseDir}/../news-search/scripts/search.ts twitter "[niche] trending" 10` — what's hot in your space
-- Reddit: `bun {baseDir}/../news-search/scripts/search.ts reddit "[niche]" 10` — community discussion themes
-- Web: `bun {baseDir}/../news-search/scripts/search.ts web "[niche] content trends 2026" 10` — industry trends
+**Trend research for themes** (24h freshness enforced | `bun skills/news-search/scripts/doctor.ts` for status):
+- Twitter/X: `bun skills/news-search/scripts/search.ts twitter "[niche] trending" 10` — what's hot in your space
+- Reddit: `bun skills/news-search/scripts/search.ts reddit "[niche]" 10` — community discussion themes
+- Web: `bun skills/news-search/scripts/search.ts web "[niche] content trends 2026" 10` — industry trends
 - See `news-search` skill for full platform reference.
 
 **Monthly themes**: Anchor each month to a central topic or campaign to create coherence:

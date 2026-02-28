@@ -1,6 +1,6 @@
 ---
 description: Brainstorm and screen content topics
-argument-hint: "[daily-brief file path OR seed topic]"
+argument-hint: "[daily-brief path, daily-brief .openspec.json, or seed topic]"
 ---
 
 Before generating any output, use AskUserQuestion to ask the user:
@@ -18,9 +18,20 @@ All output artifacts must be produced in the user's chosen language.
 
 **Detection order** (stop at first hit):
 
-1. **Explicit argument**: If the user passed a file path as argument (e.g., `/topic-research:brainstorm ai-content-output/daily-brief/2026-02-28.md`), use that file directly. Skip to Step 2.
+1. **Explicit argument**:
+   - If argument is daily-brief `.openspec.json`, read `outputs.daily_brief_md` and continue with contract context.
+   - If argument is a file path, use it directly.
+   - Then skip to Step 2.
 
-2. **Auto-scan daily brief**: Run these Bash commands immediately:
+2. **Auto-scan daily-brief OpenSpec contracts**: Run this Bash command immediately:
+
+```bash
+ls -t ai-content-output/daily-brief/*.openspec.json 2>/dev/null | head -3
+```
+
+If contracts found → read latest `outputs.daily_brief_md` and ask user whether to continue from it.
+
+3. **Auto-scan daily brief**: Run these Bash commands immediately:
 
 ```bash
 TODAY=$(date +%Y-%m-%d) && ls ai-content-output/daily-brief/${TODAY}*.md 2>/dev/null
@@ -29,7 +40,7 @@ ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
 
 If files found → present them to the user via AskUserQuestion: "检测到以下每日简报，请选择要用作素材的文件：" with the files as options (plus a "自定义话题" option for starting fresh).
 
-3. **No upstream found**: Only in this case, ask the user if they have a seed topic or niche to focus on.
+4. **No upstream found**: Only in this case, ask the user if they have a seed topic or niche to focus on.
 
 ## Step 2: Load Skill and Execute
 
@@ -40,5 +51,15 @@ Generate a scored list of content topic ideas with briefs for the top candidates
 ## Artifact Handoff
 
 **Output**: Results MUST be saved to `ai-content-output/brainstorm/YYYY-MM-DD-topic-brainstorm.md`.
+
+**OpenSpec contract (RECOMMENDED)**:
+
+- Create or update `ai-content-output/brainstorm/YYYY-MM-DD-topic-brainstorm.openspec.json`.
+- Minimum fields:
+  - `pipeline`: `brainstorm->deep-research`
+  - `stage`: `brainstorm`
+  - `outputs.brainstorm_md`: brainstorm file path
+  - `next.command`: `/topic-research:deep-research`
+  - `next.input`: top-ranked topic or brainstorm file path
 
 **Next step**: Suggest running `/topic-research:deep-research` with one of the top-ranked topics.

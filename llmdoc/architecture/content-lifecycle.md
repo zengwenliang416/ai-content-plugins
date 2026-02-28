@@ -1,6 +1,6 @@
 # Content Lifecycle Architecture
 
-The content lifecycle is the end-to-end workflow chain across all five plugins. Each plugin owns a distinct phase; content flows forward through implicit handoffs rather than an orchestration layer.
+The content lifecycle is the end-to-end workflow chain across eight plugins. The core production path flows through research, production, utilities, and publishing; handoffs now use a mixed model: OpenSpec contract handoff for the P0 chain plus implicit/manual handoff for other chains.
 
 ## Pipeline Overview
 
@@ -17,6 +17,29 @@ topic-research          content-analysis        content-production      growth-o
                                                  content-experiment ───> content-roi              content-rebalance
                                                  audience-targeting                               audience-review
 ```
+
+## OpenSpec Contract Handoff (P0)
+
+P0 chain commands use `pipeline.openspec.json` as the canonical runtime handoff contract:
+
+```text
+topic-research -> content-production -> content-utilities -> publishing
+```
+
+Contract path pattern:
+
+```text
+ai-content-output/deep-research/<slug>/pipeline.openspec.json
+```
+
+Minimum handoff fields:
+
+- `pipeline`: fixed chain id
+- `stage`: current stage (`topic-research`, `content-production`, `content-utilities`, `content-analysis`, `publishing`)
+- `outputs.*`: canonical artifact paths (`research_md`, `analysis_md`, `article_md`, `article_html`, `quality_report_md`, `wechat_media_id`)
+- `next.command` + `next.input`: downstream routing
+
+This contract layer is additive: legacy file names and directories remain unchanged for backward compatibility.
 
 ## Cross-Plugin Data Flows
 
@@ -113,15 +136,20 @@ When the active plugin context is content-production, "editorial calendar" fires
 
 ## Design Characteristics
 
-### Implicit Handoffs
+### Implicit + Contracted Handoffs
 
-All cross-plugin data flows are implicit. There is no orchestration layer, workflow engine, or automated pipeline connecting the plugins. Each handoff requires the user (or Claude session) to:
+Cross-plugin data flows currently use two patterns:
+
+1. **Contracted handoff (P0):** commands read/write `pipeline.openspec.json`.
+2. **Implicit handoff (non-P0):** user/session passes files manually.
+
+For implicit paths, each handoff requires the user (or Claude session) to:
 
 1. Complete the upstream skill and capture its output
 2. Invoke the downstream skill with the upstream output as input
 3. Maintain data continuity across the handoff
 
-This is a deliberate design choice. It preserves plugin independence (any plugin can be used standalone), enables flexible workflow composition (skip steps, reorder, branch), and avoids coupling between plugins.
+This mixed model preserves plugin independence (any plugin can be used standalone), enables flexible workflow composition (skip steps, reorder, branch), and allows incremental migration without breaking existing file-based workflows.
 
 ### Data Continuity
 

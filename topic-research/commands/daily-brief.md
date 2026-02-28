@@ -18,4 +18,14 @@ Load the `daily-brief` skill and generate a concise daily briefing covering the 
 
 **Output**: After generation, the briefing MUST be saved to `ai-content-output/daily-brief/YYYY-MM-DD-ai-daily-brief.md`.
 
+**OpenSpec contract (RECOMMENDED)**:
+
+- Create or update `ai-content-output/daily-brief/YYYY-MM-DD-ai-daily-brief.openspec.json`.
+- Minimum fields:
+  - `pipeline`: `daily-brief->brainstorm->deep-research`
+  - `stage`: `daily-brief`
+  - `outputs.daily_brief_md`: briefing file path
+  - `next.command`: `/topic-research:brainstorm`
+  - `next.input`: contract file path
+
 **Next step**: Suggest running `/topic-research:brainstorm` to select content topics from this briefing.

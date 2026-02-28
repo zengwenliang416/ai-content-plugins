@@ -53,5 +53,12 @@ backups
 
 git_repos
 .content-skills
-openspec
+openspec/*
+!openspec/config.yaml
+!openspec/schemas/
+!openspec/schemas/**
+!openspec/specs/
+!openspec/specs/**
+!openspec/changes/
+!openspec/changes/**
 output

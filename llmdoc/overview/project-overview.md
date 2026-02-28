@@ -24,12 +24,15 @@ marketplace (repo root)
 
 | Plugin | Path | Commands | Skills | MCP Servers | Focus |
 |--------|------|----------|--------|-------------|-------|
-| content-analysis | `content-analysis/` | 6 | 7 | 0 | Competitor analysis, benchmarking, quality checks, trend analysis, template creation, draft debugging |
-| topic-research | `topic-research/` | 9 | 8 | 3 | Deep research pipeline, daily briefs, brainstorming, trend preview, field overview, event calendar |
-| content-production | `content-production/` | 7 | 9 | 0 | Long articles, short posts, infographics, A/B testing, collaboration letters |
-| growth-ops | `growth-ops/` | 9 | 9 | 2 | Source discovery, topic screening, review checklists, growth planning, performance analysis |
+| content-analysis | `content-analysis/` | 7 | 7 | 0 | Competitor analysis, benchmarking, quality checks, trend analysis, template creation, draft debugging |
+| topic-research | `topic-research/` | 11 | 11 | 2 | Deep research pipeline, daily briefs, brainstorming, trend preview, field overview, event calendar |
+| content-production | `content-production/` | 9 | 9 | 0 | Long articles, short posts, infographics, A/B testing, collaboration letters |
+| growth-ops | `growth-ops/` | 9 | 9 | 0 | Source discovery, topic screening, review checklists, growth planning, performance analysis |
 | audience-management | `audience-management/` | 6 | 6 | 0 | Operations reports, audience reviews, content planning, business proposals |
-| **Totals** | | **37** | **39** | **5** | |
+| visual-content | `visual-content/` | 6 | 7 | 0 | Article illustrations, comics, cover images, infographics, slide decks, Xiaohongshu cards |
+| publishing | `publishing/` | 2 | 2 | 0 | WeChat Official Account and X/Twitter publishing |
+| content-utilities | `content-utilities/` | 5 | 5 | 0 | Markdown/HTML conversion, clipping, image compression |
+| **Totals** | | **55** | **56** | **2** | |
 
 ## Key Architectural Patterns
 
@@ -37,7 +40,7 @@ marketplace (repo root)
 All commands are thin wrappers: parse argument -> load named skill -> skill provides full workflow. No commands embed inline workflows.
 
 ### 2. MCP Integrations
-Two plugins use MCP servers. `topic-research` connects to hacker-news, arxiv, and rss-reader (3 servers). `growth-ops` connects to hacker-news and rss-reader (2 servers). Other plugins rely on implicit web search only.
+Only `topic-research` currently uses MCP servers in-repo (`hacker-news`, `arxiv`). Other plugins currently rely on implicit web search or file handoffs.
 
 ### 3. SKILL.md Format
 Skills use a consistent structure: trigger phrases, numbered workflow steps, output specifications. Auto-activate via `name` + `description` frontmatter.
@@ -51,6 +54,11 @@ Skills use a consistent structure: trigger phrases, numbered workflow steps, out
 
 ### 6. Chinese Platform Support
 `content-production` includes skills targeting Chinese social platforms (Xiaohongshu, WeChat, Weibo) with platform-specific formatting and conventions.
+
+### 7. OpenSpec Contract Handoff (P0)
+The repository started migrating intermediate artifact handoff to an OpenSpec-compatible contract (`pipeline.openspec.json`) for the P0 chain:
+`topic-research -> content-production -> content-utilities -> publishing`.
+The contract stores stage transitions, canonical output paths, and next-step command routing.
 
 ## Cross-Cutting Conventions
 
@@ -70,12 +78,15 @@ Two skills in `content-production` (asset-pack, presentation) have no correspond
 ## Known Gaps
 
 ### Structural
-- **Cross-plugin handoffs are implicit** — no orchestration layer connects plugin outputs to downstream plugin inputs
+- **Cross-plugin handoffs are mixed-mode** — P0 chain supports contract handoff, but many other paths still rely on implicit/manual file passing
 - **WRITE/MONITOR/SKIP vocabulary inconsistent** — fully adopted in `topic-research`, partially elsewhere
 - **Trigger phrase ambiguity** — "editorial calendar" matches skills in both `content-production` and `audience-management`
 
 ### Automation
 - **No event-driven automation** — all plugins have empty `hooks.json`; everything is user-triggered
+
+### Migration
+- **OpenSpec coverage is partial** — P0 and selected upstream/quality commands are contract-aware; remaining plugins/stages still need migration
 
 ### Flagship Workflow
 `topic-research` includes a deep-research command that orchestrates a 5-task pipeline, the most complex workflow in the marketplace.

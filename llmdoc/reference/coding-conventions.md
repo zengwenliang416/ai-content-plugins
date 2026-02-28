@@ -18,7 +18,7 @@ plugin-name/
   .claude/                      # user-local config (gitignored)
 ```
 
-Five plugins exist: `content-analysis`, `topic-research`, `content-production`, `growth-ops`, `audience-management`.
+Eight plugins exist: `content-analysis`, `topic-research`, `content-production`, `growth-ops`, `audience-management`, `visual-content`, `publishing`, `content-utilities`.
 
 The root-level `.claude-plugin/marketplace.json` registers all plugins with their source paths.
 
@@ -62,7 +62,7 @@ Required fields: `name`, `version`, `description`, `author.name`.
 }
 ```
 
-All five plugins use version `0.1.0` and author `"AI Content Studio"`. No plugin declares `commands` or `skills` arrays; discovery relies on directory conventions.
+All current plugins use version `0.1.0` and author `"AI Content Studio"`. No plugin declares `commands` or `skills` arrays; discovery relies on directory conventions.
 
 ---
 
@@ -158,7 +158,7 @@ Assets are used by `deep-research` (`article-template.md`, `quality-checklist.md
 
 ## 8. hooks.json
 
-All five plugins have `hooks/hooks.json`. All are currently empty with the schema:
+All eight plugins have `hooks/hooks.json`. All are currently empty with the schema:
 
 ```json
 {
@@ -172,16 +172,15 @@ No event-driven automation is implemented.
 
 ## 9. .mcp.json
 
-MCP configs define external tool servers. Only two plugins use active MCP servers:
+MCP configs define external tool servers. Currently only `topic-research` uses active MCP servers:
 
 | Plugin | MCP Servers |
 |---|---|
-| `topic-research` | `hacker-news`, `arxiv`, `rss-reader` (3 servers) |
-| `growth-ops` | `hacker-news`, `rss-reader` (2 servers) |
+| `topic-research` | `hacker-news`, `arxiv` |
 | Others | Empty `{"mcpServers": {}}` |
 
-Server types used:
-- `npx` command: `mcp-hacker-news`, `@kwp-lab/rss-reader-mcp`
+Server runners used:
+- `npx` command: `mcp-hacker-news`
 - `uvx` command: `arxiv-mcp-server`
 
 ---
@@ -227,10 +226,40 @@ All data claims require source citation. Rules by plugin:
 
 ---
 
-## 12. Cross-Cutting Rules
+## 12. OpenSpec Contract Conventions
+
+The repository is migrating intermediate artifact handoff to OpenSpec-compatible runtime contracts.
+
+### Contract file
+
+- Path pattern: `ai-content-output/deep-research/<slug>/pipeline.openspec.json`
+- Purpose: Canonical stage handoff across the P0 chain.
+
+### P0 contracted chain
+
+`topic-research -> content-production -> content-utilities -> publishing`
+
+Extended contract-aware commands also include `topic-research:daily-brief`, `topic-research:brainstorm`, and `content-analysis:check-quality`.
+
+### Minimum contract fields
+
+- `pipeline`
+- `stage`
+- `outputs.*` (`research_md`, `data_workbook_md`, `analysis_md`, `article_md`, `article_html`, optional `quality_report_md`, optional `wechat_media_id`)
+- `next.command`
+- `next.input`
+
+### Compatibility rule
+
+Contract write-back is additive. Existing markdown/html artifact names and directory layouts MUST remain backward compatible.
+
+---
+
+## 13. Cross-Cutting Rules
 
 1. **Skill trigger mechanism**: `name` + `description` in SKILL.md drive automatic activation. The description field is the primary trigger; include 5-7 trigger phrases.
 2. **Command-to-skill delegation**: Command files load a skill by name and handle argument gathering. Do not duplicate skill workflow in the command body.
 3. **Progressive disclosure**: Plugin manifest loads first, then command frontmatter, then skill frontmatter, then skill body + references. Design content for this loading order.
 4. **Context efficiency**: Only add context Claude does not already have. Keep SKILL.md under 500 lines; move detailed content to reference files.
-5. **No partner plugins**: Unlike some plugin marketplaces, this project has no partner-built plugins. All five plugins are first-party.
+5. **OpenSpec-first handoff where available**: For commands that support OpenSpec contracts, prioritize contract input over legacy auto-scan fallback.
+6. **No partner plugins**: Unlike some plugin marketplaces, this project has no partner-built plugins. All plugins are first-party.

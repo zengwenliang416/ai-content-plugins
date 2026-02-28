@@ -1,6 +1,6 @@
 ---
 description: Check article quality for accuracy, readability, and SEO
-argument-hint: "[article file path]"
+argument-hint: "[article file path or pipeline.openspec.json]"
 ---
 
 Before generating any output, use AskUserQuestion to ask the user:
@@ -18,9 +18,20 @@ All output artifacts must be produced in the user's chosen language.
 
 **Detection order** (stop at first hit):
 
-1. **Explicit argument**: If the user passed an article file path as argument, use it directly. Skip to Step 2.
+1. **Explicit argument**:
+   - If argument is `pipeline.openspec.json`, read `outputs.article_md` as primary input (fallback `outputs.article_html`).
+   - If argument is an article path, use it directly.
+   - Then skip to Step 2.
 
-2. **Auto-scan articles**: Run these Bash commands immediately:
+2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
+
+```bash
+ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+```
+
+If contracts found → read and prioritize `outputs.article_md`.
+
+3. **Auto-scan articles**: Run these Bash commands immediately:
 
 ```bash
 ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
@@ -29,7 +40,7 @@ ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
 
 If files found → present them to the user via AskUserQuestion: "检测到以下文章，请选择要检查质量的文章：" with the files as options.
 
-3. **No upstream found**: Only in this case, ask the user for an article file path.
+4. **No upstream found**: Only in this case, ask the user for an article file path.
 
 ## Step 2: Load Skill and Execute
 
@@ -37,6 +48,17 @@ Load the `quality-check` skill and review the selected article for accuracy, rea
 
 ## Artifact Handoff
 
-**Output**: Quality scorecard displayed in conversation (not saved to file).
+**Output**:
+
+- Quality scorecard MUST be displayed in conversation.
+- Quality report SHOULD be saved as `quality-report.md` alongside the article file for traceability.
+
+**OpenSpec contract update (RECOMMENDED when contract exists)**:
+
+- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+  - `stage`: `content-analysis`
+  - `outputs.quality_report_md`: report path
+  - `next.command`: `/publishing:post-to-wechat` (if passed) or `/content-production:long-article` (if revision needed)
+  - `next.input`: selected article path
 
 **Next step**: If quality passes, suggest running `/publishing:post-to-wechat` to publish. If issues found, suggest fixing them first.

@@ -1,0 +1,35 @@
+name: ai-content
+version: 1
+description: AI content pipeline workflow (proposal -> specs -> artifacts -> tasks)
+
+artifacts:
+  - id: proposal
+    generates: proposal.md
+    description: Why and scope of this pipeline change
+    template: proposal.md
+    requires: []
+
+  - id: specs
+    generates: specs/**/*.md
+    description: Delta specs grouped by ai-content domain
+    template: specs/spec.md
+    requires:
+      - proposal
+
+  - id: artifacts
+    generates: artifacts.md
+    description: Canonical intermediate artifact contract
+    template: artifacts.md
+    requires:
+      - specs
+
+  - id: tasks
+    generates: tasks.md
+    description: Implementation checklist mapped to T0~T5
+    template: tasks.md
+    requires:
+      - artifacts
+
+apply:
+  requires: [tasks]
+  tracks: tasks.md

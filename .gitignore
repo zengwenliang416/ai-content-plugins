@@ -46,7 +46,8 @@ TASKS.md
 MEMORY.md
 .claude/worktrees/
 
-# Brainstorm runs (generated output)
+# Generated content output
+ai-content-output/
 .brainstorm-runs/
 backups
 

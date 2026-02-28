@@ -5,11 +5,40 @@ description: Write comprehensive long-form articles for blogs, newsletters, and 
 
 # Article Builder
 
+## Input Handling
+
+This skill accepts an optional input file or directory pointing to upstream research.
+
+**When a deep-research directory is provided** (e.g., `/content-production:long-article ai-content-output/deep-research/<slug>/`):
+
+1. Read the directory contents
+2. Load available research documents as source materials:
+   - `research.md` → Background, technical overview, key players (Task 1)
+   - `data-workbook.md` → Data tables, benchmarks, market data (Task 2)
+   - `analysis.md` → Competitive analysis, narrative hooks, content recommendation (Task 3)
+   - `images/chart_index.txt` → Available visuals and embedding syntax (Task 4)
+3. Skip Step 1 source gathering for data already present in these documents
+4. Use Task 3's narrative hooks and content angle as the article's thesis
+
+**When a single file is provided** (e.g., a daily-brief or brainstorm output):
+
+1. Read the file content as background reference
+2. Proceed with Step 1 to gather additional materials as needed
+
+**When no input is provided**:
+
+1. Check `ai-content-output/deep-research/` for recent research directories
+2. If found, list available topics and ask user which to use
+3. If not found, proceed with fresh source gathering (existing Step 1)
+
+---
+
 ## Workflow
 
 ### Step 1: Gather Source Materials
 
 Ask for available inputs:
+
 - Research documents, PDFs, or reference articles
 - Data, statistics, or charts to include
 - **Platform research** (24h freshness enforced | `bun news-search/scripts/doctor.ts` for status):
@@ -27,39 +56,46 @@ Ask for available inputs:
 ### Step 2: Article Structure
 
 **I. Introduction / Hook** (150-250 words)
+
 - Open with a question, statistic, or provocative claim
 - Establish why this topic matters right now
 - State the article's thesis and what the reader will learn
 - Do not bury the lead — the value proposition must be clear in paragraph 1
 
 **II. Background / Context** (300-500 words)
+
 - What does the reader need to know to follow the analysis
 - Define key terms without being condescending
 - Brief history or current state of the topic
 - Frame the problem or opportunity being explored
 
 **III. Main Analysis** (800-1,500 words)
+
 - 3-5 sections, each with a clear subheading
 - Each section: one main point, supporting evidence, implication
 - Use data, examples, and analogies to make abstract ideas concrete
 - Build toward a conclusion — each section should lead naturally to the next
 
 **IV. Practical Implications** (200-400 words)
+
 - What does this mean for the reader specifically
 - Concrete actions, decisions, or mindset shifts the reader should take
 - Address the "so what" explicitly
 
 **V. Future Outlook** (150-300 words)
+
 - Where is this heading in 1-3 years
 - Open questions that remain unresolved
 - What to watch for
 
 **VI. Conclusion** (100-200 words)
+
 - Restate the core thesis in light of the evidence presented
 - 3-5 key takeaways in bullet format
 - Call to action (share, subscribe, try X, contact)
 
 **VII. References & Sources**
+
 - All claims backed by citations
 - Format: [Author/Publication, Year, "Title" or URL]
 
@@ -81,6 +117,26 @@ Ask for available inputs:
 - Target 2,000-5,000 words depending on topic depth
 - Include suggested title + 2 alternative titles
 - Include meta description (150-160 characters) for SEO
+
+## Output Persistence
+
+**MANDATORY**: Save the article to file immediately after generation.
+
+**Output path** (based on context):
+
+- **With deep-research input**: `ai-content-output/deep-research/<slug>/article.md` (alongside research docs)
+- **Standalone**: `ai-content-output/articles/YYYY-MM-DD-<slug>.md`
+
+**Steps**:
+
+1. Create output directory if not exists
+2. Write the complete article with frontmatter to the file
+3. If images directory exists (from deep-research), verify all image references resolve
+4. Confirm save path to user
+
+**Downstream consumers**: `cover-generator` reads the article for cover image generation. `md-to-html` converts the article to styled HTML.
+
+---
 
 ## Important Notes
 

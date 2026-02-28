@@ -13,12 +13,12 @@ description: Posts content to WeChat Official Account (微信公众号) via API 
 
 **Agent Execution**: Determine this SKILL.md directory as `SKILL_DIR`, then use `${SKILL_DIR}/scripts/<name>.ts`.
 
-| Script | Purpose |
-|--------|---------|
-| `scripts/wechat-browser.ts` | Image-text posts (图文) |
-| `scripts/wechat-article.ts` | Article posting via browser (文章) |
-| `scripts/wechat-api.ts` | Article posting via API (文章) |
-| `scripts/check-permissions.ts` | Verify environment & permissions |
+| Script                         | Purpose                            |
+| ------------------------------ | ---------------------------------- |
+| `scripts/wechat-browser.ts`    | Image-text posts (图文)            |
+| `scripts/wechat-article.ts`    | Article posting via browser (文章) |
+| `scripts/wechat-api.ts`        | Article posting via API (文章)     |
+| `scripts/check-permissions.ts` | Verify environment & permissions   |
 
 ## Preferences (EXTEND.md)
 
@@ -33,17 +33,17 @@ test -f "$HOME/.content-skills/wechat-publisher/EXTEND.md" && echo "user"
 ```
 
 ┌────────────────────────────────────────────────────────┬───────────────────┐
-│                          Path                          │     Location      │
+│ Path │ Location │
 ├────────────────────────────────────────────────────────┼───────────────────┤
-│ .content-skills/wechat-publisher/EXTEND.md           │ Project directory │
+│ .content-skills/wechat-publisher/EXTEND.md │ Project directory │
 ├────────────────────────────────────────────────────────┼───────────────────┤
-│ $HOME/.content-skills/wechat-publisher/EXTEND.md     │ User home         │
+│ $HOME/.content-skills/wechat-publisher/EXTEND.md │ User home │
 └────────────────────────────────────────────────────────┴───────────────────┘
 
 ┌───────────┬───────────────────────────────────────────────────────────────────────────┐
-│  Result   │                                  Action                                   │
+│ Result │ Action │
 ├───────────┼───────────────────────────────────────────────────────────────────────────┤
-│ Found     │ Read, parse, apply settings                                               │
+│ Found │ Read, parse, apply settings │
 ├───────────┼───────────────────────────────────────────────────────────────────────────┤
 │ Not found │ Run first-time setup ([references/config/first-time-setup.md](references/config/first-time-setup.md)) → Save → Continue │
 └───────────┴───────────────────────────────────────────────────────────────────────────┘
@@ -54,11 +54,11 @@ First-time setup: [references/config/first-time-setup.md](references/config/firs
 
 **Minimum supported keys** (case-insensitive, accept `1/0` or `true/false`):
 
-| Key | Default | Mapping |
-|-----|---------|---------|
-| `default_author` | empty | Fallback for `author` when CLI/frontmatter not provided |
-| `need_open_comment` | `1` | `articles[].need_open_comment` in `draft/add` request |
-| `only_fans_can_comment` | `0` | `articles[].only_fans_can_comment` in `draft/add` request |
+| Key                     | Default | Mapping                                                   |
+| ----------------------- | ------- | --------------------------------------------------------- |
+| `default_author`        | empty   | Fallback for `author` when CLI/frontmatter not provided   |
+| `need_open_comment`     | `1`     | `articles[].need_open_comment` in `draft/add` request     |
+| `only_fans_can_comment` | `0`     | `articles[].only_fans_can_comment` in `draft/add` request |
 
 **Recommended EXTEND.md example**:
 
@@ -72,6 +72,7 @@ chrome_profile_path: /path/to/chrome/profile
 ```
 
 **Value priority**:
+
 1. CLI arguments
 2. Frontmatter
 3. EXTEND.md
@@ -89,16 +90,16 @@ Checks: Chrome, profile isolation, Bun, Accessibility, clipboard, paste keystrok
 
 **If any check fails**, provide fix guidance per item:
 
-| Check | Fix |
-|-------|-----|
-| Chrome | Install Chrome or set `WECHAT_BROWSER_CHROME_PATH` env var |
-| Profile dir | Ensure `~/.local/share/wechat-browser-profile` is writable |
-| Bun runtime | `curl -fsSL https://bun.sh/install \| bash` |
-| Accessibility (macOS) | System Settings → Privacy & Security → Accessibility → enable terminal app |
-| Clipboard copy | Ensure Swift/AppKit available (macOS Xcode CLI tools: `xcode-select --install`) |
-| Paste keystroke (macOS) | Same as Accessibility fix above |
-| Paste keystroke (Linux) | Install `xdotool` (X11) or `ydotool` (Wayland) |
-| API credentials | Follow guided setup in Step 5, or manually set in `.content-skills/.env` |
+| Check                   | Fix                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------- |
+| Chrome                  | Install Chrome or set `WECHAT_BROWSER_CHROME_PATH` env var                      |
+| Profile dir             | Ensure `~/.local/share/wechat-browser-profile` is writable                      |
+| Bun runtime             | `curl -fsSL https://bun.sh/install \| bash`                                     |
+| Accessibility (macOS)   | System Settings → Privacy & Security → Accessibility → enable terminal app      |
+| Clipboard copy          | Ensure Swift/AppKit available (macOS Xcode CLI tools: `xcode-select --install`) |
+| Paste keystroke (macOS) | Same as Accessibility fix above                                                 |
+| Paste keystroke (Linux) | Install `xdotool` (X11) or `ydotool` (Wayland)                                  |
+| API credentials         | Follow guided setup in Step 5, or manually set in `.content-skills/.env`        |
 
 ## Image-Text Posting (图文)
 
@@ -110,6 +111,18 @@ npx -y bun ${SKILL_DIR}/scripts/wechat-browser.ts --title "标题" --content "�
 ```
 
 See [references/image-text-posting.md](references/image-text-posting.md) for details.
+
+## Input Handling (Pipeline Context)
+
+When no file path is provided, auto-detect from the content pipeline:
+
+1. Check `ai-content-output/deep-research/` for recent `article.html` files
+2. Check `ai-content-output/articles/` for recent `.html` files
+3. If HTML found, list and ask user which to publish
+4. If only `.md` found (no `.html`), suggest running `md-to-html` first
+5. If nothing found, fall back to existing Step 1 (ask user for input)
+
+---
 
 ## Article Posting Workflow (文章)
 
@@ -134,17 +147,18 @@ Check and load EXTEND.md settings (see Preferences section above).
 **CRITICAL**: If not found, complete first-time setup BEFORE any other steps or questions.
 
 Resolve and store these defaults for later steps:
+
 - `default_author`
 - `need_open_comment` (default `1`)
 - `only_fans_can_comment` (default `0`)
 
 ### Step 1: Determine Input Type
 
-| Input Type | Detection | Action |
-|------------|-----------|--------|
-| HTML file | Path ends with `.html`, file exists | Skip to Step 4 |
-| Markdown file | Path ends with `.md`, file exists | Continue to Step 2 |
-| Plain text | Not a file path, or file doesn't exist | Save to markdown, then Step 2 |
+| Input Type    | Detection                              | Action                        |
+| ------------- | -------------------------------------- | ----------------------------- |
+| HTML file     | Path ends with `.html`, file exists    | Skip to Step 4                |
+| Markdown file | Path ends with `.md`, file exists      | Continue to Step 2            |
+| Plain text    | Not a file path, or file doesn't exist | Save to markdown, then Step 2 |
 
 **Plain Text Handling**:
 
@@ -159,6 +173,7 @@ mkdir -p "$(pwd)/post-to-wechat/$(date +%Y-%m-%d)"
 3. Continue processing as markdown file
 
 **Slug Examples**:
+
 - "Understanding AI Models" → `understanding-ai-models`
 - "人工智能的未来" → `ai-future` (translate to English for slug)
 
@@ -173,11 +188,11 @@ mkdir -p "$(pwd)/post-to-wechat/$(date +%Y-%m-%d)"
 test -f skills/md-to-html/SKILL.md && echo "found"
 ```
 
-| Result | Action |
-|--------|--------|
-| Found | Read its SKILL.md, continue to Step 3 |
-| Multiple skills | AskUserQuestion to choose |
-| Not found | Show installation suggestion |
+| Result          | Action                                |
+| --------------- | ------------------------------------- |
+| Found           | Read its SKILL.md, continue to Step 3 |
+| Multiple skills | AskUserQuestion to choose             |
+| Not found       | Show installation suggestion          |
 
 **When Not Found**:
 
@@ -215,20 +230,22 @@ npx -y bun ${MD_TO_HTML_SKILL_DIR}/scripts/main.ts <markdown_file> --theme <them
 
 Check extracted metadata from Step 3 (or HTML meta tags if direct HTML input).
 
-| Field | If Missing |
-|-------|------------|
-| Title | Prompt: "Enter title, or press Enter to auto-generate from content" |
-| Summary | Prompt: "Enter summary, or press Enter to auto-generate (recommended for SEO)" |
-| Author | Use fallback chain: CLI `--author` → frontmatter `author` → EXTEND.md `default_author` |
+| Field   | If Missing                                                                             |
+| ------- | -------------------------------------------------------------------------------------- |
+| Title   | Prompt: "Enter title, or press Enter to auto-generate from content"                    |
+| Summary | Prompt: "Enter summary, or press Enter to auto-generate (recommended for SEO)"         |
+| Author  | Use fallback chain: CLI `--author` → frontmatter `author` → EXTEND.md `default_author` |
 
 **Auto-Generation Logic**:
+
 - **Title**: First H1/H2 heading, or first sentence
 - **Summary**: First paragraph, truncated to 120 characters
 
 **Cover Image Check** (required for `article_type=news`):
+
 1. Use CLI `--cover` if provided.
 2. Else use frontmatter (`coverImage`, `featureImage`, `cover`, `image`).
-3. Else check article directory default path: `imgs/cover.png`.
+3. Else check article directory default path: `images/cover.png` (or `imgs/cover.png` as fallback).
 4. Else fallback to first inline content image.
 5. If still missing, stop and request a cover image before publishing.
 
@@ -236,10 +253,10 @@ Check extracted metadata from Step 3 (or HTML meta tags if direct HTML input).
 
 **Ask publishing method** (unless specified in EXTEND.md or CLI):
 
-| Method | Speed | Requirements |
-|--------|-------|--------------|
-| `api` (Recommended) | Fast | API credentials |
-| `browser` | Slow | Chrome, login session |
+| Method              | Speed | Requirements          |
+| ------------------- | ----- | --------------------- |
+| `api` (Recommended) | Fast  | API credentials       |
+| `browser`           | Slow  | Chrome, login session |
 
 **If API Selected - Check Credentials**:
 
@@ -282,6 +299,7 @@ npx -y bun ${SKILL_DIR}/scripts/wechat-api.ts <html_file> [--title <title>] [--s
 ```
 
 **`draft/add` payload rules**:
+
 - Use endpoint: `POST https://api.weixin.qq.com/cgi-bin/draft/add?access_token=ACCESS_TOKEN`
 - `article_type`: `news` (default) or `newspic`
 - For `news`, include `thumb_media_id` (cover is required)
@@ -351,59 +369,63 @@ Files created:
 
 ## Detailed References
 
-| Topic | Reference |
-|-------|-----------|
+| Topic                                   | Reference                                                            |
+| --------------------------------------- | -------------------------------------------------------------------- |
 | Image-text parameters, auto-compression | [references/image-text-posting.md](references/image-text-posting.md) |
-| Article themes, image handling | [references/article-posting.md](references/article-posting.md) |
+| Article themes, image handling          | [references/article-posting.md](references/article-posting.md)       |
 
 ## Feature Comparison
 
-| Feature | Image-Text | Article (API) | Article (Browser) |
-|---------|------------|---------------|-------------------|
-| Plain text input | ✗ | ✓ | ✓ |
-| HTML input | ✗ | ✓ | ✓ |
-| Markdown input | Title/content | ✓ (via skill) | ✓ (via skill) |
-| Multiple images | ✓ (up to 9) | ✓ (inline) | ✓ (inline) |
-| Themes | ✗ | ✓ | ✓ |
-| Auto-generate metadata | ✗ | ✓ | ✓ |
-| Default cover fallback (`imgs/cover.png`) | ✗ | ✓ | ✗ |
-| Comment control (`need_open_comment`, `only_fans_can_comment`) | ✗ | ✓ | ✗ |
-| Requires Chrome | ✓ | ✗ | ✓ |
-| Requires API credentials | ✗ | ✓ | ✗ |
-| Speed | Medium | Fast | Slow |
+| Feature                                                        | Image-Text    | Article (API) | Article (Browser) |
+| -------------------------------------------------------------- | ------------- | ------------- | ----------------- |
+| Plain text input                                               | ✗             | ✓             | ✓                 |
+| HTML input                                                     | ✗             | ✓             | ✓                 |
+| Markdown input                                                 | Title/content | ✓ (via skill) | ✓ (via skill)     |
+| Multiple images                                                | ✓ (up to 9)   | ✓ (inline)    | ✓ (inline)        |
+| Themes                                                         | ✗             | ✓             | ✓                 |
+| Auto-generate metadata                                         | ✗             | ✓             | ✓                 |
+| Default cover fallback (`imgs/cover.png`)                      | ✗             | ✓             | ✗                 |
+| Comment control (`need_open_comment`, `only_fans_can_comment`) | ✗             | ✓             | ✗                 |
+| Requires Chrome                                                | ✓             | ✗             | ✓                 |
+| Requires API credentials                                       | ✗             | ✓             | ✗                 |
+| Speed                                                          | Medium        | Fast          | Slow              |
 
 ## Prerequisites
 
 **For API method**:
+
 - WeChat Official Account API credentials
 - Guided setup in Step 5, or manually set in `.content-skills/.env`
 
 **For Browser method**:
+
 - Google Chrome
 - First run: log in to WeChat Official Account (session preserved)
 
 **For Markdown conversion**:
+
 - A markdown-to-html skill (e.g., `md-to-html`)
 - If not installed, the workflow will suggest installation
 
 **Config File Locations** (priority order):
+
 1. Environment variables
 2. `<cwd>/.content-skills/.env`
 3. `~/.content-skills/.env`
 
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| No markdown-to-html skill | Install `md-to-html` from suggested URL |
-| Missing API credentials | Follow guided setup in Step 5 |
-| Access token error | Check if API credentials are valid and not expired |
-| Not logged in (browser) | First run opens browser - scan QR to log in |
-| Chrome not found | Set `WECHAT_BROWSER_CHROME_PATH` env var |
-| Title/summary missing | Use auto-generation or provide manually |
-| No cover image | Add frontmatter cover or place `imgs/cover.png` in article directory |
-| Wrong comment defaults | Check `EXTEND.md` keys `need_open_comment` and `only_fans_can_comment` |
-| Paste fails | Check system clipboard permissions |
+| Issue                     | Solution                                                               |
+| ------------------------- | ---------------------------------------------------------------------- |
+| No markdown-to-html skill | Install `md-to-html` from suggested URL                                |
+| Missing API credentials   | Follow guided setup in Step 5                                          |
+| Access token error        | Check if API credentials are valid and not expired                     |
+| Not logged in (browser)   | First run opens browser - scan QR to log in                            |
+| Chrome not found          | Set `WECHAT_BROWSER_CHROME_PATH` env var                               |
+| Title/summary missing     | Use auto-generation or provide manually                                |
+| No cover image            | Add frontmatter cover or place `imgs/cover.png` in article directory   |
+| Wrong comment defaults    | Check `EXTEND.md` keys `need_open_comment` and `only_fans_can_comment` |
+| Paste fails               | Check system clipboard permissions                                     |
 
 ## Extension Support
 

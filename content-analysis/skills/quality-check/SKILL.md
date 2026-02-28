@@ -5,11 +5,27 @@ description: Review article or content quality across accuracy, readability, log
 
 # Article Quality Check
 
+## Input Handling
+
+This skill accepts a file path to the content to review.
+
+**When file path is provided**: Use it directly.
+
+**When no file path is provided**:
+
+1. Check `ai-content-output/deep-research/` for recent `article.md` files
+2. Check `ai-content-output/articles/` for recent `.md` files
+3. If found, list available articles and ask user which to review
+4. If not found, ask user to provide content or a file path
+
+---
+
 ## Workflow
 
 ### Step 1: Fact Accuracy Check
 
 Review all factual claims in the content:
+
 - Identify every specific claim, statistic, or data point
 - Flag claims that are unverified, outdated, or appear incorrect
 - Note claims with missing citations that should have them
@@ -20,6 +36,7 @@ Score: Pass (all claims verifiable) / Flag (some claims need verification) / Fai
 ### Step 2: Logical Coherence Check
 
 Evaluate argument structure and evidence quality:
+
 - Does the introduction promise what the body delivers?
 - Is each claim supported by evidence or sound reasoning?
 - Are there logical leaps, non-sequiturs, or unsupported conclusions?
@@ -31,6 +48,7 @@ Score: Pass / Flag / Fail with specific line-level callouts
 ### Step 3: Readability Analysis
 
 Assess how easy the content is to read and understand:
+
 - Average sentence length (target: under 20 words for general audiences)
 - Paragraph length (target: 3-5 sentences for digital content)
 - Jargon density — is technical language defined or assumed?
@@ -43,6 +61,7 @@ Score: Pass / Flag / Fail with specific suggestions
 ### Step 4: SEO Check
 
 Evaluate search optimization signals:
+
 - Title: Does it contain the primary keyword? Is it under 60 characters?
 - Meta description: Present? Compelling? Under 155 characters?
 - H1/H2/H3 structure: Logical hierarchy? Keywords in headers?
@@ -58,6 +77,7 @@ Score: Pass / Flag / Fail per sub-dimension
 ### Step 5: Originality Assessment
 
 Evaluate whether the content offers genuine value:
+
 - Does it add original analysis, perspective, or synthesis beyond what's widely available?
 - Are examples and case studies specific and non-generic?
 - Is the voice distinct, or does it read like a template?

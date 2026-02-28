@@ -1,6 +1,6 @@
 ---
 description: Track and develop a content narrative or angle
-argument-hint: "[narrative theme]"
+argument-hint: "[narrative theme, upstream .openspec.json, or pipeline.openspec.json]"
 ---
 
 Before generating any output, use AskUserQuestion to ask the user:
@@ -12,6 +12,57 @@ Before generating any output, use AskUserQuestion to ask the user:
 
 All output artifacts must be produced in the user's chosen language.
 
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
+
+**CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for narrative details. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**:
+   - If argument is `.openspec.json` or `pipeline.openspec.json`, read it first and prioritize `inputs.topic`, then `outputs.release_analysis_md`, then `outputs.trend_preview_md`.
+   - If argument is a narrative theme/path, use it directly.
+   - Then skip to Step 2.
+
+2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
+
+```bash
+ls -t ai-content-output/release-analysis/*.openspec.json 2>/dev/null | head -3
+ls -t ai-content-output/trend-preview/*.openspec.json 2>/dev/null | head -3
+ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+```
+
+If contracts found → read and prioritize `inputs.topic`, `outputs.release_analysis_md`, and `outputs.trend_preview_md`.
+
+3. **Auto-scan legacy narrative assets**: Run these Bash commands immediately:
+
+```bash
+ls -t ai-content-output/release-analysis/*.md 2>/dev/null | head -3
+ls -t ai-content-output/trend-preview/*.md 2>/dev/null | head -3
+ls -t ai-content-output/narrative/*.md 2>/dev/null | head -3
+```
+
+If files found → present them to the user via AskUserQuestion: "检测到以下叙事追踪素材，请选择要用于叙事分析的输入：" with files as options.
+
+4. **No upstream found**: Only in this case, ask what narrative or angle to track.
+
+## Step 2: Load Skill and Execute
+
 Load the `narrative-tracker` skill and build an evidence-based tracking document for the given narrative or content angle.
 
-If a narrative theme is provided, use it. Otherwise ask the user what narrative or angle to track (e.g., "AI agents replacing SaaS", "open-source catching up to closed models").
+## Artifact Handoff
+
+**Output**: Narrative tracker saved to:
+
+- `ai-content-output/narrative/YYYY-MM-DD-<theme>-narrative.md`
+
+**OpenSpec contract (RECOMMENDED)**:
+
+- Create or update `ai-content-output/narrative/YYYY-MM-DD-<theme>-narrative.openspec.json`.
+- Minimum fields:
+  - `pipeline`: `narrative->short-post`
+  - `stage`: `narrative`
+  - `outputs.narrative_md`: narrative tracker path
+  - `next.command`: `/content-production:short-post`
+  - `next.input`: narrative tracker path or contract path
+
+**Next step**: Suggest running `/content-production:short-post` to quickly test the narrative with audience feedback.

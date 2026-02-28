@@ -1,6 +1,6 @@
 ---
 description: Generate a slide deck with professional visual styles
-argument-hint: "[content file path]"
+argument-hint: "[content file path or pipeline.openspec.json]"
 ---
 
 Before generating any output, use AskUserQuestion to ask the user:
@@ -12,6 +12,54 @@ Before generating any output, use AskUserQuestion to ask the user:
 
 All output artifacts must be produced in the user's chosen language.
 
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
+
+**CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for input. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**:
+   - If argument is `pipeline.openspec.json`, read it first and prioritize `outputs.analysis_md`, then `outputs.article_md`.
+   - If argument is a content path, use it directly.
+   - Then skip to Step 2.
+
+2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
+
+```bash
+ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+```
+
+If contracts found → read and prioritize `outputs.analysis_md` and `outputs.article_md`.
+
+3. **Auto-scan legacy presentation assets**: Run these Bash commands immediately:
+
+```bash
+ls -t ai-content-output/deep-research/*/analysis.md 2>/dev/null | head -3
+ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
+ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
+```
+
+If files found → present them to the user via AskUserQuestion: "检测到以下演示素材，请选择要用于生成幻灯片的输入：" with files as options.
+
+4. **No upstream found**: Only in this case, ask the user for content or topic for the slide deck.
+
+## Step 2: Load Skill and Execute
+
 Load the `slide-generator` skill and create a slide deck.
 
-If a content file path is provided, use it. Otherwise ask the user for the content or topic for the slide deck.
+## Artifact Handoff
+
+**Output**: Slide deck saved to:
+
+- `ai-content-output/deep-research/<slug>/slides/slide-deck.pptx` (if contract/deep-research mode)
+- `slide-deck/<topic-slug>/slide-deck.pptx` (standalone mode)
+
+**OpenSpec contract update (RECOMMENDED when contract exists)**:
+
+- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+  - `stage`: `visual-content`
+  - `outputs.slide_deck_path`: slide deck path
+  - `next.command`: `none`
+  - `next.input`: `none`
+
+**Next step**: Suggest sharing the slide deck for review, or generating supporting visuals with `/visual-content:infographic`.

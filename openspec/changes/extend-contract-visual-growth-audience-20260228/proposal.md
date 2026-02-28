@@ -1,26 +1,32 @@
 ## Why
 
-当前 OpenSpec 契约已覆盖 P0 主链，但 `visual-content`、`growth-ops`、`audience-management`
-命令层仍以“可选承接 + 手工传递”为主，导致跨插件流转在这些阶段缺乏统一的可追踪性。
-尤其是视觉产物、增长评估与受众策略输出，尚未形成稳定的契约字段与路由规则。
+上一阶段已完成 P0 主链与部分视觉/增长/受众命令的 OpenSpec 契约承接，但仍存在大量命令仅靠手工输入与对话上下文传递中间产物，导致生命周期不可追踪、跨插件复用困难、历史回放成本高。
 
-本次变更将三类命令层纳入 OpenSpec 契约承接范围，确保产物继续落在当前仓库路径，
-同时生命周期由 OpenSpec 的 change/spec/tasks 契约统一管理。
+本次变更将“契约优先输入 + Artifact Handoff + 契约写回”扩展到仓库剩余命令，目标是让**全部命令**都具备 OpenSpec 生命周期管理能力，同时保持现有产物目录兼容。
 
 ## What Changes
 
-- 为 `visual-content`、`growth-ops`、`audience-management` 定义统一的契约承接规则：
-  - 契约优先输入（显式 `pipeline.openspec.json` > 自动扫描契约 > 旧路径回退）
-  - 命令执行后强制写回 `stage`、`outputs.*`、`next.*`
-- 明确三类命令层的契约字段边界与命名：
-  - 视觉层：`outputs.cover_image`、`outputs.illustrations_dir`、`outputs.infographic_dir`
-  - 增长层：`outputs.topic_screening_md`、`outputs.review_checklist_md`、`outputs.performance_report_md`
-  - 受众层：`outputs.content_plan_md`、`outputs.content_rebalance_md`、`outputs.ops_report_md`
-- 统一 next 路由策略，支持从增长评估到研究/生产回流，以及从受众策略到执行排期衔接。
+- 将剩余命令统一改造为 OpenSpec 承接模式：
+  - `argument-hint` 支持 `.openspec.json` 或 `pipeline.openspec.json`
+  - Step 1 固化为：显式参数 > OpenSpec 合约扫描 > 旧路径回退 > 兜底提问
+  - Step 2 明确 skill 加载与执行
+  - 新增 `Artifact Handoff` 段落
+  - 新增 `OpenSpec contract update` 或 `OpenSpec contract` 段落
+  - 新增下一步命令路由建议
+- 扩展覆盖到全仓剩余命令层：
+  - `topic-research`（趋势/叙事/发布分析/事件/搜索与配置/研究更新）
+  - `content-analysis`（benchmark/competitor/trend-analysis/debug/template/skill-creator）
+  - `content-production`（short-post/collab-letter/audience/tracker/ab-test/infographic/presentation/asset-pack）
+  - `content-utilities`（compress-image/format-markdown/url-to-markdown/x-to-markdown）
+  - `publishing`（post-to-x）
+- 保持产物在当前仓库路径（如 `ai-content-output/...`），仅引入 OpenSpec 契约层做生命周期编排，不迁移运行时存储根目录。
 
 ## Pipeline Impact
 
-- 影响插件：`visual-content`、`growth-ops`、`audience-management`。
-- 影响阶段：新增稳定的 `visual-content`、`growth-ops`、`audience-management` 契约写回语义。
-- 契约文件路径不变：`ai-content-output/deep-research/<slug>/pipeline.openspec.json`。
-- 保持兼容：既有 markdown/html/图片目录命名不变；契约层仅做增量编排与可追踪增强。
+- 影响插件：8 个插件的全部命令均纳入 OpenSpec 生命周期承接能力。
+- 契约路径策略：
+  - 主链延续 `ai-content-output/deep-research/<slug>/pipeline.openspec.json`
+  - 非主链命令采用各自阶段的 `*.openspec.json`（如 `trend-preview/*.openspec.json`）
+- 兼容性：
+  - 既有文件命名与目录结构保持不变
+  - OpenSpec 为增量元数据层，不破坏既有工作流

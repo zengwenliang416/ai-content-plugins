@@ -1,6 +1,6 @@
 ---
 description: Write a content strategy memo
-argument-hint: "[strategy topic]"
+argument-hint: "[strategy topic, planning report path, or pipeline.openspec.json]"
 ---
 
 Before generating any output, use AskUserQuestion to ask the user:
@@ -12,6 +12,54 @@ Before generating any output, use AskUserQuestion to ask the user:
 
 All output artifacts must be produced in the user's chosen language.
 
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
+
+**CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for memo details. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**:
+   - If argument is `pipeline.openspec.json`, read it first and prioritize `outputs.growth_plan_md`, then `outputs.content_roi_md`, then `outputs.ops_report_md`.
+   - If argument is a strategy topic or report path, use it directly.
+   - Then skip to Step 2.
+
+2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
+
+```bash
+ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+```
+
+If contracts found → read and prioritize `outputs.growth_plan_md`, `outputs.content_roi_md`, and `outputs.ops_report_md`.
+
+3. **Auto-scan legacy strategy assets**: Run these Bash commands immediately:
+
+```bash
+ls -t ai-content-output/growth-plan/*.md 2>/dev/null | head -3
+ls -t ai-content-output/content-roi/*.md 2>/dev/null | head -3
+ls -t ai-content-output/ops-report/*.md 2>/dev/null | head -3
+```
+
+If files found → present them to the user via AskUserQuestion: "检测到以下策略素材，请选择要用于策略备忘录的输入：" with files as options.
+
+4. **No upstream found**: Only in this case, ask for the strategic question or decision to address.
+
+## Step 2: Load Skill and Execute
+
 Load the `strategy-memo` skill and draft a structured strategy memo with situation summary, options, recommendation, risks, and next steps.
 
-If a strategy topic is provided, use it. Otherwise ask the user for the strategic question or decision to address.
+## Artifact Handoff
+
+**Output**: Strategy memo saved to:
+
+- `ai-content-output/strategy-memo/YYYY-MM-DD-<topic>-strategy-memo.md` (standalone mode)
+- `ai-content-output/deep-research/<slug>/strategy-memo.md` (if contract/deep-research mode)
+
+**OpenSpec contract update (RECOMMENDED when contract exists)**:
+
+- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+  - `stage`: `growth-ops`
+  - `outputs.strategy_memo_md`: strategy memo path
+  - `next.command`: `/audience-management:ops-report`
+  - `next.input`: strategy memo path or contract path
+
+**Next step**: Suggest running `/audience-management:ops-report` to turn strategy recommendations into an operational review baseline.

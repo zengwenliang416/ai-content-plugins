@@ -1,34 +1,32 @@
 ## 1. 阶段任务
 
-### 1.1 契约范围与字段定义
-- [x] 1.1 [T0] 冻结扩展阶段枚举：`visual-content`、`growth-ops`、`audience-management`
-- [x] 1.2 [T0] 冻结新增 `outputs.*` 字段命名与 `next.*` 路由规则（仅覆盖本轮目标命令）
-- [x] 1.3 [T0] 补齐 change 文档（proposal/spec/tasks）并与既有 P0 主链兼容策略对齐
+### 1.1 通用契约模板落地
+- [x] 1.1 [T0] 统一命令模板结构：Step 1 检测顺序 + Step 2 执行 + Artifact Handoff + OpenSpec 写回 + Next step
+- [x] 1.2 [T0] 将 `argument-hint` 扩展为支持 `.openspec.json` / `pipeline.openspec.json`
+- [x] 1.3 [T0] 保持现有产物目录兼容（不迁移运行时落盘根目录）
 
-### 1.2 visual-content 命令层承接改造
-- [x] 1.4 [T4] 将 `article-illustrator` 改为契约优先输入并写回视觉产物字段
-- [x] 1.5 [T4] 将 `cover-image` 改为契约优先输入并写回封面字段
-- [x] 1.6 [T4] 将 `infographic` 改为契约优先输入并写回图解字段
+### 1.2 插件批次改造（剩余命令全覆盖）
+- [x] 1.4 [T1] `topic-research` 剩余命令接入 OpenSpec 生命周期承接
+- [x] 1.5 [T2] `content-analysis` 剩余命令接入 OpenSpec 生命周期承接
+- [x] 1.6 [T4] `content-production` 剩余命令接入 OpenSpec 生命周期承接
+- [x] 1.7 [T4] `content-utilities` 剩余命令接入 OpenSpec 生命周期承接
+- [x] 1.8 [T5] `publishing:post-to-x` 接入 OpenSpec 生命周期承接
 
-### 1.3 growth-ops 命令层承接改造
-- [x] 1.7 [T2] 强化 `screen-topic` 契约写回（筛选结论与路由决策）
-- [x] 1.8 [T2] 为 `review-checklist` 增加契约读写与发布前质量关卡字段
-- [x] 1.9 [T2] 为 `performance` 增加契约读写与绩效分析字段
-
-### 1.4 audience-management 命令层承接改造（本轮范围）
-- [x] 1.10 [T3] 为 `content-plan` 增加契约承接与输出写回
-- [x] 1.11 [T3] 为 `content-rebalance` 增加契约承接与输出写回
-- [x] 1.12 [T3] 为 `ops-report` 增加契约承接与输出写回
+### 1.3 已有批次并入（同一 change）
+- [x] 1.9 [T2] 已接入 `growth-ops` 全命令契约承接
+- [x] 1.10 [T3] 已接入 `audience-management` 全命令契约承接
+- [x] 1.11 [T4] 已接入 `visual-content` 全命令契约承接
 
 ## 2. 测试步骤
 
-- [x] 2.1 [T0] 运行 `rg -n "pipeline\\.openspec\\.json|Artifact Handoff|OpenSpec contract update" visual-content/commands/*.md growth-ops/commands/*.md audience-management/commands/*.md`，确认目标命令完成契约承接模板改造
-- [x] 2.2 [T0] 运行 `openspec validate extend-contract-visual-growth-audience-20260228 --type change --strict --json`，确认 change 结构有效
-- [x] 2.3 [T0] 运行 `openspec validate --all --strict --json`，确认全仓 OpenSpec 校验通过
+- [x] 2.1 [T0] 运行 `for f in */commands/*.md; do if rg -q "openspec\\.json" "$f"; then :; else echo "$f"; fi; done`，确认无遗漏命令
+- [x] 2.2 [T0] 运行 `for f in */commands/*.md; do if rg -q "Artifact Handoff" "$f"; then :; else echo "$f"; fi; done`，确认无遗漏命令
+- [x] 2.3 [T0] 运行 `openspec validate extend-contract-visual-growth-audience-20260228 --type change --strict --json`
+- [x] 2.4 [T0] 运行 `openspec validate --all --strict --json`
 
 ## 3. 成功标准
 
-- [x] 3.1 [T0] visual/growth/audience 本轮目标命令均支持显式 `pipeline.openspec.json` 作为主输入
-- [x] 3.2 [T0] 扩展阶段仅增量写回字段，不破坏既有 P0 主链输出引用
-- [x] 3.3 [T0] 新增 `outputs.*` 与 `next.*` 字段可被下游命令稳定消费
+- [x] 3.1 [T0] `*/commands/*.md` 全量命令均具备 OpenSpec 生命周期承接说明
+- [x] 3.2 [T0] 输入检测顺序统一为：显式参数 > 合约扫描 > 旧路径回退 > 兜底提问
+- [x] 3.3 [T0] 主链与非主链都具备可追踪契约写回策略（pipeline 合约 + stage-local 合约）
 - [ ] 3.4 [T0] Update project documentation using docflow-recorder

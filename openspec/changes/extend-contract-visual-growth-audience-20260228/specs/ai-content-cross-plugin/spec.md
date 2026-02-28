@@ -1,67 +1,63 @@
 ## ADDED Requirements
 
-### Requirement: Extended Contract Coverage for Visual/Growth/Audience Command Layers
-The system SHALL extend `pipeline.openspec.json` handoff coverage to
-`visual-content`, `growth-ops`, and `audience-management` command layers.
+### Requirement: Repository-wide OpenSpec Lifecycle Coverage
+All command entrypoints SHALL support OpenSpec lifecycle handoff for intermediate artifacts.
 
-#### Scenario: Visual-content commands write back stage and visual artifacts
-- GIVEN a command in `visual-content` runs with an existing pipeline contract
-- WHEN `article-illustrator`, `cover-image`, or `infographic` completes
-- THEN the command updates `stage=visual-content` in-place
-- AND writes deterministic visual output fields under `outputs.*`
-- AND preserves existing non-visual outputs for traceability
+#### Scenario: Every command supports OpenSpec argument intake
+- GIVEN any command under `*/commands/*.md`
+- WHEN input parsing starts
+- THEN the command accepts `.openspec.json` and/or `pipeline.openspec.json` as first-class inputs
+- AND documents contract-aware usage in `argument-hint`
 
-#### Scenario: Growth-ops commands update gate and feedback artifacts
-- GIVEN a command in `growth-ops` runs with a pipeline contract
-- WHEN `screen-topic`, `review-checklist`, or `performance` completes
-- THEN the command updates `stage=growth-ops`
-- AND writes corresponding `outputs.*` fields for screening/checklist/performance
-- AND sets `next.command` and `next.input` based on the decision result
+#### Scenario: Every command defines deterministic handoff blocks
+- GIVEN any command execution finishes
+- WHEN handoff stage is reached
+- THEN command doc includes `Artifact Handoff`
+- AND includes OpenSpec write-back or OpenSpec contract creation guidance
+- AND includes a deterministic next-step routing suggestion
 
-#### Scenario: Audience-management commands persist strategy outputs
-- GIVEN a command in `audience-management` runs with a pipeline contract
-- WHEN `content-plan`, `content-rebalance`, or `ops-report` completes
-- THEN the command updates `stage=audience-management`
-- AND writes strategy artifact paths to deterministic `outputs.*` fields
-- AND keeps upstream research/production artifacts intact
+### Requirement: Contract-First Resolution for All Command Layers
+All commands SHALL follow a uniform input resolution order with contract priority.
 
-### Requirement: Contract-First Intake for Extended Command Layers
-The system SHALL prioritize OpenSpec contract input before legacy fallback in all
-contract-aware commands of the three extended plugins.
+#### Scenario: Resolution order is enforced
+- GIVEN command starts without user interaction
+- WHEN upstream input detection runs
+- THEN it resolves in order: explicit argument -> OpenSpec contract scan -> legacy path scan -> user prompt
+- AND does not skip contract scan when available
 
-#### Scenario: Explicit contract argument is provided
-- GIVEN a user passes `pipeline.openspec.json` to an extended command
-- WHEN input detection starts
-- THEN the command resolves primary inputs from `outputs.*` and `inputs.*` in contract first
-- AND skips legacy path auto-discovery unless required fields are missing
+### Requirement: Mixed Contract Types Are Supported
+The system SHALL support both pipeline contracts and stage-local OpenSpec contracts.
 
-#### Scenario: Contract auto-scan fallback is triggered
-- GIVEN no explicit argument is provided
-- WHEN the command scans recent runtime artifacts
-- THEN it checks recent `pipeline.openspec.json` files before legacy markdown/image paths
-- AND asks user for manual input only when both contract and legacy artifacts are absent
+#### Scenario: Pipeline contract path is available
+- GIVEN `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists
+- WHEN a contract-aware command runs
+- THEN stage and `outputs.*` updates occur in-place for traceability
+
+#### Scenario: Stage-local contract path is available
+- GIVEN a stage output uses `*.openspec.json` (e.g., `trend-preview`, `news-search`, `events`)
+- WHEN downstream command runs
+- THEN it can consume stage-local contracts as upstream input
+- AND persists next-step metadata in the same local contract namespace
 
 ## MODIFIED Requirements
 
 ### Requirement: OpenSpec Pipeline Contract Handoff
-The pipeline contract handoff SHALL expand from P0-only transition to include
-visual/growth/audience branch stages as first-class contract stages.
+Pipeline handoff SHALL expand from partial plugin coverage to full command coverage across the repository.
 
-#### Scenario: Extended stage update remains backward compatible
-- GIVEN a pipeline contract already contains P0 stage outputs
-- WHEN an extended-stage command writes new fields
-- THEN existing `research_md`/`analysis_md`/`article_md`/`article_html` references remain unchanged
-- AND extended-stage output keys are appended without destructive overwrite
+#### Scenario: Extended command layers preserve backward compatibility
+- GIVEN legacy runtime paths and filenames are already used in workflows
+- WHEN all commands become contract-aware
+- THEN existing artifact paths remain valid
+- AND OpenSpec metadata is additive, not destructive
 
 ### Requirement: P0 Artifact Handoff Rules
-P0 artifact handoff SHALL remain the baseline while allowing extended command
-layers to add branch-stage metadata in the same contract file.
+P0 rules SHALL remain baseline while non-P0 commands adopt the same contract-first conventions.
 
-#### Scenario: Standalone mode still works without contract
-- GIVEN a user runs an extended command without contract context
-- WHEN command execution completes in standalone mode
-- THEN legacy output path conventions remain valid
-- AND command behavior stays usable without requiring contract creation
+#### Scenario: Non-P0 commands do not break standalone mode
+- GIVEN a command runs without any contract
+- WHEN execution completes
+- THEN standalone output behavior remains valid
+- AND users can still run commands independently
 
 ## REMOVED Requirements
 

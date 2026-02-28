@@ -1,6 +1,6 @@
 ---
 description: Build an AI event calendar for content planning
-argument-hint: "[time period]"
+argument-hint: "[time period, upstream .openspec.json, or pipeline.openspec.json]"
 ---
 
 Before generating any output, use AskUserQuestion to ask the user:
@@ -12,6 +12,56 @@ Before generating any output, use AskUserQuestion to ask the user:
 
 All output artifacts must be produced in the user's chosen language.
 
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
+
+**CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for period details. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**:
+   - If argument is `.openspec.json` or `pipeline.openspec.json`, read it first and prioritize `inputs.period`, then `outputs.trend_preview_md`.
+   - If argument is a time period, use it directly.
+   - Then skip to Step 2.
+
+2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
+
+```bash
+ls -t ai-content-output/trend-preview/*.openspec.json 2>/dev/null | head -3
+ls -t ai-content-output/daily-brief/*.openspec.json 2>/dev/null | head -3
+ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+```
+
+If contracts found → read and prioritize `inputs.period` and `outputs.trend_preview_md`.
+
+3. **Auto-scan legacy event inputs**: Run these Bash commands immediately:
+
+```bash
+ls -t ai-content-output/trend-preview/*.md 2>/dev/null | head -3
+ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
+```
+
+If files found → present them to the user via AskUserQuestion: "检测到以下活动规划素材，请选择要用于事件日历的输入：" with files as options.
+
+4. **No upstream found**: Only in this case, ask for the target period (default next 3 months).
+
+## Step 2: Load Skill and Execute
+
 Load the `event-calendar` skill and build a calendar of upcoming AI events with content planning hooks.
 
-If a time period is provided, focus on that window. Otherwise default to the next 3 months.
+## Artifact Handoff
+
+**Output**: Event calendar saved to:
+
+- `ai-content-output/events/YYYY-MM-DD-<period>-event-calendar.md`
+
+**OpenSpec contract (RECOMMENDED)**:
+
+- Create or update `ai-content-output/events/YYYY-MM-DD-<period>-event-calendar.openspec.json`.
+- Minimum fields:
+  - `pipeline`: `event-calendar->content-plan`
+  - `stage`: `event-calendar`
+  - `outputs.event_calendar_md`: event calendar path
+  - `next.command`: `/audience-management:content-plan`
+  - `next.input`: event calendar path or contract path
+
+**Next step**: Suggest running `/audience-management:content-plan` to fold event windows into the editorial schedule.

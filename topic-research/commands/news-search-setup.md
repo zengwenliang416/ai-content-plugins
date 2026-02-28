@@ -1,6 +1,6 @@
 ---
 description: Install and configure platform access tools
-argument-hint: "[platform-name]"
+argument-hint: "[platform-name, .openspec.json, or pipeline.openspec.json]"
 ---
 
 Before generating any output, use AskUserQuestion to ask the user:
@@ -12,4 +12,45 @@ Before generating any output, use AskUserQuestion to ask the user:
 
 All output artifacts must be produced in the user's chosen language.
 
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
+
+**CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for setup scope. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**:
+   - If argument is `.openspec.json` or `pipeline.openspec.json`, read it first and prioritize `inputs.platform`.
+   - If argument is a platform name, use it directly.
+   - Then skip to Step 2.
+
+2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
+
+```bash
+ls -t ai-content-output/news-search/setup/*.openspec.json 2>/dev/null | head -3
+```
+
+If contracts found → read and prioritize `inputs.platform`.
+
+3. **No upstream found**: Ask the user which platform(s) to configure first.
+
+## Step 2: Load Skill and Execute
+
 Load the `news-search-setup` skill and guide the user through installing and configuring upstream tools for multi-platform news search.
+
+## Artifact Handoff
+
+**Output**: Setup record saved to:
+
+- `ai-content-output/news-search/setup/YYYY-MM-DD-<platform>-setup.md`
+
+**OpenSpec contract (RECOMMENDED)**:
+
+- Create or update `ai-content-output/news-search/setup/YYYY-MM-DD-<platform>-setup.openspec.json`.
+- Minimum fields:
+  - `pipeline`: `news-search-setup->news-search`
+  - `stage`: `news-search-setup`
+  - `outputs.setup_record_md`: setup record path
+  - `next.command`: `/topic-research:news-search`
+  - `next.input`: configured platform name or contract path
+
+**Next step**: Suggest running `/topic-research:news-search` to validate the platform setup with a real query.

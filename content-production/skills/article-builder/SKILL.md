@@ -12,8 +12,15 @@ description: Write comprehensive long-form articles for blogs, newsletters, and 
 **Detection order** (stop at first hit):
 
 1. **Explicit argument**: If user passes a file/directory path, use it directly
-2. **Auto-scan deep-research**: Check `ai-content-output/deep-research/` for recent research directories
-   - Present found directories to the user via AskUserQuestion for selection
+
+2. **Auto-scan deep-research**: Run this Bash command immediately:
+
+```bash
+ls -dt ai-content-output/deep-research/*/ 2>/dev/null | head -3
+```
+
+If directories found → present them to the user via AskUserQuestion: "检测到以下深度研究产物，请选择一个作为文章素材：" with the directories as options (plus a "自定义话题" option).
+
 3. **No upstream found**: Only in this case, proceed with fresh source gathering
 
 **When a deep-research directory is loaded** (e.g., `ai-content-output/deep-research/<slug>/`):

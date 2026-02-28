@@ -15,6 +15,30 @@ This skill produces in-depth AI topic articles following high-quality content st
 
 ---
 
+## Pre-flight: Upstream Artifact Detection (MANDATORY — RUN FIRST)
+
+**CRITICAL**: You MUST run the bash commands below BEFORE asking the user ANY question about topics, tasks, or research direction. Do NOT skip this step. Do NOT present topic options without first scanning for artifacts.
+
+```bash
+# Step A: Check for brainstorm output (today first, then recent)
+TODAY=$(date +%Y-%m-%d) && ls -t ai-content-output/brainstorm/${TODAY}*.md ai-content-output/brainstorm/*.md 2>/dev/null | head -3
+
+# Step B: Check for daily brief (fallback if no brainstorm)
+ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
+```
+
+**After running the commands**:
+
+1. **If brainstorm files found** → Read the most recent one, extract the top-3 topic briefs. Present them to the user via AskUserQuestion: "检测到最近的选题报告，请选择一个话题进入深度研究：" with the top-3 topics as options (plus a "自定义话题" option).
+
+2. **If only daily brief found** → Read the file, extract top stories as potential research topics. Present them to the user via AskUserQuestion.
+
+3. **If nothing found** → Proceed to ask the user for a topic.
+
+**Only after a topic is confirmed**, proceed to the task selection below.
+
+---
+
 ## CRITICAL: One Task at a Time
 
 **THIS SKILL OPERATES IN SINGLE-TASK MODE ONLY.**

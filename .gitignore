@@ -44,10 +44,25 @@ coverage/
 # Personal files
 TASKS.md
 MEMORY.md
+USER.md
 .claude/worktrees/
+
+# OpenClaw runtime
+.openclaw/
+HEARTBEAT.md
 
 # Brainstorm runs (generated output)
 .brainstorm-runs/
 backups
+openspec/
+
+# Research outputs (session artifacts)
+*_Research_Document_*.md
+daily-brief-*.md
+ai_agent_items.json
+
+# Shared skill symlinks (created by install.sh)
+workspace-content-writer/skills/news-search
+workspace-content-operator/skills/news-search
 
 git_repos

@@ -228,26 +228,36 @@ All data claims require source citation. Rules by plugin:
 
 ## 12. OpenSpec Contract Conventions
 
-The repository is migrating intermediate artifact handoff to OpenSpec-compatible runtime contracts.
+OpenSpec handoff is workflow-centric and mandatory across all 55 commands.
 
-### Contract file
+### Contract topology
 
-- Path pattern: `ai-content-output/deep-research/<slug>/pipeline.openspec.json`
-- Purpose: Canonical stage handoff across the P0 chain.
+- **Pipeline contract**: `ai-content-output/deep-research/<slug>/pipeline.openspec.json`
+- **Stage-local contract**: command-run-local `*.openspec.json`
+- **Standalone rule**: when no pipeline contract is in scope, commands still create/update a stage-local contract.
+- **In-place update rule**: when pipeline contract exists, commands update that same `pipeline.openspec.json` file in place for cross-stage traceability.
 
-### P0 contracted chain
+### Command workflow order (mandatory)
 
-`topic-research -> content-production -> content-utilities -> publishing`
-
-Extended contract-aware commands also include `topic-research:daily-brief`, `topic-research:brainstorm`, and `content-analysis:check-quality`.
+1. Run upstream artifact detection as **Step 1**.
+2. In explicit argument handling, support both `.openspec.json` and `pipeline.openspec.json`.
+3. Resolve contract input before fallback path discovery.
+4. Perform language selection only after Step 1 (`Language Selection (MANDATORY — after Step 1)`).
 
 ### Minimum contract fields
 
 - `pipeline`
 - `stage`
-- `outputs.*` (`research_md`, `data_workbook_md`, `analysis_md`, `article_md`, `article_html`, optional `quality_report_md`, optional `wechat_media_id`)
+- `inputs.*` (when applicable)
+- `outputs.*` (stage outputs and preserved upstream references)
 - `next.command`
 - `next.input`
+
+### Routing convention
+
+- `next.command` MUST be a single downstream route (single command string, not a list).
+- `next.input` MUST point to the canonical artifact path expected by that downstream command.
+- Stage transitions MUST preserve prior `outputs.*` entries for replay/audit continuity.
 
 ### Compatibility rule
 
@@ -261,5 +271,5 @@ Contract write-back is additive. Existing markdown/html artifact names and direc
 2. **Command-to-skill delegation**: Command files load a skill by name and handle argument gathering. Do not duplicate skill workflow in the command body.
 3. **Progressive disclosure**: Plugin manifest loads first, then command frontmatter, then skill frontmatter, then skill body + references. Design content for this loading order.
 4. **Context efficiency**: Only add context Claude does not already have. Keep SKILL.md under 500 lines; move detailed content to reference files.
-5. **OpenSpec-first handoff where available**: For commands that support OpenSpec contracts, prioritize contract input over legacy auto-scan fallback.
+5. **OpenSpec-first handoff (mandatory)**: All commands prioritize contract input and follow the Step 1 detection + post-Step-1 language selection order.
 6. **No partner plugins**: Unlike some plugin marketplaces, this project has no partner-built plugins. All plugins are first-party.

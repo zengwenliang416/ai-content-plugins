@@ -15,7 +15,7 @@ Claude Cowork plugin marketplace for AI content creators: 8 plugins, 55 commands
 | File | Description |
 |------|-------------|
 | [architecture/plugin-system.md](architecture/plugin-system.md) | Plugin directory layout, manifest schema, command system, skill triggers, MCP config, hooks |
-| [architecture/content-lifecycle.md](architecture/content-lifecycle.md) | Full content lifecycle pipeline across 8 plugins, cross-plugin data flows, OpenSpec handoff contract, implicit+contracted patterns |
+| [architecture/content-lifecycle.md](architecture/content-lifecycle.md) | Full content lifecycle pipeline across 8 plugins, cross-plugin data flows, workflow-centric OpenSpec handoff contracts, and route continuity |
 | [architecture/deep-research-pipeline.md](architecture/deep-research-pipeline.md) | 5-task deep research pipeline architecture, MCP integration, WRITE/MONITOR/SKIP framework |
 
 ## Guides
@@ -30,7 +30,7 @@ Claude Cowork plugin marketplace for AI content creators: 8 plugins, 55 commands
 
 | File | Description |
 |------|-------------|
-| [reference/coding-conventions.md](reference/coding-conventions.md) | File formats, naming rules, SKILL.md variants, hooks schema, output conventions, OpenSpec contract conventions |
+| [reference/coding-conventions.md](reference/coding-conventions.md) | File formats, naming rules, SKILL.md variants, hooks schema, output conventions, and mandatory OpenSpec conventions (55 commands, Step-1 detection, single-route `next.command`) |
 | [reference/git-conventions.md](reference/git-conventions.md) | Branch strategy, commit messages, contribution workflow |
 
 ---

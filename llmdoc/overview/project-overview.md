@@ -55,10 +55,9 @@ Skills use a consistent structure: trigger phrases, numbered workflow steps, out
 ### 6. Chinese Platform Support
 `content-production` includes skills targeting Chinese social platforms (Xiaohongshu, WeChat, Weibo) with platform-specific formatting and conventions.
 
-### 7. OpenSpec Contract Handoff (P0)
-The repository started migrating intermediate artifact handoff to an OpenSpec-compatible contract (`pipeline.openspec.json`) for the P0 chain:
-`topic-research -> content-production -> content-utilities -> publishing`.
-The contract stores stage transitions, canonical output paths, and next-step command routing.
+### 7. OpenSpec Workflow Governance
+OpenSpec lifecycle governance is workflow-centric and centered on `openspec/changes/<change_id>`.
+All **55 commands** are contract-aware with a mandatory `**OpenSpec contract (MANDATORY)**:` section, using `pipeline.openspec.json` for stage transitions, canonical output paths, and next-step routing, with standalone fallback when no upstream contract exists.
 
 ## Cross-Cutting Conventions
 
@@ -78,7 +77,7 @@ Two skills in `content-production` (asset-pack, presentation) have no correspond
 ## Known Gaps
 
 ### Structural
-- **Cross-plugin handoffs are mixed-mode** — P0 chain supports contract handoff, but many other paths still rely on implicit/manual file passing
+- **Cross-plugin handoffs depend on artifact quality** — downstream planning quality degrades when upstream outputs are missing or stale
 - **WRITE/MONITOR/SKIP vocabulary inconsistent** — fully adopted in `topic-research`, partially elsewhere
 - **Trigger phrase ambiguity** — "editorial calendar" matches skills in both `content-production` and `audience-management`
 
@@ -86,7 +85,7 @@ Two skills in `content-production` (asset-pack, presentation) have no correspond
 - **No event-driven automation** — all plugins have empty `hooks.json`; everything is user-triggered
 
 ### Migration
-- **OpenSpec coverage is partial** — P0 and selected upstream/quality commands are contract-aware; remaining plugins/stages still need migration
+- **Contract governance needs sync discipline** — keep `openspec/changes/<change_id>` lifecycle notes and command contract fields aligned during updates
 
 ### Flagship Workflow
 `topic-research` includes a deep-research command that orchestrates a 5-task pipeline, the most complex workflow in the marketplace.

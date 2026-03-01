@@ -31,4 +31,4 @@
 - [x] 3.3 [T1] 55/55 命令完成 OpenSpec MANDATORY 契约段统一
 - [x] 3.4 [T1] 55/55 命令完成语言选择位置与参数提示统一
 - [x] 3.5 [T1] Next step 与 `next.command` 路由语义一致，不再出现显式分支路由表达
-- [ ] 3.6 [T0] Update project documentation using docflow-recorder
+- [x] 3.6 [T0] Update project documentation using docflow-recorder

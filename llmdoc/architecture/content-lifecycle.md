@@ -1,6 +1,6 @@
 # Content Lifecycle Architecture
 
-The content lifecycle is the end-to-end workflow chain across eight plugins. The core production path flows through research, production, utilities, and publishing; handoffs now use a mixed model: OpenSpec contract handoff for the P0 chain plus implicit/manual handoff for other chains.
+The content lifecycle is the end-to-end workflow governance chain across eight plugins. The core production path flows through research, production, utilities, and publishing, with OpenSpec contracts as lifecycle carriers and file-based fallback kept for compatibility.
 
 ## Pipeline Overview
 
@@ -18,9 +18,19 @@ topic-research          content-analysis        content-production      growth-o
                                                  audience-targeting                               audience-review
 ```
 
-## OpenSpec Contract Handoff (P0)
+## Workflow-Centric Lifecycle Governance
 
-P0 chain commands use `pipeline.openspec.json` as the canonical runtime handoff contract:
+Lifecycle source of truth is openspec/changes/<change_id>.
+
+Commands accept .openspec.json and pipeline.openspec.json.
+All lifecycle commands are contract-compatible and can use either contract type as valid input.
+
+### Dual-Track Contract Model (stage-local + pipeline)
+
+1. **Stage-local contract (`*.openspec.json`)**: command-scoped state for standalone or partial workflow execution.
+2. **Pipeline contract (`pipeline.openspec.json`)**: cross-stage handoff state for multi-command lifecycle continuation.
+
+The primary pipeline route remains:
 
 ```text
 topic-research -> content-production -> content-utilities -> publishing
@@ -39,7 +49,7 @@ Minimum handoff fields:
 - `outputs.*`: canonical artifact paths (`research_md`, `analysis_md`, `article_md`, `article_html`, `quality_report_md`, `wechat_media_id`)
 - `next.command` + `next.input`: downstream routing
 
-This contract layer is additive: legacy file names and directories remain unchanged for backward compatibility.
+OpenSpec metadata remains additive and non-destructive. Legacy file names and directories remain unchanged for backward compatibility.
 
 ## Cross-Plugin Data Flows
 
@@ -136,20 +146,15 @@ When the active plugin context is content-production, "editorial calendar" fires
 
 ## Design Characteristics
 
-### Implicit + Contracted Handoffs
+### Workflow-Centric Handoffs
 
-Cross-plugin data flows currently use two patterns:
+Cross-plugin data flows use lifecycle-governed contracts with compatibility fallback:
 
-1. **Contracted handoff (P0):** commands read/write `pipeline.openspec.json`.
-2. **Implicit handoff (non-P0):** user/session passes files manually.
+1. **Stage-local governance:** each command can write/read a stage-local `*.openspec.json`.
+2. **Pipeline governance:** cross-stage continuation reads/writes `pipeline.openspec.json`.
+3. **Compatibility fallback:** direct file-path handoff remains valid when no contract is provided.
 
-For implicit paths, each handoff requires the user (or Claude session) to:
-
-1. Complete the upstream skill and capture its output
-2. Invoke the downstream skill with the upstream output as input
-3. Maintain data continuity across the handoff
-
-This mixed model preserves plugin independence (any plugin can be used standalone), enables flexible workflow composition (skip steps, reorder, branch), and allows incremental migration without breaking existing file-based workflows.
+This dual-track model preserves plugin independence (any plugin can be used standalone), enables flexible workflow composition (skip steps, reorder, branch), and keeps backward compatibility during migration.
 
 ### Data Continuity
 

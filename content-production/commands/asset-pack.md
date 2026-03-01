@@ -3,15 +3,6 @@ description: Bundle content assets into an organized package
 argument-hint: "[project brief, asset paths, or pipeline.openspec.json]"
 ---
 
-Before generating any output, use AskUserQuestion to ask the user:
-
-"请选择输出语言 / Select output language:
-
-1. 中文 (Chinese)
-2. English"
-
-All output artifacts must be produced in the user's chosen language.
-
 ## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
 
 **CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for asset package scope. Do NOT skip this step.
@@ -43,6 +34,17 @@ If files found → present them to the user via AskUserQuestion: "检测到以�
 
 4. **No upstream found**: Only in this case, ask for project details, deadline, and needed asset types.
 
+## Language Selection (MANDATORY — after Step 1)
+
+After completing Step 1 and before generating content output, use AskUserQuestion to ask the user:
+
+"请选择输出语言 / Select output language:
+
+1. 中文 (Chinese)
+2. English"
+
+All output artifacts must be produced in the user's chosen language.
+
 ## Step 2: Load Skill and Execute
 
 Load the `asset-pack` skill and assemble an organized asset package for the specified content project.
@@ -54,7 +56,11 @@ Load the `asset-pack` skill and assemble an organized asset package for the spec
 - `ai-content-output/asset-pack/YYYY-MM-DD-<project>-asset-pack.zip` (standalone mode)
 - `ai-content-output/deep-research/<slug>/asset-pack.zip` (if contract/deep-research mode)
 
-**OpenSpec contract update (RECOMMENDED when contract exists)**:
+**OpenSpec contract (MANDATORY)**:
+
+- Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
+- If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
+
 
 - Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-production`
@@ -62,4 +68,4 @@ Load the `asset-pack` skill and assemble an organized asset package for the spec
   - `next.command`: `/publishing:post-to-wechat`
   - `next.input`: asset package path or contract path
 
-**Next step**: Suggest running `/publishing:post-to-wechat` (or `/publishing:post-to-x`) with packaged assets.
+**Next step**: Suggest running `/publishing:post-to-wechat` as the single routed next command for packaged asset delivery.

@@ -3,15 +3,6 @@ description: Analyze article and generate illustrations at key positions
 argument-hint: "[article file path or pipeline.openspec.json]"
 ---
 
-Before generating any output, use AskUserQuestion to ask the user:
-
-"请选择输出语言 / Select output language:
-
-1. 中文 (Chinese)
-2. English"
-
-All output artifacts must be produced in the user's chosen language.
-
 ## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
 
 **CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for input. Do NOT skip this step.
@@ -19,7 +10,7 @@ All output artifacts must be produced in the user's chosen language.
 **Detection order** (stop at first hit):
 
 1. **Explicit argument**:
-   - If argument is `pipeline.openspec.json`, read it first and use `outputs.article_md` as primary input.
+   - If argument is `.openspec.json` or `pipeline.openspec.json`, read it first and use `outputs.article_md` as primary input.
    - If argument is an article path, use it directly.
    - Then skip to Step 2.
 
@@ -42,6 +33,17 @@ If files found → present them to the user via AskUserQuestion.
 
 4. **No upstream found**: Only in this case, ask the user for article content or file path.
 
+## Language Selection (MANDATORY — after Step 1)
+
+After completing Step 1 and before generating content output, use AskUserQuestion to ask the user:
+
+"请选择输出语言 / Select output language:
+
+1. 中文 (Chinese)
+2. English"
+
+All output artifacts must be produced in the user's chosen language.
+
 ## Step 2: Load Skill and Execute
 
 Load the `article-illustrator` skill and generate illustrations for the selected article.
@@ -53,7 +55,10 @@ Load the `article-illustrator` skill and generate illustrations for the selected
 - `ai-content-output/deep-research/<slug>/images/` (when article is from deep-research)
 - `illustrations/<topic-slug>/` (standalone mode)
 
-**OpenSpec contract update (RECOMMENDED when contract exists)**:
+**OpenSpec contract (MANDATORY)**:
+
+- Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
+- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
 - Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `visual-content`

@@ -3,15 +3,6 @@ description: Check article quality for accuracy, readability, and SEO
 argument-hint: "[article file path or pipeline.openspec.json]"
 ---
 
-Before generating any output, use AskUserQuestion to ask the user:
-
-"请选择输出语言 / Select output language:
-
-1. 中文 (Chinese)
-2. English"
-
-All output artifacts must be produced in the user's chosen language.
-
 ## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
 
 **CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for input. Do NOT skip this step.
@@ -42,6 +33,17 @@ If files found → present them to the user via AskUserQuestion: "检测到以�
 
 4. **No upstream found**: Only in this case, ask the user for an article file path.
 
+## Language Selection (MANDATORY — after Step 1)
+
+After completing Step 1 and before generating content output, use AskUserQuestion to ask the user:
+
+"请选择输出语言 / Select output language:
+
+1. 中文 (Chinese)
+2. English"
+
+All output artifacts must be produced in the user's chosen language.
+
 ## Step 2: Load Skill and Execute
 
 Load the `quality-check` skill and review the selected article for accuracy, readability, logical coherence, and SEO quality.
@@ -53,12 +55,16 @@ Load the `quality-check` skill and review the selected article for accuracy, rea
 - Quality scorecard MUST be displayed in conversation.
 - Quality report SHOULD be saved as `quality-report.md` alongside the article file for traceability.
 
-**OpenSpec contract update (RECOMMENDED when contract exists)**:
+**OpenSpec contract (MANDATORY)**:
+
+- Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
+- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
 - Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-analysis`
   - `outputs.quality_report_md`: report path
-  - `next.command`: `/publishing:post-to-wechat` (if passed) or `/content-production:long-article` (if revision needed)
+  - `outputs.quality_gate_status`: `pass` or `fail`
+  - `next.command`: `/publishing:post-to-wechat`
   - `next.input`: selected article path
 
-**Next step**: If quality passes, suggest running `/publishing:post-to-wechat` to publish. If issues found, suggest fixing them first.
+**Next step**: Suggest `/publishing:post-to-wechat` as the single routed next command; publishing readiness is interpreted from `outputs.quality_gate_status`.

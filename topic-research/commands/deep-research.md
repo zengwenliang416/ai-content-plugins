@@ -3,15 +3,6 @@ description: Run a multi-task deep research pipeline on an AI topic
 argument-hint: "[AI topic, technology, or pipeline.openspec.json path]"
 ---
 
-Before generating any output, use AskUserQuestion to ask the user:
-
-"请选择输出语言 / Select output language:
-
-1. 中文 (Chinese)
-2. English"
-
-All output artifacts must be produced in the user's chosen language.
-
 ## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
 
 **CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for a topic. Do NOT skip this step.
@@ -49,6 +40,17 @@ If found → Read the file, extract top stories as potential topics. Present the
 
 5. **No upstream found**: Only in this case, ask the user which AI topic or technology to research.
 
+## Language Selection (MANDATORY — after Step 1)
+
+After completing Step 1 and before generating content output, use AskUserQuestion to ask the user:
+
+"请选择输出语言 / Select output language:
+
+1. 中文 (Chinese)
+2. English"
+
+All output artifacts must be produced in the user's chosen language.
+
 ## Step 2: Load Skill and Execute
 
 Load the `deep-research` skill. Pass the selected topic and any upstream context.
@@ -81,4 +83,4 @@ This is a 5-task pipeline that must be executed one task at a time:
   - `next.command`: `/content-production:long-article`
   - `next.input`: contract file path
 
-**Next step**: After Task 5, suggest running `/content-production:long-article` (to refine) or `/visual-content:cover-image` (to generate cover).
+**Next step**: After Task 5, run `/content-production:long-article` as the deterministic next step. Use `/visual-content:cover-image` after article refinement.

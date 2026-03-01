@@ -3,15 +3,6 @@ description: Define and analyze target audience for content
 argument-hint: "[niche/topic, research path, or pipeline.openspec.json]"
 ---
 
-Before generating any output, use AskUserQuestion to ask the user:
-
-"请选择输出语言 / Select output language:
-
-1. 中文 (Chinese)
-2. English"
-
-All output artifacts must be produced in the user's chosen language.
-
 ## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
 
 **CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for targeting details. Do NOT skip this step.
@@ -45,6 +36,17 @@ If files found → present them to the user via AskUserQuestion: "检测到以�
 
 4. **No upstream found**: Only in this case, ask for content focus and intended platform.
 
+## Language Selection (MANDATORY — after Step 1)
+
+After completing Step 1 and before generating content output, use AskUserQuestion to ask the user:
+
+"请选择输出语言 / Select output language:
+
+1. 中文 (Chinese)
+2. English"
+
+All output artifacts must be produced in the user's chosen language.
+
 ## Step 2: Load Skill and Execute
 
 Load the `audience-targeting` skill and build an audience analysis for the specified niche or topic.
@@ -56,7 +58,11 @@ Load the `audience-targeting` skill and build an audience analysis for the speci
 - `ai-content-output/audience-targeting/YYYY-MM-DD-<topic>-audience-targeting.md` (standalone mode)
 - `ai-content-output/deep-research/<slug>/audience-targeting.md` (if contract/deep-research mode)
 
-**OpenSpec contract update (RECOMMENDED when contract exists)**:
+**OpenSpec contract (MANDATORY)**:
+
+- Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
+- If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
+
 
 - Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-production`

@@ -3,15 +3,6 @@ description: Draft a business proposal for sponsorship or collaboration
 argument-hint: "[brand/partner, supporting brief path, or pipeline.openspec.json]"
 ---
 
-Before generating any output, use AskUserQuestion to ask the user:
-
-"请选择输出语言 / Select output language:
-
-1. 中文 (Chinese)
-2. English"
-
-All output artifacts must be produced in the user's chosen language.
-
 ## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
 
 **CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for proposal details. Do NOT skip this step.
@@ -19,7 +10,7 @@ All output artifacts must be produced in the user's chosen language.
 **Detection order** (stop at first hit):
 
 1. **Explicit argument**:
-   - If argument is `pipeline.openspec.json`, read it first and prioritize `outputs.audience_review_md`, then `outputs.ops_report_md`, then `inputs.partner`.
+   - If argument is `.openspec.json` or `pipeline.openspec.json`, read it first and prioritize `outputs.audience_review_md`, then `outputs.ops_report_md`, then `inputs.partner`.
    - If argument is a partner name or brief path, use it directly.
    - Then skip to Step 2.
 
@@ -43,6 +34,17 @@ If files found → present them to the user via AskUserQuestion: "检测到以�
 
 4. **No upstream found**: Only in this case, ask who the proposal is for and what type of collaboration is being proposed.
 
+## Language Selection (MANDATORY — after Step 1)
+
+After completing Step 1 and before generating content output, use AskUserQuestion to ask the user:
+
+"请选择输出语言 / Select output language:
+
+1. 中文 (Chinese)
+2. English"
+
+All output artifacts must be produced in the user's chosen language.
+
 ## Step 2: Load Skill and Execute
 
 Load the `biz-proposal` skill to create a professional business proposal covering collaboration format, audience metrics, pricing, deliverables, and timeline.
@@ -54,7 +56,10 @@ Load the `biz-proposal` skill to create a professional business proposal coverin
 - `ai-content-output/biz-proposal/YYYY-MM-DD-<partner>-biz-proposal.md` (standalone mode)
 - `ai-content-output/deep-research/<slug>/biz-proposal.md` (if contract/deep-research mode)
 
-**OpenSpec contract update (RECOMMENDED when contract exists)**:
+**OpenSpec contract (MANDATORY)**:
+
+- Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
+- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
 - Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `audience-management`
@@ -62,4 +67,4 @@ Load the `biz-proposal` skill to create a professional business proposal coverin
   - `next.command`: `none`
   - `next.input`: `none`
 
-**Next step**: Suggest sharing the proposal with the partner, or running `/growth-ops:collab-prep` if more negotiation preparation is needed.
+**Next step**: This is a terminal stage (`next.command=none`); suggest sharing the proposal with the partner for execution.

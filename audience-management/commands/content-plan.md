@@ -3,15 +3,6 @@ description: Create a content plan and editorial calendar
 argument-hint: "[time period, rebalance/performance report path, or pipeline.openspec.json]"
 ---
 
-Before generating any output, use AskUserQuestion to ask the user:
-
-"请选择输出语言 / Select output language:
-
-1. 中文 (Chinese)
-2. English"
-
-All output artifacts must be produced in the user's chosen language.
-
 ## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
 
 **CRITICAL**: You MUST complete this step BEFORE loading the skill and BEFORE asking the user for planning details. Do NOT skip this step.
@@ -19,7 +10,7 @@ All output artifacts must be produced in the user's chosen language.
 **Detection order** (stop at first hit):
 
 1. **Explicit argument**:
-   - If argument is `pipeline.openspec.json`, read it first and prioritize `outputs.content_rebalance_md`, then `outputs.performance_report_md`, then `inputs.period`.
+   - If argument is `.openspec.json` or `pipeline.openspec.json`, read it first and prioritize `outputs.content_rebalance_md`, then `outputs.performance_report_md`, then `inputs.period`.
    - If argument is a time period or file path, use it directly.
    - Then skip to Step 2.
 
@@ -44,6 +35,17 @@ If files found → present them to the user via AskUserQuestion: "检测到以�
 
 4. **No upstream found**: Only in this case, ask the user for planning period, primary goals, and target platforms.
 
+## Language Selection (MANDATORY — after Step 1)
+
+After completing Step 1 and before generating content output, use AskUserQuestion to ask the user:
+
+"请选择输出语言 / Select output language:
+
+1. 中文 (Chinese)
+2. English"
+
+All output artifacts must be produced in the user's chosen language.
+
 ## Step 2: Load Skill and Execute
 
 Load the `content-plan` skill and build a content plan with objectives, weekly/monthly calendar, theme planning, and resource allocation.
@@ -55,7 +57,10 @@ Load the `content-plan` skill and build a content plan with objectives, weekly/m
 - `ai-content-output/content-plan/YYYY-MM-DD-<period>-content-plan.md` (standalone mode)
 - `ai-content-output/deep-research/<slug>/content-plan.md` (if contract/deep-research mode)
 
-**OpenSpec contract update (RECOMMENDED when contract exists)**:
+**OpenSpec contract (MANDATORY)**:
+
+- Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
+- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
 - Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `audience-management`

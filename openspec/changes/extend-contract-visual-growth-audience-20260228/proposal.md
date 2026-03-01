@@ -1,32 +1,31 @@
 ## Why
 
-上一阶段已完成 P0 主链与部分视觉/增长/受众命令的 OpenSpec 契约承接，但仍存在大量命令仅靠手工输入与对话上下文传递中间产物，导致生命周期不可追踪、跨插件复用困难、历史回放成本高。
+上一版将 OpenSpec 生命周期要求下沉到“每个业务命令都内嵌较长契约扫描”，虽然覆盖面高，但带来了命令文档臃肿、维护成本上升、变更边界不清的问题。
 
-本次变更将“契约优先输入 + Artifact Handoff + 契约写回”扩展到仓库剩余命令，目标是让**全部命令**都具备 OpenSpec 生命周期管理能力，同时保持现有产物目录兼容。
+本次纠偏改为 **workflow-centric**：OpenSpec 生命周期以
+`openspec/changes/<change_id>/` 为主承载单元，通过 change 目录管理提案、
+规范、任务与执行状态；业务命令保留轻量兼容能力，而不是被要求承载完整
+生命周期编排逻辑。
 
 ## What Changes
 
-- 将剩余命令统一改造为 OpenSpec 承接模式：
-  - `argument-hint` 支持 `.openspec.json` 或 `pipeline.openspec.json`
-  - Step 1 固化为：显式参数 > OpenSpec 合约扫描 > 旧路径回退 > 兜底提问
-  - Step 2 明确 skill 加载与执行
-  - 新增 `Artifact Handoff` 段落
-  - 新增 `OpenSpec contract update` 或 `OpenSpec contract` 段落
-  - 新增下一步命令路由建议
-- 扩展覆盖到全仓剩余命令层：
-  - `topic-research`（趋势/叙事/发布分析/事件/搜索与配置/研究更新）
-  - `content-analysis`（benchmark/competitor/trend-analysis/debug/template/skill-creator）
-  - `content-production`（short-post/collab-letter/audience/tracker/ab-test/infographic/presentation/asset-pack）
-  - `content-utilities`（compress-image/format-markdown/url-to-markdown/x-to-markdown）
-  - `publishing`（post-to-x）
-- 保持产物在当前仓库路径（如 `ai-content-output/...`），仅引入 OpenSpec 契约层做生命周期编排，不迁移运行时存储根目录。
+- 将本 change 的目标从“全命令重写为重契约扫描”调整为“工作流级承接优先”。
+- 明确 workflow 级命令面（`list` / `view` / `validate` / `apply` /
+  `archive`）作为生命周期主入口：
+  - `list`：发现与枚举 change
+  - `view`：聚合查看 change 的 proposal/spec/tasks
+  - `validate`：作为质量门禁
+  - `apply`：执行已批准变更
+  - `archive`：归档已完成变更
+- 对业务命令的约束收敛为兼容层：
+  - 可继续支持显式 `.openspec.json` / `pipeline.openspec.json` 输入
+  - 可保留旧路径回退
+  - 不再要求每个命令内嵌超长契约扫描描述
 
 ## Pipeline Impact
 
-- 影响插件：8 个插件的全部命令均纳入 OpenSpec 生命周期承接能力。
-- 契约路径策略：
-  - 主链延续 `ai-content-output/deep-research/<slug>/pipeline.openspec.json`
-  - 非主链命令采用各自阶段的 `*.openspec.json`（如 `trend-preview/*.openspec.json`）
-- 兼容性：
-  - 既有文件命名与目录结构保持不变
-  - OpenSpec 为增量元数据层，不破坏既有工作流
+- 生命周期主路径收敛到 `openspec/changes/<change_id>/`，工作流编排与审计
+  以 change 目录为准。
+- 不再要求对全仓 `*/commands/*.md` 做重度同步改写，降低后续维护与审查成本。
+- 兼容性保持不变：既有产物路径、`pipeline.openspec.json` 与 stage-local
+  `*.openspec.json` 仍可继续使用；OpenSpec 元数据继续保持增量、非破坏式。

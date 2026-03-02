@@ -17,7 +17,7 @@ argument-hint: "[text/article file or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.short_post_md`, `outputs.article_md`, and `outputs.article_html`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.short_post_md`, `outputs.art
 3. **Auto-scan legacy publish assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
-ls -t ai-content-output/articles/*.html 2>/dev/null | head -3
-ls -t ai-content-output/short-post/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.html 2>/dev/null | head -3
+ls -t openspec/runtime/short-post/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下待发布内容，请选择要发布到 X 的输入：" with files as options.
@@ -54,7 +54,7 @@ Load the `x-publisher` skill and post the content to X (Twitter).
 **Output**:
 
 - Post result MUST be shown in conversation.
-- Publish record SHOULD be saved to `ai-content-output/publishing/x/YYYY-MM-DD-<slug>.md`.
+- Publish record SHOULD be saved to `openspec/runtime/publishing/x/YYYY-MM-DD-<slug>.md`.
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -62,7 +62,7 @@ Load the `x-publisher` skill and post the content to X (Twitter).
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `publishing`
   - `outputs.x_post_id`: published post id (if available)
   - `outputs.x_post_url`: published post URL (if available)

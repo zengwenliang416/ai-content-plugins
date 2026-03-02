@@ -17,7 +17,7 @@ argument-hint: "[brand/partner, supporting brief path, or pipeline.openspec.json
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.audience_review_md`, `outputs.ops_report_md`, and `inputs.partner`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.audience_review_md`, `output
 3. **Auto-scan legacy proposal assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/audience-review/*.md 2>/dev/null | head -3
-ls -t ai-content-output/ops-report/*.md 2>/dev/null | head -3
-ls -t ai-content-output/collab-prep/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/audience-review/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/ops-report/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/collab-prep/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下合作提案素材，请选择要用于商务方案的输入：" with files as options.
@@ -53,15 +53,15 @@ Load the `biz-proposal` skill to create a professional business proposal coverin
 
 **Output**: Business proposal saved to:
 
-- `ai-content-output/biz-proposal/YYYY-MM-DD-<partner>-biz-proposal.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/biz-proposal.md` (if contract/deep-research mode)
+- `openspec/runtime/biz-proposal/YYYY-MM-DD-<partner>-biz-proposal.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/biz-proposal.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `audience-management`
   - `outputs.biz_proposal_md`: business proposal path
   - `next.command`: `none`

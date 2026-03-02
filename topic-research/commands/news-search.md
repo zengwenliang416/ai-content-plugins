@@ -17,9 +17,9 @@ argument-hint: "[query/URL, upstream .openspec.json, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/daily-brief/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/trend-preview/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.query`, `inputs.url`, and `inputs.topic`.
@@ -27,7 +27,7 @@ If contracts found → read and prioritize `inputs.query`, `inputs.url`, and `in
 3. **Auto-scan legacy search outputs**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/news-search/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/news-search/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下历史检索结果，是否复用或继续新检索？" with files as options.
@@ -53,7 +53,7 @@ Load the `news-search` skill and execute multi-platform search or content readin
 
 **Output**: Search result saved to:
 
-- `ai-content-output/news-search/YYYY-MM-DD-<query-slug>.md`
+- `openspec/runtime/news-search/YYYY-MM-DD-<query-slug>.md`
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -61,7 +61,7 @@ Load the `news-search` skill and execute multi-platform search or content readin
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Create or update `ai-content-output/news-search/YYYY-MM-DD-<query-slug>.openspec.json`.
+- Create or update `openspec/runtime/news-search/YYYY-MM-DD-<query-slug>.openspec.json`.
 - Minimum fields:
   - `pipeline`: `news-search->brainstorm`
   - `stage`: `news-search`

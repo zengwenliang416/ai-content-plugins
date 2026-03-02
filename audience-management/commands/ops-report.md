@@ -17,7 +17,7 @@ argument-hint: "[time period, performance/rebalance report path, or pipeline.ope
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.performance_report_md`, `outputs.content_rebalance_md`, and `inputs.period`.
@@ -25,10 +25,10 @@ If contracts found → read and prioritize `outputs.performance_report_md`, `out
 3. **Auto-scan legacy upstream assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/performance-report/*.md 2>/dev/null | head -3
-ls -t ai-content-output/performance-analysis/*.md 2>/dev/null | head -3
-ls -t ai-content-output/content-rebalance/*.md 2>/dev/null | head -3
-ls -t ai-content-output/ops-report/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/performance-report/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/performance-analysis/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/content-rebalance/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/ops-report/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下运营素材，请选择要用于报告的输入：" with files as options.
@@ -54,15 +54,15 @@ Load the `ops-report` skill and generate a professional operations and analytics
 
 **Output**: Operations report saved to:
 
-- `ai-content-output/ops-report/YYYY-MM-DD-<period>-ops-report.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/ops-report.md` (if contract/deep-research mode)
+- `openspec/runtime/ops-report/YYYY-MM-DD-<period>-ops-report.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/ops-report.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `audience-management`
   - `outputs.ops_report_md`: ops report path
   - `next.command`: `/audience-management:content-rebalance`

@@ -17,7 +17,7 @@ argument-hint: "[topic, brainstorm path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.brainstorm_md`, `outputs.daily_brief_md`, and `inputs.topic`.
@@ -25,8 +25,8 @@ If contracts found → read and prioritize `outputs.brainstorm_md`, `outputs.dai
 3. **Auto-scan upstream brainstorming assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/brainstorm/*.md 2>/dev/null | head -3
-ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/brainstorm/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下选题素材，请选择要评估的话题来源：" with files as options.
@@ -52,15 +52,15 @@ Load the `topic-screening` skill and quickly evaluate the selected topic against
 
 **Output**: Screening result saved to:
 
-- `ai-content-output/topic-screening/YYYY-MM-DD-<topic-slug>-screening.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/screen-topic.md` (if contract/deep-research mode)
+- `openspec/runtime/topic-screening/YYYY-MM-DD-<topic-slug>-screening.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/screen-topic.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `growth-ops`
   - `outputs.topic_screening_md`: screening report path
   - `outputs.topic_screening_verdict`: `HIGH`, `MEDIUM`, or `LOW`

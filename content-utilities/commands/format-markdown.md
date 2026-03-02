@@ -17,7 +17,7 @@ argument-hint: "[markdown path or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.article_md`, `outputs.research_md`, and `outputs.analysis_md`.
@@ -25,8 +25,8 @@ If contracts found → read and prioritize `outputs.article_md`, `outputs.resear
 3. **Auto-scan legacy markdown assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/*.md 2>/dev/null | head -5
-ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/*.md 2>/dev/null | head -5
+ls -t openspec/runtime/articles/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下 Markdown 文件，请选择要格式化的输入：" with files as options.
@@ -53,7 +53,7 @@ Load the `md-formatter` skill and format the markdown file.
 **Output**: Formatted markdown saved to:
 
 - Original file overwritten (default), or
-- `ai-content-output/deep-research/<slug>/formatted.md` (if preserved output is requested)
+- `openspec/runtime/deep-research/<slug>/formatted.md` (if preserved output is requested)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -61,7 +61,7 @@ Load the `md-formatter` skill and format the markdown file.
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-utilities`
   - `outputs.formatted_md`: formatted markdown path
   - `next.command`: `/content-analysis:check-quality`

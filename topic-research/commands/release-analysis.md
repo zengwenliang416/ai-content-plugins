@@ -17,9 +17,9 @@ argument-hint: "[product/paper, upstream .openspec.json, or pipeline.openspec.js
 2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/trend-preview/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/daily-brief/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.topic`, `outputs.trend_preview_md`, and `outputs.daily_brief_md`.
@@ -27,9 +27,9 @@ If contracts found → read and prioritize `inputs.topic`, `outputs.trend_previe
 3. **Auto-scan legacy release inputs**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/trend-preview/*.md 2>/dev/null | head -3
-ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
-ls -t ai-content-output/release-analysis/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/release-analysis/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下发布分析素材，请选择要用于本次分析的输入：" with files as options.
@@ -55,7 +55,7 @@ Load the `release-analysis` skill and produce a structured analysis of the speci
 
 **Output**: Release analysis saved to:
 
-- `ai-content-output/release-analysis/YYYY-MM-DD-<target>-release-analysis.md`
+- `openspec/runtime/release-analysis/YYYY-MM-DD-<target>-release-analysis.md`
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -63,7 +63,7 @@ Load the `release-analysis` skill and produce a structured analysis of the speci
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Create or update `ai-content-output/release-analysis/YYYY-MM-DD-<target>-release-analysis.openspec.json`.
+- Create or update `openspec/runtime/release-analysis/YYYY-MM-DD-<target>-release-analysis.openspec.json`.
 - Minimum fields:
   - `pipeline`: `release-analysis->check-quality`
   - `stage`: `release-analysis`

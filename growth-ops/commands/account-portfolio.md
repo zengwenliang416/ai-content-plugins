@@ -17,7 +17,7 @@ argument-hint: "[account/platform, performance data path, or pipeline.openspec.j
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.performance_report_md`, `outputs.content_roi_md`, and `inputs.platform`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.performance_report_md`, `out
 3. **Auto-scan legacy monitoring assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/performance-analysis/*.md 2>/dev/null | head -3
-ls -t ai-content-output/performance-report/*.md 2>/dev/null | head -3
-ls -t ai-content-output/content-roi/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/performance-analysis/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/performance-report/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/content-roi/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下账号监控素材，请选择要用于账号组合复盘的输入：" with files as options.
@@ -53,15 +53,15 @@ Load the `account-monitor` skill and analyze content account performance across 
 
 **Output**: Account portfolio report saved to:
 
-- `ai-content-output/account-portfolio/YYYY-MM-DD-account-portfolio.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/account-portfolio.md` (if contract/deep-research mode)
+- `openspec/runtime/account-portfolio/YYYY-MM-DD-account-portfolio.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/account-portfolio.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `growth-ops`
   - `outputs.account_portfolio_md`: account portfolio report path
   - `next.command`: `/growth-ops:growth-plan`

@@ -17,7 +17,7 @@ argument-hint: "[tracker scope, planning path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.content_plan_md`, `outputs.short_post_md`, and `outputs.article_md`.
@@ -25,10 +25,10 @@ If contracts found → read and prioritize `outputs.content_plan_md`, `outputs.s
 3. **Auto-scan legacy tracking assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/content-plan/*.md 2>/dev/null | head -3
-ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
-ls -t ai-content-output/short-post/*.md 2>/dev/null | head -3
-ls -t ai-content-output/content-tracker/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/content-plan/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/short-post/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/content-tracker/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下排期追踪素材，请选择要用于内容追踪的输入：" with files as options.
@@ -54,8 +54,8 @@ Load the `content-tracker` skill to review content pipeline status, update miles
 
 **Output**: Content tracker report saved to:
 
-- `ai-content-output/content-tracker/YYYY-MM-DD-content-tracker.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/content-tracker.md` (if contract/deep-research mode)
+- `openspec/runtime/content-tracker/YYYY-MM-DD-content-tracker.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/content-tracker.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -63,7 +63,7 @@ Load the `content-tracker` skill to review content pipeline status, update miles
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-production`
   - `outputs.content_tracker_md`: content tracker report path
   - `next.command`: `/growth-ops:performance`

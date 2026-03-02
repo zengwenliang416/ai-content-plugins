@@ -17,7 +17,7 @@ argument-hint: "[project brief, asset paths, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.article_md`, `outputs.cover_image`, and `outputs.illustrations_dir`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.article_md`, `outputs.cover_
 3. **Auto-scan legacy asset inputs**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/images/cover.png 2>/dev/null | head -3
-ls -dt ai-content-output/deep-research/*/images 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/images/cover.png 2>/dev/null | head -3
+ls -dt openspec/runtime/deep-research/*/images 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下素材，请选择要打包的输入：" with files/directories as options.
@@ -53,8 +53,8 @@ Load the `asset-pack` skill and assemble an organized asset package for the spec
 
 **Output**: Asset package saved to:
 
-- `ai-content-output/asset-pack/YYYY-MM-DD-<project>-asset-pack.zip` (standalone mode)
-- `ai-content-output/deep-research/<slug>/asset-pack.zip` (if contract/deep-research mode)
+- `openspec/runtime/asset-pack/YYYY-MM-DD-<project>-asset-pack.zip` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/asset-pack.zip` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -62,7 +62,7 @@ Load the `asset-pack` skill and assemble an organized asset package for the spec
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-production`
   - `outputs.asset_pack_zip`: asset package path
   - `next.command`: `/publishing:post-to-wechat`

@@ -17,9 +17,9 @@ argument-hint: "[niche/topic, research path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/trend-preview/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/narrative/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/narrative/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.trend_preview_md`, `outputs.narrative_md`, and `inputs.topic`.
@@ -27,9 +27,9 @@ If contracts found → read and prioritize `outputs.trend_preview_md`, `outputs.
 3. **Auto-scan legacy audience inputs**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/trend-preview/*.md 2>/dev/null | head -3
-ls -t ai-content-output/narrative/*.md 2>/dev/null | head -3
-ls -t ai-content-output/audience-targeting/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/narrative/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/audience-targeting/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下受众定位素材，请选择要用于受众分析的输入：" with files as options.
@@ -55,8 +55,8 @@ Load the `audience-targeting` skill and build an audience analysis for the speci
 
 **Output**: Audience targeting report saved to:
 
-- `ai-content-output/audience-targeting/YYYY-MM-DD-<topic>-audience-targeting.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/audience-targeting.md` (if contract/deep-research mode)
+- `openspec/runtime/audience-targeting/YYYY-MM-DD-<topic>-audience-targeting.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/audience-targeting.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -64,7 +64,7 @@ Load the `audience-targeting` skill and build an audience analysis for the speci
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-production`
   - `outputs.audience_targeting_md`: audience targeting report path
   - `next.command`: `/content-production:short-post`

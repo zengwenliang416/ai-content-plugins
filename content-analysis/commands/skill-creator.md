@@ -17,7 +17,7 @@ argument-hint: "[skill name/description, reference path, or pipeline.openspec.js
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.workflow`, `outputs.template_md`, and `outputs.strategy_memo_md`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `inputs.workflow`, `outputs.template_
 3. **Auto-scan legacy skill-design assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/templates/*.md 2>/dev/null | head -3
-ls -t ai-content-output/strategy-memo/*.md 2>/dev/null | head -3
-ls -t ai-content-output/skill-creator/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/templates/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/strategy-memo/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/skill-creator/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下技能设计素材，请选择要用于技能封装的输入：" with files as options.
@@ -53,7 +53,7 @@ Load the `skill-creator` skill and guide the user through creating or updating a
 
 **Output**:
 
-- Skill design result SHOULD be saved to `ai-content-output/skill-creator/YYYY-MM-DD-<skill-slug>-spec.md`.
+- Skill design result SHOULD be saved to `openspec/runtime/skill-creator/YYYY-MM-DD-<skill-slug>-spec.md`.
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -61,7 +61,7 @@ Load the `skill-creator` skill and guide the user through creating or updating a
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-analysis`
   - `outputs.skill_spec_md`: skill design spec path
   - `next.command`: `none`

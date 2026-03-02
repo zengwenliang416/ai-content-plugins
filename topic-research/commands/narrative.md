@@ -17,9 +17,9 @@ argument-hint: "[narrative theme, upstream .openspec.json, or pipeline.openspec.
 2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/release-analysis/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/trend-preview/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/release-analysis/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.topic`, `outputs.release_analysis_md`, and `outputs.trend_preview_md`.
@@ -27,9 +27,9 @@ If contracts found → read and prioritize `inputs.topic`, `outputs.release_anal
 3. **Auto-scan legacy narrative assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/release-analysis/*.md 2>/dev/null | head -3
-ls -t ai-content-output/trend-preview/*.md 2>/dev/null | head -3
-ls -t ai-content-output/narrative/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/release-analysis/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/narrative/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下叙事追踪素材，请选择要用于叙事分析的输入：" with files as options.
@@ -55,7 +55,7 @@ Load the `narrative-tracker` skill and build an evidence-based tracking document
 
 **Output**: Narrative tracker saved to:
 
-- `ai-content-output/narrative/YYYY-MM-DD-<theme>-narrative.md`
+- `openspec/runtime/narrative/YYYY-MM-DD-<theme>-narrative.md`
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -63,7 +63,7 @@ Load the `narrative-tracker` skill and build an evidence-based tracking document
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Create or update `ai-content-output/narrative/YYYY-MM-DD-<theme>-narrative.openspec.json`.
+- Create or update `openspec/runtime/narrative/YYYY-MM-DD-<theme>-narrative.openspec.json`.
 - Minimum fields:
   - `pipeline`: `narrative->short-post`
   - `stage`: `narrative`

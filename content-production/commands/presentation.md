@@ -17,7 +17,7 @@ argument-hint: "[topic/title, source path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.analysis_md`, `outputs.article_md`, and `inputs.topic`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.analysis_md`, `outputs.artic
 3. **Auto-scan legacy presentation inputs**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/analysis.md 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
-ls -t ai-content-output/presentation/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/analysis.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.md 2>/dev/null | head -3
+ls -t openspec/runtime/presentation/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下演讲素材，请选择要用于演示文稿生成的输入：" with files as options.
@@ -53,8 +53,8 @@ Load the `presentation` skill and create a presentation for the specified topic.
 
 **Output**: Presentation saved to:
 
-- `ai-content-output/presentation/YYYY-MM-DD-<topic>-presentation.pptx` (standalone mode)
-- `ai-content-output/deep-research/<slug>/presentation/presentation.pptx` (if contract/deep-research mode)
+- `openspec/runtime/presentation/YYYY-MM-DD-<topic>-presentation.pptx` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/presentation/presentation.pptx` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -62,7 +62,7 @@ Load the `presentation` skill and create a presentation for the specified topic.
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-production`
   - `outputs.presentation_path`: presentation path
   - `next.command`: `none`

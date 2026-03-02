@@ -17,7 +17,7 @@ argument-hint: "[tweet/article URL or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.url` and `outputs.x_post_url`.
@@ -25,7 +25,7 @@ If contracts found → read and prioritize `inputs.url` and `outputs.x_post_url`
 3. **Auto-scan legacy X clipping assets**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/x-clips/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/x-clips/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下历史 X 摘录，是否复用或继续抓取新链接？" with files as options.
@@ -51,8 +51,8 @@ Load the `tweet-clipper` skill and convert the X content to markdown.
 
 **Output**: X markdown saved to:
 
-- `ai-content-output/x-clips/YYYY-MM-DD-<tweet-id>.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/x-clips/<tweet-id>.md` (if contract/deep-research mode)
+- `openspec/runtime/x-clips/YYYY-MM-DD-<tweet-id>.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/x-clips/<tweet-id>.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -60,7 +60,7 @@ Load the `tweet-clipper` skill and convert the X content to markdown.
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-utilities`
   - `outputs.x_markdown_md`: x markdown path
   - `next.command`: `/content-production:short-post`

@@ -17,8 +17,8 @@ argument-hint: "[daily-brief .openspec.json, topic focus, or pipeline.openspec.j
 2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/daily-brief/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.topic`, `inputs.period`, and recent briefing metadata.
@@ -26,8 +26,8 @@ If contracts found → read and prioritize `inputs.topic`, `inputs.period`, and 
 3. **Auto-scan legacy brief files**: Run these Bash commands immediately:
 
 ```bash
-TODAY=$(date +%Y-%m-%d) && ls ai-content-output/daily-brief/${TODAY}*.md 2>/dev/null
-ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
+TODAY=$(date +%Y-%m-%d) && ls openspec/runtime/daily-brief/${TODAY}*.md 2>/dev/null
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到历史每日简报，是否沿用同主题继续生成？" with files as options.
@@ -51,11 +51,11 @@ Load the `daily-brief` skill and generate a concise daily briefing covering the 
 
 ## Artifact Handoff
 
-**Output**: After generation, the briefing MUST be saved to `ai-content-output/daily-brief/YYYY-MM-DD-ai-daily-brief.md`.
+**Output**: After generation, the briefing MUST be saved to `openspec/runtime/daily-brief/YYYY-MM-DD-ai-daily-brief.md`.
 
 **OpenSpec contract (MANDATORY)**:
 
-- Create or update `ai-content-output/daily-brief/YYYY-MM-DD-ai-daily-brief.openspec.json`.
+- Create or update `openspec/runtime/daily-brief/YYYY-MM-DD-ai-daily-brief.openspec.json`.
 - Minimum fields:
   - `pipeline`: `daily-brief->brainstorm->deep-research`
   - `stage`: `daily-brief`

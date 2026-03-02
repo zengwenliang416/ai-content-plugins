@@ -18,7 +18,7 @@ argument-hint: "[article file path (.html/.md) or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.article_html` candidates.
@@ -27,10 +27,10 @@ If contracts found → read and prioritize `outputs.article_html` candidates.
 
 ```bash
 # Prefer HTML (ready to publish), fallback to Markdown
-ls -t ai-content-output/deep-research/*/article.html 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
-ls -t ai-content-output/articles/*.html 2>/dev/null | head -3
-ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.html 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.md 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.html 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下可发布内容，请选择要发布的文件：" with the files as options. If only `.md` files found (no `.html`), note: "建议先运行 `/content-utilities:markdown-to-html` 转换格式".
@@ -62,7 +62,7 @@ Load the `wechat-publisher` skill and publish the selected content to WeChat Off
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `publishing`
   - `outputs.wechat_media_id`: published draft media id
   - `next.command`: `none`

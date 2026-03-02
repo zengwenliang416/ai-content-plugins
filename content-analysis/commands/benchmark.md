@@ -17,7 +17,7 @@ argument-hint: "[niche/topic, comparison file path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.article_md`, `outputs.performance_report_md`, and `inputs.topic`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.article_md`, `outputs.perfor
 3. **Auto-scan legacy benchmark inputs**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
-ls -t ai-content-output/performance-analysis/*.md 2>/dev/null | head -3
-ls -t ai-content-output/benchmark/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/performance-analysis/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/benchmark/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下 benchmark 素材，请选择要用于对标分析的输入：" with files as options.
@@ -53,8 +53,8 @@ Load the `content-benchmark` skill and benchmark content performance against top
 
 **Output**: Benchmark report saved to:
 
-- `ai-content-output/benchmark/YYYY-MM-DD-<niche>-benchmark.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/benchmark.md` (if contract/deep-research mode)
+- `openspec/runtime/benchmark/YYYY-MM-DD-<niche>-benchmark.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/benchmark.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -62,7 +62,7 @@ Load the `content-benchmark` skill and benchmark content performance against top
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-analysis`
   - `outputs.benchmark_md`: benchmark report path
   - `next.command`: `/content-production:long-article`

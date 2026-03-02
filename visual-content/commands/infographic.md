@@ -17,7 +17,7 @@ argument-hint: "[content file, topic, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.analysis_md` and `outputs.article_md`.
@@ -43,15 +43,15 @@ Load the `infographic-gen` skill and create an infographic.
 
 **Output**: Infographic assets saved to:
 
-- `ai-content-output/deep-research/<slug>/images/` (if contract/deep-research mode)
+- `openspec/runtime/deep-research/<slug>/images/` (if contract/deep-research mode)
 - `infographic/<topic-slug>/` (standalone mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `visual-content`
   - `outputs.infographic_dir`: infographic output directory
   - `next.command`: `/content-utilities:markdown-to-html`

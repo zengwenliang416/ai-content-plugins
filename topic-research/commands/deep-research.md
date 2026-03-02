@@ -17,7 +17,7 @@ argument-hint: "[AI topic, technology, or pipeline.openspec.json path]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If files found → Read the latest contract and ask the user whether to continue from it.
@@ -25,7 +25,7 @@ If files found → Read the latest contract and ask the user whether to continue
 3. **Auto-scan brainstorm output**: Run this Bash command immediately:
 
 ```bash
-TODAY=$(date +%Y-%m-%d) && ls -t ai-content-output/brainstorm/${TODAY}*.md ai-content-output/brainstorm/*.md 2>/dev/null | head -3
+TODAY=$(date +%Y-%m-%d) && ls -t openspec/runtime/brainstorm/${TODAY}*.md openspec/runtime/brainstorm/*.md 2>/dev/null | head -3
 ```
 
 If files found → Read the most recent one, extract the top-3 topic briefs. Present them to the user via AskUserQuestion: "检测到最近的选题报告，请选择一个话题进入深度研究：" with the top-3 topics as options (plus a "自定义话题" option).
@@ -33,7 +33,7 @@ If files found → Read the most recent one, extract the top-3 topic briefs. Pre
 4. **Auto-scan daily brief**: If no brainstorm output, check:
 
 ```bash
-ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -1
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -1
 ```
 
 If found → Read the file, extract top stories as potential topics. Present them to the user via AskUserQuestion.
@@ -65,7 +65,7 @@ This is a 5-task pipeline that must be executed one task at a time:
 
 ## Artifact Handoff
 
-**Output**: All task outputs are saved to `ai-content-output/deep-research/<slug>/`:
+**Output**: All task outputs are saved to `openspec/runtime/deep-research/<slug>/`:
 
 - Task 1 → `research.md`
 - Task 2 → `data-workbook.md`
@@ -75,7 +75,7 @@ This is a 5-task pipeline that must be executed one task at a time:
 
 **OpenSpec contract (MANDATORY)**:
 
-- Create or update `ai-content-output/deep-research/<slug>/pipeline.openspec.json`.
+- Create or update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json`.
 - Minimum fields:
   - `pipeline`: `topic-research->content-production->content-utilities->publishing`
   - `stage`: `topic-research`

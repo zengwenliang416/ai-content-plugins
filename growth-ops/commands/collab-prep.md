@@ -17,7 +17,7 @@ argument-hint: "[collaborator name, collab brief path, or pipeline.openspec.json
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.collab_letter_md`, `outputs.audience_review_md`, and `inputs.collaborator`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.collab_letter_md`, `outputs.
 3. **Auto-scan legacy collaboration assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/collab-letter/*.md 2>/dev/null | head -3
-ls -t ai-content-output/audience-review/*.md 2>/dev/null | head -3
-ls -t ai-content-output/biz-proposal/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/collab-letter/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/audience-review/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/biz-proposal/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下合作准备素材，请选择要用于会前准备的输入：" with files as options.
@@ -53,15 +53,15 @@ Load the `collab-prep` skill and prepare a collaboration brief: research the col
 
 **Output**: Collaboration prep brief saved to:
 
-- `ai-content-output/collab-prep/YYYY-MM-DD-<collaborator>-collab-prep.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/collab-prep.md` (if contract/deep-research mode)
+- `openspec/runtime/collab-prep/YYYY-MM-DD-<collaborator>-collab-prep.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/collab-prep.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `growth-ops`
   - `outputs.collab_prep_md`: collaboration prep brief path
   - `next.command`: `/audience-management:biz-proposal`

@@ -17,7 +17,7 @@ argument-hint: "[article file path, platform, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.article_md`, then `outputs.article_html`.
@@ -25,10 +25,10 @@ If contracts found → read and prioritize `outputs.article_md`, then `outputs.a
 3. **Auto-scan legacy article assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/article.html 2>/dev/null | head -3
-ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
-ls -t ai-content-output/articles/*.html 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.html 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.html 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下文章，请选择要执行发布前检查的文章：" with files as options.
@@ -56,15 +56,15 @@ Load the `review-checklist` skill and generate a comprehensive pre-publish check
 
 - Checklist results MUST be displayed in the conversation.
 - Review checklist report SHOULD be saved to:
-  - `ai-content-output/review-checklist/YYYY-MM-DD-<content-slug>-review-checklist.md` (standalone mode)
-  - `ai-content-output/deep-research/<slug>/review-checklist.md` (if contract/deep-research mode)
+  - `openspec/runtime/review-checklist/YYYY-MM-DD-<content-slug>-review-checklist.md` (standalone mode)
+  - `openspec/runtime/deep-research/<slug>/review-checklist.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `growth-ops`
   - `outputs.review_checklist_md`: review checklist report path
   - `next.command`: `/content-utilities:markdown-to-html`

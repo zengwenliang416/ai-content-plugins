@@ -17,7 +17,7 @@ argument-hint: "[platform-name, .openspec.json, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/news-search/setup/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/news-search/setup/*.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.platform`.
@@ -43,7 +43,7 @@ Load the `news-search-setup` skill and guide the user through installing and con
 
 **Output**: Setup record saved to:
 
-- `ai-content-output/news-search/setup/YYYY-MM-DD-<platform>-setup.md`
+- `openspec/runtime/news-search/setup/YYYY-MM-DD-<platform>-setup.md`
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -51,7 +51,7 @@ Load the `news-search-setup` skill and guide the user through installing and con
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Create or update `ai-content-output/news-search/setup/YYYY-MM-DD-<platform>-setup.openspec.json`.
+- Create or update `openspec/runtime/news-search/setup/YYYY-MM-DD-<platform>-setup.openspec.json`.
 - Minimum fields:
   - `pipeline`: `news-search-setup->news-search`
   - `stage`: `news-search-setup`

@@ -17,7 +17,7 @@ argument-hint: "[URL or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.url` and `outputs.source_discovery_md`.
@@ -25,7 +25,7 @@ If contracts found → read and prioritize `inputs.url` and `outputs.source_disc
 3. **Auto-scan legacy clipping assets**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/clips/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/clips/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下历史网页摘录，是否复用或继续抓取新 URL？" with files as options.
@@ -51,8 +51,8 @@ Load the `web-clipper` skill and fetch the URL and convert to markdown.
 
 **Output**: Clipped markdown saved to:
 
-- `ai-content-output/clips/YYYY-MM-DD-<source-slug>.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/clips/<source-slug>.md` (if contract/deep-research mode)
+- `openspec/runtime/clips/YYYY-MM-DD-<source-slug>.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/clips/<source-slug>.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -60,7 +60,7 @@ Load the `web-clipper` skill and fetch the URL and convert to markdown.
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-utilities`
   - `outputs.url_markdown_md`: clipped markdown path
   - `next.command`: `/growth-ops:find-sources`

@@ -17,7 +17,7 @@ argument-hint: "[topic/data, content path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.analysis_md`, `outputs.article_md`, and `inputs.topic`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.analysis_md`, `outputs.artic
 3. **Auto-scan legacy infographic inputs**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/analysis.md 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
-ls -t ai-content-output/infographic/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/analysis.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.md 2>/dev/null | head -3
+ls -t openspec/runtime/infographic/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下图解素材，请选择要用于信息图生成的输入：" with files as options.
@@ -53,8 +53,8 @@ Load the `infographic` skill and create a visual summary card or infographic lay
 
 **Output**: Infographic assets saved to:
 
-- `ai-content-output/infographic/YYYY-MM-DD-<topic>/` (standalone mode)
-- `ai-content-output/deep-research/<slug>/images/infographic/` (if contract/deep-research mode)
+- `openspec/runtime/infographic/YYYY-MM-DD-<topic>/` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/images/infographic/` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -62,7 +62,7 @@ Load the `infographic` skill and create a visual summary card or infographic lay
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-production`
   - `outputs.production_infographic_dir`: infographic output directory
   - `next.command`: `/content-utilities:compress-image`

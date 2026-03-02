@@ -17,7 +17,7 @@ argument-hint: "[image file/dir or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.xhs_images_dir`, `outputs.comic_dir`, and `outputs.illustrations_dir`.
@@ -25,7 +25,7 @@ If contracts found → read and prioritize `outputs.xhs_images_dir`, `outputs.co
 3. **Auto-scan legacy image assets**: Run these Bash commands immediately:
 
 ```bash
-ls -dt ai-content-output/deep-research/*/images 2>/dev/null | head -3
+ls -dt openspec/runtime/deep-research/*/images 2>/dev/null | head -3
 ls -dt xhs-images/* 2>/dev/null | head -3
 ls -dt illustrations/* 2>/dev/null | head -3
 ```
@@ -53,7 +53,7 @@ Load the `image-compressor` skill and compress the specified image(s).
 
 **Output**: Compressed images saved to:
 
-- `ai-content-output/deep-research/<slug>/images/compressed/` (if contract/deep-research mode)
+- `openspec/runtime/deep-research/<slug>/images/compressed/` (if contract/deep-research mode)
 - `<input-dir>/compressed/` (standalone mode)
 
 **OpenSpec contract (MANDATORY)**:
@@ -62,7 +62,7 @@ Load the `image-compressor` skill and compress the specified image(s).
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-utilities`
   - `outputs.compressed_images_dir`: compressed image directory path
   - `next.command`: `/publishing:post-to-x`

@@ -17,7 +17,7 @@ argument-hint: "[strategy topic, planning report path, or pipeline.openspec.json
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.growth_plan_md`, `outputs.content_roi_md`, and `outputs.ops_report_md`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.growth_plan_md`, `outputs.co
 3. **Auto-scan legacy strategy assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/growth-plan/*.md 2>/dev/null | head -3
-ls -t ai-content-output/content-roi/*.md 2>/dev/null | head -3
-ls -t ai-content-output/ops-report/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/growth-plan/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/content-roi/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/ops-report/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下策略素材，请选择要用于策略备忘录的输入：" with files as options.
@@ -53,15 +53,15 @@ Load the `strategy-memo` skill and draft a structured strategy memo with situati
 
 **Output**: Strategy memo saved to:
 
-- `ai-content-output/strategy-memo/YYYY-MM-DD-<topic>-strategy-memo.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/strategy-memo.md` (if contract/deep-research mode)
+- `openspec/runtime/strategy-memo/YYYY-MM-DD-<topic>-strategy-memo.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/strategy-memo.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `growth-ops`
   - `outputs.strategy_memo_md`: strategy memo path
   - `next.command`: `/audience-management:ops-report`

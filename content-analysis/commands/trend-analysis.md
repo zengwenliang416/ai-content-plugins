@@ -17,9 +17,9 @@ argument-hint: "[topic/keyword, trend input path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/trend-preview/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/daily-brief/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.trend_preview_md`, `outputs.daily_brief_md`, and `inputs.topic`.
@@ -27,9 +27,9 @@ If contracts found → read and prioritize `outputs.trend_preview_md`, `outputs.
 3. **Auto-scan legacy trend assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/trend-preview/*.md 2>/dev/null | head -3
-ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
-ls -t ai-content-output/trend-analysis/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/trend-analysis/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下趋势分析素材，请选择要用于趋势分析的输入：" with files as options.
@@ -55,8 +55,8 @@ Load the `trend-analysis` skill and analyze trends and patterns for the specifie
 
 **Output**: Trend analysis saved to:
 
-- `ai-content-output/trend-analysis/YYYY-MM-DD-<topic>-trend-analysis.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/trend-analysis.md` (if contract/deep-research mode)
+- `openspec/runtime/trend-analysis/YYYY-MM-DD-<topic>-trend-analysis.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/trend-analysis.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -64,7 +64,7 @@ Load the `trend-analysis` skill and analyze trends and patterns for the specifie
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-analysis`
   - `outputs.trend_analysis_md`: trend analysis path
   - `next.command`: `/topic-research:brainstorm`

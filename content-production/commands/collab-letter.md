@@ -17,7 +17,7 @@ argument-hint: "[target person/brand, support brief path, or pipeline.openspec.j
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.audience_review_md`, `outputs.ops_report_md`, and `inputs.partner`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.audience_review_md`, `output
 3. **Auto-scan legacy outreach assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/audience-review/*.md 2>/dev/null | head -3
-ls -t ai-content-output/ops-report/*.md 2>/dev/null | head -3
-ls -t ai-content-output/collab-letter/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/audience-review/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/ops-report/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/collab-letter/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下合作外联素材，请选择要用于合作信的输入：" with files as options.
@@ -53,8 +53,8 @@ Load the `collab-letter` skill and draft a personalized collaboration or outreac
 
 **Output**: Collaboration letter saved to:
 
-- `ai-content-output/collab-letter/YYYY-MM-DD-<target>-collab-letter.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/collab-letter.md` (if contract/deep-research mode)
+- `openspec/runtime/collab-letter/YYYY-MM-DD-<target>-collab-letter.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/collab-letter.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -62,7 +62,7 @@ Load the `collab-letter` skill and draft a personalized collaboration or outreac
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-production`
   - `outputs.collab_letter_md`: collaboration letter path
   - `next.command`: `/growth-ops:collab-prep`

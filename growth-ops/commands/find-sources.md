@@ -17,7 +17,7 @@ argument-hint: "[topic/niche, source list path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.topic`, `outputs.brainstorm_md`, and `outputs.daily_brief_md`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `inputs.topic`, `outputs.brainstorm_m
 3. **Auto-scan legacy source assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/brainstorm/*.md 2>/dev/null | head -3
-ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
-ls -t ai-content-output/source-discovery/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/brainstorm/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/source-discovery/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下选题与信源素材，请选择要用于信源发现的输入：" with files as options.
@@ -53,15 +53,15 @@ Load the `source-discovery` skill and run the sourcing pipeline: discover releva
 
 **Output**: Source discovery result saved to:
 
-- `ai-content-output/source-discovery/YYYY-MM-DD-<topic>-sources.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/sources.md` (if contract/deep-research mode)
+- `openspec/runtime/source-discovery/YYYY-MM-DD-<topic>-sources.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/sources.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `growth-ops`
   - `outputs.source_discovery_md`: source discovery report path
   - `next.command`: `/topic-research:deep-research`

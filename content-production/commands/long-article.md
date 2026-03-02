@@ -17,7 +17,7 @@ argument-hint: "[topic, outline, deep-research path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion and prefer contract-driven continuation.
@@ -25,7 +25,7 @@ If files found → present them to the user via AskUserQuestion and prefer contr
 3. **Auto-scan deep-research output**: Run this Bash command immediately:
 
 ```bash
-ls -dt ai-content-output/deep-research/*/ 2>/dev/null | head -3
+ls -dt openspec/runtime/deep-research/*/ 2>/dev/null | head -3
 ```
 
 If directories found → list them and present to the user via AskUserQuestion: "检测到以下深度研究产物，请选择一个作为文章素材：" with the directories as options (plus "自定义话题" option).
@@ -55,8 +55,8 @@ Load the `article-builder` skill. Pass the selected input.
 
 **Output**: Article saved to:
 
-- `ai-content-output/deep-research/<slug>/article.md` (if using deep-research input)
-- `ai-content-output/articles/YYYY-MM-DD-<slug>.md` (if standalone)
+- `openspec/runtime/deep-research/<slug>/article.md` (if using deep-research input)
+- `openspec/runtime/articles/YYYY-MM-DD-<slug>.md` (if standalone)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -64,7 +64,7 @@ Load the `article-builder` skill. Pass the selected input.
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update or create `ai-content-output/deep-research/<slug>/pipeline.openspec.json`.
+- Update or create `openspec/runtime/deep-research/<slug>/pipeline.openspec.json`.
 - Minimum update fields:
   - `stage`: `content-production`
   - `outputs.article_md`: final article path

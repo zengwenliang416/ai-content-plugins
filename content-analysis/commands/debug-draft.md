@@ -17,7 +17,7 @@ argument-hint: "[draft path or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.article_md` and `outputs.short_post_md`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.article_md` and `outputs.sho
 3. **Auto-scan legacy draft assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
-ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
-ls -t ai-content-output/short-post/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.md 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/short-post/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下草稿，请选择要执行问题诊断的输入：" with files as options.
@@ -55,8 +55,8 @@ Load the `draft-debugger` skill and diagnose issues in the provided draft articl
 
 - Debug findings MUST be displayed in conversation.
 - Debug report SHOULD be saved to:
-  - `ai-content-output/debug-draft/YYYY-MM-DD-<draft-slug>-debug.md` (standalone mode)
-  - `ai-content-output/deep-research/<slug>/debug-draft.md` (if contract/deep-research mode)
+  - `openspec/runtime/debug-draft/YYYY-MM-DD-<draft-slug>-debug.md` (standalone mode)
+  - `openspec/runtime/deep-research/<slug>/debug-draft.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -64,7 +64,7 @@ Load the `draft-debugger` skill and diagnose issues in the provided draft articl
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-analysis`
   - `outputs.debug_report_md`: debug report path
   - `next.command`: `/content-production:long-article`

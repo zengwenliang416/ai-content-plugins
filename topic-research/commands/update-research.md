@@ -17,8 +17,8 @@ argument-hint: "[topic, research path, .openspec.json, or pipeline.openspec.json
 2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/release-analysis/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/release-analysis/*.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.research_md`, `outputs.release_analysis_md`, and `inputs.topic`.
@@ -26,9 +26,9 @@ If contracts found → read and prioritize `outputs.research_md`, `outputs.relea
 3. **Auto-scan legacy research assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/research.md 2>/dev/null | head -3
-ls -t ai-content-output/release-analysis/*.md 2>/dev/null | head -3
-ls -t ai-content-output/research-updates/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/research.md 2>/dev/null | head -3
+ls -t openspec/runtime/release-analysis/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/research-updates/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下研究文档，请选择要更新的输入：" with files as options.
@@ -55,7 +55,7 @@ Load the `research-updater` skill and update an existing research document with 
 **Output**:
 
 - Updated research file saved to the original path when possible.
-- If generated as a new version, save to `ai-content-output/research-updates/YYYY-MM-DD-<topic>-research-update.md`.
+- If generated as a new version, save to `openspec/runtime/research-updates/YYYY-MM-DD-<topic>-research-update.md`.
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -63,7 +63,7 @@ Load the `research-updater` skill and update an existing research document with 
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `topic-research`
   - `outputs.research_md`: updated research path
   - `outputs.research_update_md`: new update summary path (if generated)

@@ -17,7 +17,7 @@ argument-hint: "[test variable, content path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.article_md`, `outputs.short_post_md`, and `inputs.test_variable`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.article_md`, `outputs.short_
 3. **Auto-scan legacy experiment assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
-ls -t ai-content-output/short-post/*.md 2>/dev/null | head -3
-ls -t ai-content-output/ab-test/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.md 2>/dev/null | head -3
+ls -t openspec/runtime/short-post/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/ab-test/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下实验素材，请选择要用于 A/B 测试设计的输入：" with files as options.
@@ -53,8 +53,8 @@ Load the `content-experiment` skill and design a content A/B test for the specif
 
 **Output**: A/B test plan saved to:
 
-- `ai-content-output/ab-test/YYYY-MM-DD-<variable>-ab-test.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/ab-test.md` (if contract/deep-research mode)
+- `openspec/runtime/ab-test/YYYY-MM-DD-<variable>-ab-test.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/ab-test.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -62,7 +62,7 @@ Load the `content-experiment` skill and design a content A/B test for the specif
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-production`
   - `outputs.ab_test_plan_md`: A/B test plan path
   - `next.command`: `/growth-ops:content-roi`

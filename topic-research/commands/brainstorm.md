@@ -17,7 +17,7 @@ argument-hint: "[daily-brief path, .openspec.json or pipeline.openspec.json, or 
 2. **Auto-scan daily-brief OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/daily-brief/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read latest `outputs.daily_brief_md` and ask user whether to continue from it.
@@ -25,8 +25,8 @@ If contracts found → read latest `outputs.daily_brief_md` and ask user whether
 3. **Auto-scan daily brief**: Run these Bash commands immediately:
 
 ```bash
-TODAY=$(date +%Y-%m-%d) && ls ai-content-output/daily-brief/${TODAY}*.md 2>/dev/null
-ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
+TODAY=$(date +%Y-%m-%d) && ls openspec/runtime/daily-brief/${TODAY}*.md 2>/dev/null
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下每日简报，请选择要用作素材的文件：" with the files as options (plus a "自定义话题" option for starting fresh).
@@ -52,7 +52,7 @@ Generate a scored list of content topic ideas with briefs for the top candidates
 
 ## Artifact Handoff
 
-**Output**: Results MUST be saved to `ai-content-output/brainstorm/YYYY-MM-DD-topic-brainstorm.md`.
+**Output**: Results MUST be saved to `openspec/runtime/brainstorm/YYYY-MM-DD-topic-brainstorm.md`.
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -60,7 +60,7 @@ Generate a scored list of content topic ideas with briefs for the top candidates
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Create or update `ai-content-output/brainstorm/YYYY-MM-DD-topic-brainstorm.openspec.json`.
+- Create or update `openspec/runtime/brainstorm/YYYY-MM-DD-topic-brainstorm.openspec.json`.
 - Minimum fields:
   - `pipeline`: `brainstorm->deep-research`
   - `stage`: `brainstorm`

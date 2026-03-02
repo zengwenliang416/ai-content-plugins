@@ -17,7 +17,7 @@ argument-hint: "[markdown file path or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If files found → read contract and extract `outputs.article_md` candidates first.
@@ -25,8 +25,8 @@ If files found → read contract and extract `outputs.article_md` candidates fir
 3. **Auto-scan articles**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
-ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.md 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下 Markdown 文件，请选择要转换的文件：" with the files as options.
@@ -60,7 +60,7 @@ Load the `md-to-html` skill and convert the selected markdown file to styled HTM
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-utilities`
   - `outputs.article_html`: generated html path
   - `next.command`: `/publishing:post-to-wechat`

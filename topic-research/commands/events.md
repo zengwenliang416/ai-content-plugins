@@ -17,9 +17,9 @@ argument-hint: "[time period, upstream .openspec.json, or pipeline.openspec.json
 2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/trend-preview/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/daily-brief/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.period` and `outputs.trend_preview_md`.
@@ -27,8 +27,8 @@ If contracts found → read and prioritize `inputs.period` and `outputs.trend_pr
 3. **Auto-scan legacy event inputs**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/trend-preview/*.md 2>/dev/null | head -3
-ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下活动规划素材，请选择要用于事件日历的输入：" with files as options.
@@ -54,7 +54,7 @@ Load the `event-calendar` skill and build a calendar of upcoming AI events with 
 
 **Output**: Event calendar saved to:
 
-- `ai-content-output/events/YYYY-MM-DD-<period>-event-calendar.md`
+- `openspec/runtime/events/YYYY-MM-DD-<period>-event-calendar.md`
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -62,7 +62,7 @@ Load the `event-calendar` skill and build a calendar of upcoming AI events with 
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Create or update `ai-content-output/events/YYYY-MM-DD-<period>-event-calendar.openspec.json`.
+- Create or update `openspec/runtime/events/YYYY-MM-DD-<period>-event-calendar.openspec.json`.
 - Minimum fields:
   - `pipeline`: `event-calendar->content-plan`
   - `stage`: `event-calendar`

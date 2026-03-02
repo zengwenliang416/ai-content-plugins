@@ -17,7 +17,7 @@ argument-hint: "[article file path or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.article_md` and `outputs.analysis_md`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.article_md` and `outputs.ana
 3. **Auto-scan legacy article assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
-ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/analysis.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.md 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/analysis.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下文章素材，请选择要生成知识漫画的输入：" with files as options.
@@ -53,15 +53,15 @@ Load the `knowledge-comic` skill and create a knowledge comic.
 
 **Output**: Knowledge comic assets saved to:
 
-- `ai-content-output/deep-research/<slug>/images/comic/` (if contract/deep-research mode)
+- `openspec/runtime/deep-research/<slug>/images/comic/` (if contract/deep-research mode)
 - `comic/<topic-slug>/` (standalone mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `visual-content`
   - `outputs.comic_dir`: knowledge comic directory path
   - `next.command`: `/content-utilities:markdown-to-html`

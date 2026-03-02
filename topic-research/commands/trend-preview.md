@@ -17,9 +17,9 @@ argument-hint: "[topic/field, upstream .openspec.json, or pipeline.openspec.json
 2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/daily-brief/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/brainstorm/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/brainstorm/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.topic` and `outputs.daily_brief_md`.
@@ -27,8 +27,8 @@ If contracts found → read and prioritize `inputs.topic` and `outputs.daily_bri
 3. **Auto-scan legacy trend inputs**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
-ls -t ai-content-output/brainstorm/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/brainstorm/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下趋势预览素材，请选择要用于趋势分析的输入：" with files as options.
@@ -54,7 +54,7 @@ Load the `trend-preview` skill and generate a trend forecast with momentum analy
 
 **Output**: Trend preview saved to:
 
-- `ai-content-output/trend-preview/YYYY-MM-DD-<topic>-trend-preview.md`
+- `openspec/runtime/trend-preview/YYYY-MM-DD-<topic>-trend-preview.md`
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -62,7 +62,7 @@ Load the `trend-preview` skill and generate a trend forecast with momentum analy
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Create or update `ai-content-output/trend-preview/YYYY-MM-DD-<topic>-trend-preview.openspec.json`.
+- Create or update `openspec/runtime/trend-preview/YYYY-MM-DD-<topic>-trend-preview.openspec.json`.
 - Minimum fields:
   - `pipeline`: `trend-preview->short-post`
   - `stage`: `trend-preview`

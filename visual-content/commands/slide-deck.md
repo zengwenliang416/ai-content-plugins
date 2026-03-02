@@ -17,7 +17,7 @@ argument-hint: "[content file path or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.analysis_md` and `outputs.article_md`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.analysis_md` and `outputs.ar
 3. **Auto-scan legacy presentation assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/analysis.md 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/article.md 2>/dev/null | head -3
-ls -t ai-content-output/articles/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/analysis.md 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/article.md 2>/dev/null | head -3
+ls -t openspec/runtime/articles/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下演示素材，请选择要用于生成幻灯片的输入：" with files as options.
@@ -53,15 +53,15 @@ Load the `slide-generator` skill and create a slide deck.
 
 **Output**: Slide deck saved to:
 
-- `ai-content-output/deep-research/<slug>/slides/slide-deck.pptx` (if contract/deep-research mode)
+- `openspec/runtime/deep-research/<slug>/slides/slide-deck.pptx` (if contract/deep-research mode)
 - `slide-deck/<topic-slug>/slide-deck.pptx` (standalone mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `visual-content`
   - `outputs.slide_deck_path`: slide deck path
   - `next.command`: `none`

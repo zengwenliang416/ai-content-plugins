@@ -17,7 +17,7 @@ argument-hint: "[time period, report path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.performance_report_md`, `outputs.ops_report_md`, and `inputs.period`.
@@ -25,8 +25,8 @@ If contracts found → read and prioritize `outputs.performance_report_md`, `out
 3. **Auto-scan legacy performance assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/performance-analysis/*.md 2>/dev/null | head -3
-ls -t ai-content-output/ops-report/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/performance-analysis/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/ops-report/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下历史分析报告，请选择要复用的报告或继续新周期分析：" with files as options.
@@ -54,15 +54,15 @@ Load the `performance-analysis` skill and analyze content performance over the r
 
 - Performance summary MUST be displayed in the conversation.
 - Performance report SHOULD be saved to:
-  - `ai-content-output/performance-analysis/YYYY-MM-DD-<period-slug>-performance-report.md` (standalone mode)
-  - `ai-content-output/deep-research/<slug>/performance-report.md` (if contract/deep-research mode)
+  - `openspec/runtime/performance-analysis/YYYY-MM-DD-<period-slug>-performance-report.md` (standalone mode)
+  - `openspec/runtime/deep-research/<slug>/performance-report.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `growth-ops`
   - `inputs.period`: resolved reporting period
   - `outputs.performance_report_md`: performance report path

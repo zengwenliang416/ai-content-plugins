@@ -17,7 +17,7 @@ argument-hint: "[performance/content-plan path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.performance_report_md` and `outputs.content_plan_md`.
@@ -25,10 +25,10 @@ If contracts found → read and prioritize `outputs.performance_report_md` and `
 3. **Auto-scan legacy upstream assets**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/performance-report/*.md 2>/dev/null | head -3
-ls -t ai-content-output/performance-analysis/*.md 2>/dev/null | head -3
-ls -t ai-content-output/content-plan/*.md 2>/dev/null | head -3
-ls -t ai-content-output/ops-report/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/performance-report/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/performance-analysis/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/content-plan/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/ops-report/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下内容结构素材，请选择要用于再平衡分析的输入：" with files as options.
@@ -54,15 +54,15 @@ Load the `content-rebalance` skill to analyze current content mix, compare to ta
 
 **Output**: Rebalance plan saved to:
 
-- `ai-content-output/content-rebalance/YYYY-MM-DD-content-rebalance.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/content-rebalance.md` (if contract/deep-research mode)
+- `openspec/runtime/content-rebalance/YYYY-MM-DD-content-rebalance.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/content-rebalance.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
 - Create or update a stage-local `*.openspec.json` contract for this command run when standalone mode is used.
-- If `ai-content-output/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
+- If `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` exists, update it in-place for cross-stage traceability.
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `audience-management`
   - `outputs.content_rebalance_md`: rebalance plan path
   - `next.command`: `/audience-management:content-plan`

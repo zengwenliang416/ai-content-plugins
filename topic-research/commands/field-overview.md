@@ -17,9 +17,9 @@ argument-hint: "[AI field, upstream .openspec.json, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/trend-preview/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/daily-brief/*.openspec.json 2>/dev/null | head -3
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `inputs.field`, `inputs.topic`, and `outputs.trend_preview_md`.
@@ -27,8 +27,8 @@ If contracts found → read and prioritize `inputs.field`, `inputs.topic`, and `
 3. **Auto-scan legacy overview inputs**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/trend-preview/*.md 2>/dev/null | head -3
-ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/trend-preview/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下领域综述素材，请选择要用于子领域概览的输入：" with files as options.
@@ -54,7 +54,7 @@ Load the `field-overview` skill and create a comprehensive overview of the speci
 
 **Output**: Field overview saved to:
 
-- `ai-content-output/field-overview/YYYY-MM-DD-<field>-overview.md`
+- `openspec/runtime/field-overview/YYYY-MM-DD-<field>-overview.md`
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -62,7 +62,7 @@ Load the `field-overview` skill and create a comprehensive overview of the speci
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Create or update `ai-content-output/field-overview/YYYY-MM-DD-<field>-overview.openspec.json`.
+- Create or update `openspec/runtime/field-overview/YYYY-MM-DD-<field>-overview.openspec.json`.
 - Minimum fields:
   - `pipeline`: `field-overview->long-article`
   - `stage`: `field-overview`

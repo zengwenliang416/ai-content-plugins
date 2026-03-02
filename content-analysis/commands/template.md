@@ -17,7 +17,7 @@ argument-hint: "[content type, reference path, or pipeline.openspec.json]"
 2. **Auto-scan OpenSpec contracts**: Run this Bash command immediately:
 
 ```bash
-ls -t ai-content-output/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
 ```
 
 If contracts found → read and prioritize `outputs.benchmark_md`, `outputs.competitor_md`, and `inputs.content_type`.
@@ -25,9 +25,9 @@ If contracts found → read and prioritize `outputs.benchmark_md`, `outputs.comp
 3. **Auto-scan legacy template inputs**: Run these Bash commands immediately:
 
 ```bash
-ls -t ai-content-output/benchmark/*.md 2>/dev/null | head -3
-ls -t ai-content-output/competitor/*.md 2>/dev/null | head -3
-ls -t ai-content-output/templates/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/benchmark/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/competitor/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/templates/*.md 2>/dev/null | head -3
 ```
 
 If files found → present them to the user via AskUserQuestion: "检测到以下模板设计素材，请选择要用于模板生成的输入：" with files as options.
@@ -53,8 +53,8 @@ Load the `template-creator` skill and create a reusable content template for the
 
 **Output**: Template saved to:
 
-- `ai-content-output/templates/YYYY-MM-DD-<content-type>-template.md` (standalone mode)
-- `ai-content-output/deep-research/<slug>/template.md` (if contract/deep-research mode)
+- `openspec/runtime/templates/YYYY-MM-DD-<content-type>-template.md` (standalone mode)
+- `openspec/runtime/deep-research/<slug>/template.md` (if contract/deep-research mode)
 
 **OpenSpec contract (MANDATORY)**:
 
@@ -62,7 +62,7 @@ Load the `template-creator` skill and create a reusable content template for the
 - If `pipeline.openspec.json` is available from upstream, update it in-place for cross-stage traceability.
 
 
-- Update `ai-content-output/deep-research/<slug>/pipeline.openspec.json` with:
+- Update `openspec/runtime/deep-research/<slug>/pipeline.openspec.json` with:
   - `stage`: `content-analysis`
   - `outputs.template_md`: template path
   - `next.command`: `/content-production:long-article`

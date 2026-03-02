@@ -39,7 +39,7 @@ topic-research -> content-production -> content-utilities -> publishing
 Contract path pattern:
 
 ```text
-ai-content-output/deep-research/<slug>/pipeline.openspec.json
+openspec/runtime/deep-research/<slug>/pipeline.openspec.json
 ```
 
 Minimum handoff fields:

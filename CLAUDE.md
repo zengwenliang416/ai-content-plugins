@@ -15,6 +15,7 @@ This is a marketplace of Claude Cowork plugins for AI content creators and accou
 ## Plugin Structure
 
 Each plugin follows this layout:
+
 ```
 plugin-name/
 ├── .claude-plugin/plugin.json   # Plugin manifest (name, description, version)
@@ -31,6 +32,15 @@ plugin-name/
 - `commands/*.md`: Slash commands invoked as `/plugin:command-name`
 - `skills/*/SKILL.md`: Detailed knowledge and workflows for specific tasks
 - `*.local.md`: User-specific configuration (gitignored)
+
+## Artifact Conventions
+
+All plugin artifacts MUST be stored under `openspec/runtime/` at the project root. See `docs/artifact-conventions.md` for full rules.
+
+- **Core pipeline**: `openspec/runtime/{daily-brief,brainstorm,deep-research}/`
+- **Visual pipeline mode**: `openspec/runtime/deep-research/<slug>/visuals/<type>/`
+- **Visual standalone mode**: `openspec/runtime/visuals/<type>/<slug>/`
+- **Upstream detection**: Skills MUST auto-scan for upstream artifacts before asking user for input
 
 ## Development Workflow
 

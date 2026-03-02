@@ -4,10 +4,10 @@ context: |
   Project: ai-content-plugins
   Goal: Standardize intermediate artifacts via OpenSpec while keeping runtime output compatibility.
   Existing output roots:
-    - ai-content-output/daily-brief/
-    - ai-content-output/brainstorm/
-    - ai-content-output/deep-research/<slug>/
-    - ai-content-output/articles/
+    - openspec/runtime/daily-brief/
+    - openspec/runtime/brainstorm/
+    - openspec/runtime/deep-research/<slug>/
+    - openspec/runtime/articles/
 
 rules:
   proposal:

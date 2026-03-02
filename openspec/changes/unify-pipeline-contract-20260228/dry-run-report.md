@@ -2,8 +2,8 @@
 
 - Date: 2026-02-28 22:39:54
 - Topic: AI Agent Memory Governance
-- Runtime directory: /Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/ai-content-output/deep-research/agent-memory-governance
-- Contract file: /Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/ai-content-output/deep-research/agent-memory-governance/pipeline.openspec.json
+- Runtime directory: /Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/openspec/runtime/deep-research/agent-memory-governance
+- Contract file: /Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/openspec/runtime/deep-research/agent-memory-governance/pipeline.openspec.json
 - Result: PASS
 
 ### Stage Transition Sequence
@@ -21,11 +21,11 @@
     "topic": "AI Agent Memory Governance"
   },
   "outputs": {
-    "research_md": "/Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/ai-content-output/deep-research/agent-memory-governance/research.md",
-    "data_workbook_md": "/Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/ai-content-output/deep-research/agent-memory-governance/data-workbook.md",
-    "analysis_md": "/Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/ai-content-output/deep-research/agent-memory-governance/analysis.md",
-    "article_md": "/Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/ai-content-output/deep-research/agent-memory-governance/article.md",
-    "article_html": "/Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/ai-content-output/deep-research/agent-memory-governance/article.html",
+    "research_md": "/Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/openspec/runtime/deep-research/agent-memory-governance/research.md",
+    "data_workbook_md": "/Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/openspec/runtime/deep-research/agent-memory-governance/data-workbook.md",
+    "analysis_md": "/Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/openspec/runtime/deep-research/agent-memory-governance/analysis.md",
+    "article_md": "/Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/openspec/runtime/deep-research/agent-memory-governance/article.md",
+    "article_html": "/Users/wenliang_zeng/.codex/worktrees/906a/ai-content-plugins/openspec/runtime/deep-research/agent-memory-governance/article.html",
     "wechat_media_id": "dryrun-media-20260228"
   },
   "next": {

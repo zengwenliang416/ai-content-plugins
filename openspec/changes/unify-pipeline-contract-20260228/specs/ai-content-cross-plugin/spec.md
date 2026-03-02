@@ -6,7 +6,7 @@ The system SHALL use `pipeline.openspec.json` as the canonical handoff contract 
 #### Scenario: Topic research emits initial contract
 - GIVEN a deep-research run completes Task 1~5
 - WHEN the command finishes artifact handoff
-- THEN it writes `ai-content-output/deep-research/<slug>/pipeline.openspec.json`
+- THEN it writes `openspec/runtime/deep-research/<slug>/pipeline.openspec.json`
 - AND sets `stage=topic-research`
 - AND sets `next.command=/content-production:long-article`
 
@@ -32,13 +32,13 @@ The system SHALL support OpenSpec-compatible handoff at intake stages and qualit
 - GIVEN daily-brief or brainstorm command completes output generation
 - WHEN artifact handoff runs
 - THEN it creates or updates a same-stage `.openspec.json` contract
-- AND sets `next.command` for downstream topic-research command
+- AND sets `next.command` as a single downstream topic-research route
 
 #### Scenario: Quality check updates pipeline decision
 - GIVEN quality-check runs with an existing deep-research pipeline contract
 - WHEN the scorecard is finalized
 - THEN it writes `outputs.quality_report_md`
-- AND updates `next.command` based on pass/fail decision
+- AND updates `next.command` to one downstream route based on pass/fail decision
 
 ## MODIFIED Requirements
 

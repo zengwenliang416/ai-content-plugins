@@ -232,7 +232,7 @@ OpenSpec handoff is workflow-centric and mandatory across all 55 commands.
 
 ### Contract topology
 
-- **Pipeline contract**: `ai-content-output/deep-research/<slug>/pipeline.openspec.json`
+- **Pipeline contract**: `openspec/runtime/deep-research/<slug>/pipeline.openspec.json`
 - **Stage-local contract**: command-run-local `*.openspec.json`
 - **Standalone rule**: when no pipeline contract is in scope, commands still create/update a stage-local contract.
 - **In-place update rule**: when pipeline contract exists, commands update that same `pipeline.openspec.json` file in place for cross-stage traceability.

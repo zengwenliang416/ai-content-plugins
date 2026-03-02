@@ -24,7 +24,8 @@
 
 ### 3. Runtime Pipeline Contract
 
-The runtime handoff contract MUST be written to:
+Workflow-level lifecycle governance remains change-centric (`openspec/changes/<change_id>/`),
+while runtime handoff remains contract-compatible and uses:
 `openspec/runtime/deep-research/<slug>/pipeline.openspec.json`
 
 Required minimal fields:
@@ -32,7 +33,7 @@ Required minimal fields:
 ```json
 {
   "pipeline": "topic-research->content-production->content-utilities->publishing",
-  "stage": "topic-research",
+  "stage": "topic-research|content-production|content-utilities|publishing",
   "inputs": {},
   "outputs": {
     "research_md": "openspec/runtime/deep-research/<slug>/research.md",
@@ -50,17 +51,17 @@ Required minimal fields:
 ### 4. tasks.md Required Sections
 
 ## 1. Contract Setup
-- [ ] 1.1 [T0] Confirm change-id and spec domain
-- [ ] 1.2 [T0] Freeze pipeline contract fields
+- [x] 1.1 [T0] Confirm change-id and spec domain
+- [x] 1.2 [T0] Freeze pipeline contract fields
 
 ## 2. Task Mapping
-- [ ] 2.1 [T1] Research artifact contract aligned
-- [ ] 2.2 [T2] Data artifact contract aligned
-- [ ] 2.3 [T3] Analysis artifact contract aligned
-- [ ] 2.4 [T4] Visual artifact contract aligned
-- [ ] 2.5 [T5] Article artifact contract aligned
+- [x] 2.1 [T1] Align contract-aware command intake
+- [x] 2.2 [T2] Align data/analysis contract references
+- [x] 2.3 [T3] Align quality and publishing route semantics
+- [x] 2.4 [T4] Align visual output contract references
+- [x] 2.5 [T5] Align article and handoff contract references
 
 ## 3. Validation & Rollout
-- [ ] 3.1 [T0] Validate schema (`openspec schema validate ai-content`)
-- [ ] 3.2 [T0] Validate changes (`openspec validate --changes --strict --no-interactive`)
-- [ ] 3.3 [T0] Update project documentation using docflow-recorder
+- [x] 3.1 [T0] Validate schema (`openspec schema validate ai-content`)
+- [x] 3.2 [T0] Validate changes (`openspec validate --changes --strict --no-interactive`)
+- [x] 3.3 [T0] Update project documentation using docflow-recorder

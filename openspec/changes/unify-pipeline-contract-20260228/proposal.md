@@ -15,4 +15,4 @@
 
 - 影响插件：`topic-research`、`content-production`、`content-utilities`、`content-analysis`、`publishing`。
 - 保持既有运行时文件名兼容（`research.md`、`analysis.md`、`article.md`、`article.html` 等）。
-- 新增统一契约文件：`ai-content-output/deep-research/<slug>/pipeline.openspec.json`。
+- 新增统一契约文件：`openspec/runtime/deep-research/<slug>/pipeline.openspec.json`。

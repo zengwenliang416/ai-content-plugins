@@ -10,11 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add cross-skill artifact handoff for full content pipeline: daily-brief → brainstorm → deep-research → long-article → cover-image → markdown-to-html → check-quality → post-to-wechat
-- Add unified output directory convention: all generated artifacts saved to `ai-content-output/` at project root
+- Add unified output directory convention: all generated artifacts saved to `openspec/runtime/` at project root
 - Add Output Persistence to daily-brief and topic-brainstorm skills with YAML frontmatter
 - Add Input Handling to brainstorm (reads daily-brief), deep-research (reads brainstorm), article-builder (reads deep-research), and 4 downstream skills
 - Add Output Directory Convention to deep-research: standardized filenames (research.md, data-workbook.md, analysis.md, article.md) in shared `<slug>/` directory
-- Add Pipeline Context to cover-generator for auto-detection of articles in ai-content-output/
+- Add Pipeline Context to cover-generator for auto-detection of articles in openspec/runtime/
 - Add Artifact Handoff sections to all 8 pipeline commands with upstream auto-detection, AskUserQuestion multi-choice, and next-step suggestions
 - Add platform-specific hard limits to short-post skill: 小红书 title 20 chars, 微博 section, LinkedIn/WeChat constraints (content-production)
 - Add news-search multi-platform search skill and commands supporting 12+ platforms (topic-research)
@@ -24,6 +24,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add AskUserQuestion bilingual language selection to all topic-research commands (topic-research)
 - Add AskUserQuestion bilingual language selection to all growth-ops commands (growth-ops)
 - Add AskUserQuestion bilingual language selection to all audience-management commands (audience-management)
+
+
+### Changed
+
+- Align OpenSpec governance artifacts and active changes to the `openspec/runtime/` contract root
+- Enforce single-route `next.command` semantics in OpenSpec change artifacts and templates
+- Standardize visual pipeline outputs under `openspec/runtime/deep-research/<slug>/visuals/` and standalone `openspec/runtime/visuals/`
 
 ### Fixed
 

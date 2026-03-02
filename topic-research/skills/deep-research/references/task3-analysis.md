@@ -212,6 +212,6 @@ Add to the Task 2 workbook:
 
 ## Output Path
 
-Save to: `ai-content-output/deep-research/<slug>/analysis.md`
+Save to: `openspec/runtime/deep-research/<slug>/analysis.md`
 
-Example: `ai-content-output/deep-research/llm-agents/analysis.md`
+Example: `openspec/runtime/deep-research/llm-agents/analysis.md`

@@ -22,7 +22,7 @@ A structured topic brainstorming session that generates 20+ ideas, applies a sco
 **Detection order** (stop at first hit):
 
 1. **Explicit argument**: If user passes a file path (e.g., `/topic-research:brainstorm path/to/file.md`), use that file directly
-2. **Daily brief files**: Scan `ai-content-output/daily-brief/` for files matching today's date first, then recent files (within 3 days). If found, present them to the user via AskUserQuestion: "检测到以下每日简报，请选择要用作素材的文件：" with the files as options (plus a "自定义话题" option)
+2. **Daily brief files**: Scan `openspec/runtime/daily-brief/` for files matching today's date first, then recent files (within 3 days). If found, present them to the user via AskUserQuestion: "检测到以下每日简报，请选择要用作素材的文件：" with the files as options (plus a "自定义话题" option)
 3. **No upstream found**: Only in this case, ask the user if they have a seed topic or niche to focus on
 
 **When upstream artifact is loaded**:
@@ -43,7 +43,7 @@ A structured topic brainstorming session that generates 20+ ideas, applies a sco
 ```bash
 # Check for today's daily brief
 TODAY=$(date +%Y-%m-%d)
-ls ai-content-output/daily-brief/${TODAY}*.md 2>/dev/null
+ls openspec/runtime/daily-brief/${TODAY}*.md 2>/dev/null
 ```
 
 - If files found → present to user via AskUserQuestion: "检测到以下每日简报，请选择要用作素材的文件：" with options (plus "自定义话题")
@@ -233,7 +233,7 @@ For each of the top 3 topics, write a 200-300 word brief covering:
 
 **MANDATORY**: Save the brainstorm results to file immediately after generation. Do NOT only display in conversation.
 
-**Output path**: `ai-content-output/brainstorm/YYYY-MM-DD-topic-brainstorm.md`
+**Output path**: `openspec/runtime/brainstorm/YYYY-MM-DD-topic-brainstorm.md`
 
 **YAML frontmatter** (prepend to output):
 
@@ -256,7 +256,7 @@ top3_topics:
 
 **Steps**:
 
-1. Create directory: `ai-content-output/brainstorm/` (if not exists)
+1. Create directory: `openspec/runtime/brainstorm/` (if not exists)
 2. Write the complete brainstorm with frontmatter to the file
 3. Confirm save path to user
 

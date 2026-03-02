@@ -12,7 +12,7 @@ description: Review article or content quality across accuracy, readability, log
 **Detection order** (stop at first hit):
 
 1. **Explicit argument**: If user passes a file path, use it directly
-2. **Auto-scan articles**: Check `ai-content-output/deep-research/` for recent `article.md` files, then check `ai-content-output/articles/` for recent `.md` files
+2. **Auto-scan articles**: Check `openspec/runtime/deep-research/` for recent `article.md` files, then check `openspec/runtime/articles/` for recent `.md` files
    - If exactly one found (within 3 days), load it automatically
    - If multiple found, list available articles and ask user which to review
 3. **No upstream found**: Only in this case, ask user to provide content or a file path

@@ -351,6 +351,6 @@ A successful Task 1 completion:
 
 ## Output Path
 
-Save to: `ai-content-output/deep-research/<slug>/research.md`
+Save to: `openspec/runtime/deep-research/<slug>/research.md`
 
-Example: `ai-content-output/deep-research/llm-agents/research.md`
+Example: `openspec/runtime/deep-research/llm-agents/research.md`

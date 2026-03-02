@@ -189,6 +189,6 @@ For each scenario, project:
 
 ## Output Path
 
-Save to: `ai-content-output/deep-research/<slug>/data-workbook.md`
+Save to: `openspec/runtime/deep-research/<slug>/data-workbook.md`
 
-Example: `ai-content-output/deep-research/llm-agents/data-workbook.md`
+Example: `openspec/runtime/deep-research/llm-agents/data-workbook.md`

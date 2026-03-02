@@ -280,7 +280,7 @@ _Sources: [list all sources checked with dates]_
 
 **MANDATORY**: Save the briefing to file immediately after generation. Do NOT only display in conversation.
 
-**Output path**: `ai-content-output/daily-brief/YYYY-MM-DD-ai-daily-brief.md`
+**Output path**: `openspec/runtime/daily-brief/YYYY-MM-DD-ai-daily-brief.md`
 
 **YAML frontmatter** (prepend to output):
 
@@ -300,7 +300,7 @@ sources:
 
 **Steps**:
 
-1. Create directory: `ai-content-output/daily-brief/` (if not exists)
+1. Create directory: `openspec/runtime/daily-brief/` (if not exists)
 2. Write the complete briefing with frontmatter to the file
 3. Confirm save path to user
 

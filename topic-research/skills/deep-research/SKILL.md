@@ -21,10 +21,10 @@ This skill produces in-depth AI topic articles following high-quality content st
 
 ```bash
 # Step A: Check for brainstorm output (today first, then recent)
-TODAY=$(date +%Y-%m-%d) && ls -t ai-content-output/brainstorm/${TODAY}*.md ai-content-output/brainstorm/*.md 2>/dev/null | head -3
+TODAY=$(date +%Y-%m-%d) && ls -t openspec/runtime/brainstorm/${TODAY}*.md openspec/runtime/brainstorm/*.md 2>/dev/null | head -3
 
 # Step B: Check for daily brief (fallback if no brainstorm)
-ls -t ai-content-output/daily-brief/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -3
 ```
 
 **After running the commands**:
@@ -211,7 +211,7 @@ Request 5: Task 5 - Article Assembly (requires ALL previous task outputs)
 **ALL task outputs** are saved to a shared article directory:
 
 ```
-ai-content-output/deep-research/<article-slug>/
+openspec/runtime/deep-research/<article-slug>/
 ├── research.md              # Task 1 output
 ├── data-workbook.md         # Task 2 output
 ├── analysis.md              # Task 3 output
@@ -227,7 +227,7 @@ ai-content-output/deep-research/<article-slug>/
 
 **MANDATORY**: Each task MUST:
 
-1. Create `ai-content-output/deep-research/<slug>/` on first run (if not exists)
+1. Create `openspec/runtime/deep-research/<slug>/` on first run (if not exists)
 2. Save its output to the path shown above
 3. Confirm the save path to user after delivery
 
@@ -250,10 +250,10 @@ ai-content-output/deep-research/<article-slug>/
 **Detection order** (stop at first hit):
 
 1. **Explicit argument**: If user passes a file/directory path, use it directly
-2. **Brainstorm brief**: Check `ai-content-output/brainstorm/` for a matching topic brief (today or most recent within 3 days)
+2. **Brainstorm brief**: Check `openspec/runtime/brainstorm/` for a matching topic brief (today or most recent within 3 days)
    - If found, extract: core angle, target audience, key questions, data requirements, potential sources
    - Use these as research focus areas (skip re-discovering what's already known)
-3. **Daily brief**: Check `ai-content-output/daily-brief/` for relevant daily brief data (today or most recent within 3 days)
+3. **Daily brief**: Check `openspec/runtime/daily-brief/` for relevant daily brief data (today or most recent within 3 days)
    - If found, extract relevant news items and data points
    - Avoid re-searching for information already gathered
 4. **No upstream found**: Only in this case, ask the user for topic input
@@ -292,7 +292,7 @@ input_context:
 - Competitive landscape (5-10 approaches or alternatives)
 - Risks & challenges (technical, adoption, ethical, regulatory)
 
-**File name**: `research.md` (saved to `ai-content-output/deep-research/<slug>/research.md` per Output Directory Convention)
+**File name**: `research.md` (saved to `openspec/runtime/deep-research/<slug>/research.md` per Output Directory Convention)
 
 **DELIVER ONLY THIS 1 FILE. NO completion summaries, no extra documents.**
 
@@ -366,7 +366,7 @@ Optional:
   5. **Timeline** - Chronological milestones, paper releases, product launches
   6. **Scenarios** - Optimistic/Base/Pessimistic projections for the field
 
-**File name**: `data-workbook.md` (saved to `ai-content-output/deep-research/<slug>/data-workbook.md` per Output Directory Convention)
+**File name**: `data-workbook.md` (saved to `openspec/runtime/deep-research/<slug>/data-workbook.md` per Output Directory Convention)
 
 **DELIVER ONLY THIS 1 FILE. NO completion summaries, no extra documents.**
 
@@ -442,7 +442,7 @@ Required from workbook:
 
 **Files**:
 
-- `analysis.md` (saved to `ai-content-output/deep-research/<slug>/analysis.md` per Output Directory Convention)
+- `analysis.md` (saved to `openspec/runtime/deep-research/<slug>/analysis.md` per Output Directory Convention)
 - Additional sections appended to `data-workbook.md`:
   - Comparative Analysis tab
   - Trajectory Forecast tab
@@ -704,7 +704,7 @@ IF ANY VERIFICATION FAILS: Stop and complete missing task first.
 - Section 8: Takeaways & Content Angle (200-300 words)
 - Sources & References (all sources with clickable hyperlinks)
 
-**File name**: `article.md` (saved to `ai-content-output/deep-research/<slug>/article.md` per Output Directory Convention)
+**File name**: `article.md` (saved to `openspec/runtime/deep-research/<slug>/article.md` per Output Directory Convention)
 
 **DELIVER ONLY THIS 1 FILE. NO executive summaries, no "highlights" documents, no extra files.**
 
@@ -838,7 +838,7 @@ All outputs meet high-quality content standards for AI-focused publications:
 All outputs go to the shared article directory (see **Output Directory Convention** above):
 
 ```
-ai-content-output/deep-research/<slug>/
+openspec/runtime/deep-research/<slug>/
 ├── research.md              # Task 1
 ├── data-workbook.md         # Task 2
 ├── analysis.md              # Task 3

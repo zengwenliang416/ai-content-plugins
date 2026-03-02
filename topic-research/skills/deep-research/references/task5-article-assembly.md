@@ -274,7 +274,7 @@ Key checks:
 **MANDATORY**: Save the final article to the shared article directory:
 
 ```
-ai-content-output/deep-research/<slug>/article.md
+openspec/runtime/deep-research/<slug>/article.md
 ```
 
 The article file MUST be a sibling of the `images/` directory so that `./images/` relative paths resolve correctly.
@@ -282,7 +282,7 @@ The article file MUST be a sibling of the `images/` directory so that `./images/
 **After writing**, verify the output directory structure:
 
 ```
-ai-content-output/deep-research/<slug>/
+openspec/runtime/deep-research/<slug>/
 ├── research.md          # Task 1
 ├── data-workbook.md     # Task 2
 ├── analysis.md          # Task 3

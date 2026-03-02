@@ -119,7 +119,7 @@ See [references/image-text-posting.md](references/image-text-posting.md) for det
 **Detection order** (stop at first hit):
 
 1. **Explicit argument**: If user passes a file path, use it directly
-2. **Auto-scan HTML**: Check `ai-content-output/deep-research/` for recent `article.html` files, then check `ai-content-output/articles/` for recent `.html` files
+2. **Auto-scan HTML**: Check `openspec/runtime/deep-research/` for recent `article.html` files, then check `openspec/runtime/articles/` for recent `.html` files
    - If exactly one found (within 3 days), load it automatically
    - If multiple found, list and ask user which to publish
 3. **Markdown only**: If only `.md` found (no `.html`), suggest running `md-to-html` first

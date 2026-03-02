@@ -172,7 +172,7 @@ The tool returns a JSON response containing the `output_path` field with the ful
 All visual assets MUST be placed in the article's output directory:
 
 ```
-ai-content-output/deep-research/<article-slug>/images/
+openspec/runtime/deep-research/<article-slug>/images/
 ```
 
 ### Post-Generation Steps

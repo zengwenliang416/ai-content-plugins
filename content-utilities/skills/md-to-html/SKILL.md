@@ -52,7 +52,7 @@ test -f "$HOME/.content-skills/md-to-html/EXTEND.md" && echo "user"
 **Detection order** (stop at first hit):
 
 1. **Explicit argument**: If user passes a file path, use it directly
-2. **Auto-scan articles**: Check `ai-content-output/deep-research/` for recent `article.md` files, then check `ai-content-output/articles/` for recent `.md` files
+2. **Auto-scan articles**: Check `openspec/runtime/deep-research/` for recent `article.md` files, then check `openspec/runtime/articles/` for recent `.md` files
    - If exactly one found (within 3 days), load it automatically
    - If multiple found, list available articles and ask user which to convert
 3. **No upstream found**: Only in this case, ask user to provide a markdown file path
@@ -61,8 +61,8 @@ test -f "$HOME/.content-skills/md-to-html/EXTEND.md" && echo "user"
 
 The converted HTML file is saved alongside the source markdown:
 
-- **Input**: `ai-content-output/deep-research/<slug>/article.md`
-- **Output**: `ai-content-output/deep-research/<slug>/article.html`
+- **Input**: `openspec/runtime/deep-research/<slug>/article.md`
+- **Output**: `openspec/runtime/deep-research/<slug>/article.html`
 - **General**: `<input-dir>/<input-name>.html` (same directory, same basename, `.html` extension)
 
 After conversion, confirm the output path to user.

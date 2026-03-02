@@ -16,14 +16,14 @@ description: Write comprehensive long-form articles for blogs, newsletters, and 
 2. **Auto-scan deep-research**: Run this Bash command immediately:
 
 ```bash
-ls -dt ai-content-output/deep-research/*/ 2>/dev/null | head -3
+ls -dt openspec/runtime/deep-research/*/ 2>/dev/null | head -3
 ```
 
 If directories found → present them to the user via AskUserQuestion: "检测到以下深度研究产物，请选择一个作为文章素材：" with the directories as options (plus a "自定义话题" option).
 
 3. **No upstream found**: Only in this case, proceed with fresh source gathering
 
-**When a deep-research directory is loaded** (e.g., `ai-content-output/deep-research/<slug>/`):
+**When a deep-research directory is loaded** (e.g., `openspec/runtime/deep-research/<slug>/`):
 
 1. Read the directory contents
 2. Load available research documents as source materials:
@@ -135,8 +135,8 @@ Ask for available inputs:
 
 **Output path** (based on context):
 
-- **With deep-research input**: `ai-content-output/deep-research/<slug>/article.md` (alongside research docs)
-- **Standalone**: `ai-content-output/articles/YYYY-MM-DD-<slug>.md`
+- **With deep-research input**: `openspec/runtime/deep-research/<slug>/article.md` (alongside research docs)
+- **Standalone**: `openspec/runtime/articles/YYYY-MM-DD-<slug>.md`
 
 **Steps**:
 

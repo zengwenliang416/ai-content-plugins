@@ -1,6 +1,6 @@
 ---
 name: xhs-card
-description: Generates Xiaohongshu (Little Red Book) infographic series with 10 visual styles and 8 layouts. Breaks content into 1-10 cartoon-style images optimized for XHS engagement. Use when user mentions "小红书图片", "XHS images", "RedNote infographics", "小红书种草", or wants social media infographics for Chinese platforms.
+description: Generates Xiaohongshu (Little Red Book) infographic series with 11 visual styles and 8 layouts. Breaks content into 1-10 cartoon-style images optimized for XHS engagement. Use when user mentions "小红书图片", "XHS images", "RedNote infographics", "小红书种草", or wants social media infographics for Chinese platforms.
 ---
 
 # Xiaohongshu Infographic Series Generator
@@ -42,7 +42,7 @@ Break down complex content into eye-catching infographic series for Xiaohongshu 
 
 | Dimension  | Controls                                      | Options                                                                       |
 | ---------- | --------------------------------------------- | ----------------------------------------------------------------------------- |
-| **Style**  | Visual aesthetics: colors, lines, decorations | cute, fresh, warm, bold, minimal, retro, pop, notion, chalkboard, study-notes |
+| **Style**  | Visual aesthetics: colors, lines, decorations | cute, fresh, warm, bold, minimal, retro, pop, notion, chalkboard, study-notes, claymorphic-ui |
 | **Layout** | Information structure: density, arrangement   | sparse, balanced, dense, list, comparison, flow, mindmap, quadrant            |
 
 Style × Layout can be freely combined. Example: `--style notion --layout dense` creates an intellectual-looking knowledge card with high information density.
@@ -61,6 +61,7 @@ Style × Layout can be freely combined. Example: `--style notion --layout dense`
 | `notion`         | Minimalist hand-drawn line art, intellectual                                       |
 | `chalkboard`     | Colorful chalk on black board, educational                                         |
 | `study-notes`    | Realistic handwritten photo style, blue pen + red annotations + yellow highlighter |
+| `claymorphic-ui` | 3D polymer clay UI, soft panels, floating elements, chibi characters              |
 
 Detailed style definitions: `references/presets/<style>.md`
 
@@ -92,7 +93,8 @@ Detailed layout definitions: `references/elements/canvas.md`
 | Fun, exciting, wow, amazing                                  | `pop`         | sparse/list        |
 | Knowledge, concept, productivity, SaaS                       | `notion`      | dense/list         |
 | Education, tutorial, learning, teaching, classroom           | `chalkboard`  | balanced/dense     |
-| Notes, handwritten, study guide, knowledge, realistic, photo | `study-notes` | dense/list/mindmap |
+| Notes, handwritten, study guide, knowledge, realistic, photo | `study-notes`    | dense/list/mindmap |
+| Tech, AI, app, product, feature, tool, trendy                | `claymorphic-ui` | balanced/list/flow |
 
 ## Outline Strategies
 
@@ -545,7 +547,8 @@ Files:
 | pop         |   ✓✓   |    ✓✓    |   ✓   |  ✓✓  |     ✓✓     |  ✓   |    ✓    |    ✓     |
 | notion      |   ✓✓   |    ✓✓    |  ✓✓   |  ✓✓  |     ✓✓     |  ✓✓  |   ✓✓    |    ✓✓    |
 | chalkboard  |   ✓✓   |    ✓✓    |  ✓✓   |  ✓✓  |     ✓      |  ✓✓  |   ✓✓    |    ✓     |
-| study-notes |   ✗    |    ✓     |  ✓✓   |  ✓✓  |     ✓      |  ✓   |   ✓✓    |    ✓     |
+| study-notes     |   ✗    |    ✓     |  ✓✓   |  ✓✓  |     ✓      |  ✓   |   ✓✓    |    ✓     |
+| claymorphic-ui  |   ✓✓   |    ✓✓    |   ✓   |  ✓✓  |     ✓      |  ✓✓  |    ✓    |    ✓     |
 
 ## References
 

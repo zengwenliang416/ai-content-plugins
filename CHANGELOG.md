@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add `claymorphic-ui` style references for article illustration, infographic, and Xiaohongshu visual workflows
 - Add `humanizer` skill and `/content-utilities:humanize` command for rewriting drafts that still read like AI-generated text
 - Add cross-skill artifact handoff for full content pipeline: daily-brief → brainstorm → deep-research → long-article → cover-image → markdown-to-html → check-quality → post-to-wechat
 - Add unified output directory convention: all generated artifacts saved to `openspec/runtime/` at project root
@@ -29,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Expand visual style counts, compatibility matrices, and recommendation rules to cover `claymorphic-ui`
 - Add anti-AI writing guardrails and humanizer handoff guidance across writing, planning, and research skills
 - Align OpenSpec governance artifacts and active changes to the `openspec/runtime/` contract root
 - Enforce single-route `next.command` semantics in OpenSpec change artifacts and templates

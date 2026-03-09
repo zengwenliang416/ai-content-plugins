@@ -4,14 +4,14 @@ Style selection for Xiaohongshu infographic series via grouped categories.
 
 ## Style Groups
 
-10 styles organized into 4 groups for AskUserQuestion (max 4 options):
+11 styles organized into 4 groups for AskUserQuestion (max 4 options):
 
-| Group               | ID                | Styles                                   | Best For                                 |
-| ------------------- | ----------------- | ---------------------------------------- | ---------------------------------------- |
-| Recommended         | `auto`            | Content-signal-based auto-selection      | Default choice                           |
-| Warm & Approachable | `warm-group`      | cute, fresh, warm                        | Lifestyle, beauty, food, personal shares |
-| High Impact         | `impact-group`    | bold, pop, retro                         | News, warnings, comparisons, trending    |
-| Knowledge & Craft   | `knowledge-group` | notion, minimal, chalkboard, study-notes | Tutorials, tech, education, reviews      |
+| Group               | ID                | Styles                                                  | Best For                                 |
+| ------------------- | ----------------- | ------------------------------------------------------- | ---------------------------------------- |
+| Recommended         | `auto`            | Content-signal-based auto-selection                     | Default choice                           |
+| Warm & Approachable | `warm-group`      | cute, fresh, warm                                       | Lifestyle, beauty, food, personal shares |
+| High Impact         | `impact-group`    | bold, pop, retro                                        | News, warnings, comparisons, trending    |
+| Knowledge & Craft   | `knowledge-group` | notion, minimal, chalkboard, study-notes, claymorphic-ui | Tutorials, tech, education, reviews      |
 
 ## Content Signal → Style Mapping
 
@@ -28,7 +28,8 @@ Auto-selection rules for the "Recommended" option:
 | Knowledge, concept, productivity, SaaS, tech | `notion`      | knowledge-group |
 | Professional, business, elegant, simple      | `minimal`     | knowledge-group |
 | Education, tutorial, learning, teaching      | `chalkboard`  | knowledge-group |
-| Notes, handwritten, study guide, realistic   | `study-notes` | knowledge-group |
+| Notes, handwritten, study guide, realistic   | `study-notes`    | knowledge-group |
+| Tech product, AI tool, app feature, trendy   | `claymorphic-ui` | knowledge-group |
 
 When multiple signals match, prefer the style with the strongest signal count. If tied, prefer user's `preferred_style` from EXTEND.md.
 
@@ -70,13 +71,14 @@ options:
 
       Best for: Hot takes, warnings, trend analysis
 
-  - label: "Knowledge & Craft (notion/minimal/chalkboard/study-notes)"
+  - label: "Knowledge & Craft (notion/minimal/chalkboard/study-notes/claymorphic-ui)"
     description: "Tutorials, tech deep-dives, education"
     markdown: |
-      notion       Minimalist hand-drawn line art
-      minimal      Ultra-clean, sophisticated
-      chalkboard   Chalk on black board, educational
-      study-notes  Handwritten photo, blue pen + red marks
+      notion          Minimalist hand-drawn line art
+      minimal         Ultra-clean, sophisticated
+      chalkboard      Chalk on black board, educational
+      study-notes     Handwritten photo, blue pen + red marks
+      claymorphic-ui  3D clay UI, soft panels, floating elements
 
       Best for: Tech analysis, tutorials, knowledge cards
 ```
@@ -97,7 +99,7 @@ Display the group's styles with 1-line descriptions in the strategy summary. Use
 
 ## Strategy × Style Independence
 
-Each strategy (A/B/C) MUST select its style independently from ALL 10 styles based on:
+Each strategy (A/B/C) MUST select its style independently from ALL 11 styles based on:
 
 1. **Content signals** — match the strategy's focus to content characteristics
 2. **Strategy nature** — story-driven may favor emotional styles, info-dense may favor structured styles

@@ -42,19 +42,20 @@ Use Core Styles for most cases. See full Style Gallery below for granular contro
 | `sketch` | Raw pencil notebook style | Brainstorming, creative exploration |
 | `sketch-notes` | Soft hand-drawn warm notes | Educational, warm notes |
 | `vintage` | Aged parchment historical | Historical, heritage |
+| `claymorphic-ui` | 3D polymer clay UI, soft panels | Tech products, app tutorials, trendy content |
 
 Full specifications: `references/styles/<style>.md`
 
 ## Type × Style Compatibility Matrix
 
-| | vector-illustration | notion | warm | minimal | blueprint | watercolor | elegant | editorial | scientific |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| infographic | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✓✓ |
-| scene | ✓ | ✓ | ✓✓ | ✓ | ✗ | ✓✓ | ✓ | ✓ | ✗ |
-| flowchart | ✓✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✗ | ✓ | ✓✓ | ✓ |
-| comparison | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓ |
-| framework | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✗ | ✓✓ | ✓ | ✓✓ |
-| timeline | ✓ | ✓✓ | ✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓✓ | ✓ |
+| | vector-illustration | notion | warm | minimal | blueprint | watercolor | elegant | editorial | scientific | claymorphic-ui |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| infographic | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✓✓ | ✓✓ |
+| scene | ✓ | ✓ | ✓✓ | ✓ | ✗ | ✓✓ | ✓ | ✓ | ✗ | ✓ |
+| flowchart | ✓✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✗ | ✓ | ✓✓ | ✓ | ✓ |
+| comparison | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ |
+| framework | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✗ | ✓✓ | ✓ | ✓✓ | ✓ |
+| timeline | ✓ | ✓✓ | ✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓✓ | ✓ | ✓ |
 
 ✓✓ = highly recommended | ✓ = compatible | ✗ = not recommended
 
@@ -73,6 +74,7 @@ Full specifications: `references/styles/<style>.md`
 
 | Content Signals | Recommended Type | Recommended Style |
 |-----------------|------------------|-------------------|
+| Tech product, app feature, AI tool, showcase | infographic | claymorphic-ui, vector-illustration |
 | API, metrics, data, comparison, numbers | infographic | blueprint, vector-illustration |
 | Knowledge, concept, tutorial, learning, guide | infographic | vector-illustration, notion |
 | Tech, AI, programming, development, code | infographic | vector-illustration, blueprint |

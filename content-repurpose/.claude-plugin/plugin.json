@@ -1,0 +1,8 @@
+{
+  "name": "content-repurpose",
+  "version": "0.1.0",
+  "description": "Content repurposing: transform content across platforms and formats — article to tweets, XHS notes, WeChat summaries, and more",
+  "author": {
+    "name": "AI Content Studio"
+  }
+}

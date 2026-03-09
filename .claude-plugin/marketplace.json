@@ -43,6 +43,16 @@
       "name": "content-utilities",
       "source": "./content-utilities",
       "description": "Content utilities: image compression, Markdown formatting, HTML conversion, web/tweet clipping"
+    },
+    {
+      "name": "content-repurpose",
+      "source": "./content-repurpose",
+      "description": "Content repurposing: transform content across platforms and formats — article to tweets, XHS notes, WeChat summaries, and more"
+    },
+    {
+      "name": "content-hooks",
+      "source": "./content-hooks",
+      "description": "Hook and headline generation: attention-grabbing openers, CTR-optimized titles, A/B variants, and platform-specific hooks"
     }
   ]
 }

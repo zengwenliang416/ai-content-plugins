@@ -204,10 +204,10 @@ npx -y bun ${SKILL_DIR}/scripts/main.ts article.md --title "My Article"
 ## Supported Markdown Features
 
 | Feature     | Syntax                                 |
-| ----------- | -------------------------------------- | ------------ |
+| ----------- | -------------------------------------- |
 | Headings    | `# H1` to `###### H6`                  |
 | Bold/Italic | `**bold**`, `*italic*`                 |
-| Code blocks | ` ```lang ` with syntax highlighting   |
+| Code blocks | ```` ```lang ```` with syntax highlighting |
 | Inline code | `` `code` ``                           |
 | Tables      | GitHub-flavored markdown tables        |
 | Images      | `![alt](src)`                          |
@@ -216,9 +216,9 @@ npx -y bun ${SKILL_DIR}/scripts/main.ts article.md --title "My Article"
 | Lists       | `-` unordered, `1.` ordered            |
 | Alerts      | `> [!NOTE]`, `> [!WARNING]`, etc.      |
 | Footnotes   | `[^1]` references                      |
-| Ruby text   | `{base                                 | annotation}` |
-| Mermaid     | ` ```mermaid ` diagrams                |
-| PlantUML    | ` ```plantuml ` diagrams               |
+| Ruby text   | `{base \| annotation}`                 |
+| Mermaid     | ```` ```mermaid ```` diagrams          |
+| PlantUML    | ```` ```plantuml ```` diagrams         |
 
 ## Frontmatter
 

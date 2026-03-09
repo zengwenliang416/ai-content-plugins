@@ -49,6 +49,7 @@ Adjust slide count based on speaking time (1-2 minutes per content slide).
 
 ## Important Notes
 
+- **Anti-AI writing rules** — load `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Avoid AI vocabulary, significance inflation, filler phrases, generic conclusions. Write like a person.
 - Slides support the speaker — they are not a document to be read independently
 - If someone can read the slides without the speaker, the presentation is over-designed
 - Start with the structure (outline) before designing any slides

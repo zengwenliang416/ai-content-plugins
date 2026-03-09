@@ -102,6 +102,7 @@ Key audience metrics:
 
 ## Important Notes
 
+- **Anti-AI writing rules** — load `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Avoid AI vocabulary, significance inflation, filler phrases, generic conclusions. Write like a person.
 - The proposal should feel tailored, not templated — reference the brand's specific goals
 - Don't undersell — know your audience's value and price accordingly
 - Always include FTC disclosure requirements upfront — brands appreciate compliance awareness

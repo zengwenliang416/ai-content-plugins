@@ -72,6 +72,7 @@ Standard strategy memo format:
 
 ## Important Notes
 
+- **Anti-AI writing rules** — load `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Avoid AI vocabulary, significance inflation, filler phrases, generic conclusions. Write like a person.
 - Strategy memos should be balanced — present real tradeoffs, not just advocacy
 - Be direct about the recommendation — vague memos produce vague decisions
 - Risks must be honest — downplaying risks undermines trust

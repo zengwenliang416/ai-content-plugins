@@ -231,7 +231,7 @@ openspec/runtime/deep-research/<article-slug>/
 2. Save its output to the path shown above
 3. Confirm the save path to user after delivery
 
-**Downstream consumers**: `article-builder`, `cover-generator`, `md-to-html`, `quality-check`, and `wechat-publisher` all read from this directory.
+**Downstream consumers**: `article-builder`, `cover-generator`, `md-to-html`, `quality-check`, `humanizer`, and `wechat-publisher` all read from this directory.
 
 ---
 
@@ -663,6 +663,7 @@ IF ANY VERIFICATION FAILS: Stop and complete missing task first.
 - Good articles are readable, narrative-driven, data-backed, and visually rich
 - Lead with the "so what" — why this topic matters to readers right now
 - 1 visual per 300-500 words of content
+- **Anti-AI writing rules** — load and follow `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Avoid AI vocabulary, significance inflation, -ing filler phrases, generic conclusions. Write with voice and rhythm.
 
 **GO ALL OUT ON THIS TASK**
 

@@ -82,3 +82,4 @@ Choose one based on topic and tone:
 - Use specific numbers over vague claims ("47% open rate" beats "great results")
 - Short sentences outperform long ones on every platform
 - Read the post aloud — if it sounds stiff, rewrite it
+- **Anti-AI writing rules** — load `content-utilities/skills/humanizer/references/writing-rules.md` during drafting. Social posts are especially prone to AI patterns (rule of three, significance inflation, generic CTAs). Write like a person, not an algorithm.

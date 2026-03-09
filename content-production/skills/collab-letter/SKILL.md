@@ -54,6 +54,7 @@ This research makes the message specific — generic outreach gets ignored.
 
 ## Important Notes
 
+- **Anti-AI writing rules** — load `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Avoid AI vocabulary, significance inflation, filler phrases, generic conclusions. Write like a person.
 - Generic flattery ("I love your content!") signals a mass outreach — always be specific
 - Lead with what you can offer, not what you want from them
 - If reaching out cold, keep it under 100 words — respect their time

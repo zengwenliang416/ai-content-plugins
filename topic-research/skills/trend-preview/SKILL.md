@@ -176,6 +176,7 @@ Produce ranked list of trends with:
 
 ## Quality Standards
 
+- **Anti-AI writing rules** — load `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Avoid AI vocabulary, significance inflation, filler phrases, generic conclusions. Write like a person.
 - Minimum 5 trends assessed (3+ Tier 1, 2+ Tier 2)
 - Every trend must have at least 2 independent signal sources
 - Momentum scores must be justified by specific data points

@@ -224,6 +224,7 @@ For additional context on evaluation methodology:
 
 ## Quality Standards
 
+- **Anti-AI writing rules** — load `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Avoid AI vocabulary, significance inflation, filler phrases, generic conclusions. Write like a person.
 - All claims must be sourced from primary materials (not secondary coverage)
 - Benchmark comparisons must use numbers from official sources
 - Significance rating must be justified with specific evidence

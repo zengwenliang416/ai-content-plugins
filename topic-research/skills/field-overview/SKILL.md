@@ -138,6 +138,7 @@ Structure:
 
 ## Quality Standards
 
+- **Anti-AI writing rules** — load `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Avoid AI vocabulary, significance inflation, filler phrases, generic conclusions. Write like a person.
 - 3,000-5,000 word total
 - All claims cited with sources
 - History section covers paradigm shifts, not just a list of dates

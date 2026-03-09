@@ -97,6 +97,7 @@ Based on the data, what to prioritize next period:
 
 ## Important Notes
 
+- **Anti-AI writing rules** — load `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Avoid AI vocabulary, significance inflation, filler phrases, generic conclusions. Write like a person.
 - Performance must be net of any paid boosting unless specifically noted otherwise
 - Reports should be consistent period over period — use the same template and metrics
 - Match the level of detail to the audience — team members may want full data; brand partners want headline numbers

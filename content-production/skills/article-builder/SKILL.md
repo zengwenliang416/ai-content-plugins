@@ -120,6 +120,7 @@ Ask for available inputs:
 - **Active voice throughout** — passive voice kills momentum
 - **Vary sentence length** — short punchy sentences after long ones create rhythm
 - **Data-driven** — specific numbers over vague superlatives
+- **Anti-AI writing rules** — load and follow `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Key: no significance inflation, no -ing filler phrases, no AI vocabulary (delve, showcase, vibrant, tapestry...), no generic conclusions, vary rhythm, have opinions.
 
 ### Step 4: Output
 
@@ -145,7 +146,7 @@ Ask for available inputs:
 3. If images directory exists (from deep-research), verify all image references resolve
 4. Confirm save path to user
 
-**Downstream consumers**: `cover-generator` reads the article for cover image generation. `md-to-html` converts the article to styled HTML.
+**Downstream consumers**: `cover-generator` reads the article for cover image generation. `md-to-html` converts the article to styled HTML. `humanizer` can post-process the article to remove remaining AI patterns (`/content-utilities:humanize`).
 
 ---
 

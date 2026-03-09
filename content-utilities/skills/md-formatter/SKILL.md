@@ -67,7 +67,7 @@ Read the user-specified markdown or plain text file.
 | Has `#`, `##`, `###` headings | Markdown |
 | Has `**bold**`, `*italic*` | Markdown |
 | Has `- ` or `1. ` lists | Markdown |
-| Has ``` code blocks | Markdown |
+| Has ```` ``` ```` code blocks | Markdown |
 | Has `> ` blockquotes | Markdown |
 | None of above | Plain text |
 

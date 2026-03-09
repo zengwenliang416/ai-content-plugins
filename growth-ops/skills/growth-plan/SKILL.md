@@ -94,6 +94,7 @@ Define the metrics that will track growth:
 
 ## Important Notes
 
+- **Anti-AI writing rules** — load `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Avoid AI vocabulary, significance inflation, filler phrases, generic conclusions. Write like a person.
 - Pick 2-3 growth levers to focus on — spreading across 10 tactics produces no results
 - Consistency beats volume — a sustainable cadence outperforms a sprint
 - Audience trust is the real asset — don't sacrifice quality for frequency

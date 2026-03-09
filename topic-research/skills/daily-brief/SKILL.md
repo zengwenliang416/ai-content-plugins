@@ -310,6 +310,7 @@ sources:
 
 ## Quality Standards
 
+- **Anti-AI writing rules** — load `content-utilities/skills/humanizer/references/writing-rules.md` during writing. Avoid AI vocabulary, significance inflation, filler phrases, generic conclusions. Write like a person.
 - Minimum 10 items total across all categories
 - Each summary must include the "why it matters" — not just "what happened"
 - Top 3 picks must be genuinely significant, not just interesting

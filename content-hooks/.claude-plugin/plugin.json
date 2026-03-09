@@ -1,0 +1,8 @@
+{
+  "name": "content-hooks",
+  "version": "0.1.0",
+  "description": "Hook and headline generation: attention-grabbing openers, CTR-optimized titles, A/B variants, and platform-specific hooks",
+  "author": {
+    "name": "AI Content Studio"
+  }
+}

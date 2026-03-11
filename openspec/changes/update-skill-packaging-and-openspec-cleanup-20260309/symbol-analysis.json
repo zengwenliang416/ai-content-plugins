@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-03-09T07:10:45.563Z",
+  "scope_confidence": "path-based",
+  "scopes": {
+    "humanizer-rollout": "content-utilities",
+    "visual-claymorphic-style": "visual-content",
+    "codex-cli-bundle": "codex-cli",
+    "openspec-cleanup": "openspec"
+  },
+  "symbols": []
+}

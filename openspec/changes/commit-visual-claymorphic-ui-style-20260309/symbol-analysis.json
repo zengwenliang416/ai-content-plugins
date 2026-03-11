@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-03-09T00:00:00Z",
+  "analyzed_files": 0,
+  "skipped_files": [
+    "CHANGELOG.md (docs/markdown, no code symbols)",
+    "visual-content/skills/article-illustrator/references/styles.md (docs/markdown, no code symbols)",
+    "visual-content/skills/article-illustrator/references/styles/claymorphic-ui.md (docs/markdown, no code symbols)",
+    "visual-content/skills/infographic-gen/SKILL.md (docs/markdown, no code symbols)",
+    "visual-content/skills/infographic-gen/references/styles/claymorphic-ui.md (docs/markdown, no code symbols)",
+    "visual-content/skills/xhs-card/SKILL.md (docs/markdown, no code symbols)",
+    "visual-content/skills/xhs-card/references/presets/claymorphic-ui.md (docs/markdown, no code symbols)",
+    "visual-content/skills/xhs-card/references/workflows/style-selection.md (docs/markdown, no code symbols)"
+  ],
+  "symbols_by_file": {},
+  "scope_candidates": [
+    {
+      "scope": "claymorphic-ui",
+      "confidence": "high",
+      "source": "path",
+      "rationale": "All 3 new files are claymorphic-ui style references; all 5 modified files update counts/matrices to include claymorphic-ui"
+    },
+    {
+      "scope": "visual-content",
+      "confidence": "high",
+      "source": "path",
+      "rationale": "All 7 non-changelog files reside under visual-content/ plugin"
+    },
+    {
+      "scope": "xhs-card",
+      "confidence": "medium",
+      "source": "path",
+      "rationale": "Skill with most files changed (3 files: SKILL.md, presets/claymorphic-ui.md, workflows/style-selection.md)"
+    },
+    {
+      "scope": "article-illustrator",
+      "confidence": "medium",
+      "source": "path",
+      "rationale": "Skill with 2 files changed (styles.md modified, styles/claymorphic-ui.md added)"
+    },
+    {
+      "scope": "infographic-gen",
+      "confidence": "medium",
+      "source": "path",
+      "rationale": "Skill with 2 files changed (SKILL.md modified, styles/claymorphic-ui.md added)"
+    }
+  ]
+}

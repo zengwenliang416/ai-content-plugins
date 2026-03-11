@@ -1,0 +1,5 @@
+{
+  "branch": "main",
+  "skipped": true,
+  "reason": "keep current branch for user-requested batch commits"
+}

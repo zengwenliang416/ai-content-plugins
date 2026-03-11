@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-03-09T15:35:00+08:00",
+  "analyzed_files": 29,
+  "primary_type": "chore",
+  "primary_scope": "openspec",
+  "complexity": "high",
+  "should_split": true,
+  "split_recommendation": {
+    "commits": [
+      {
+        "type": "chore",
+        "scope": "openspec",
+        "emoji": "🔧",
+        "files": [
+          "openspec/changes/.gitkeep",
+          "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/.openspec.yaml",
+          "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/README.md",
+          "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/artifacts.md",
+          "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/proposal.md",
+          "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/specs/ai-content-cross-plugin/spec.md",
+          "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/tasks.md",
+          "openspec/changes/extend-contract-visual-growth-audience-20260228/.openspec.yaml",
+          "openspec/changes/extend-contract-visual-growth-audience-20260228/README.md",
+          "openspec/changes/extend-contract-visual-growth-audience-20260228/artifacts.md",
+          "openspec/changes/extend-contract-visual-growth-audience-20260228/proposal.md",
+          "openspec/changes/extend-contract-visual-growth-audience-20260228/specs/ai-content-cross-plugin/spec.md",
+          "openspec/changes/extend-contract-visual-growth-audience-20260228/tasks.md",
+          "openspec/changes/unify-pipeline-contract-20260228/.openspec.yaml",
+          "openspec/changes/unify-pipeline-contract-20260228/README.md",
+          "openspec/changes/unify-pipeline-contract-20260228/artifacts.md",
+          "openspec/changes/unify-pipeline-contract-20260228/dry-run-report.md",
+          "openspec/changes/unify-pipeline-contract-20260228/proposal.md",
+          "openspec/changes/unify-pipeline-contract-20260228/specs/ai-content-cross-plugin/spec.md",
+          "openspec/changes/unify-pipeline-contract-20260228/tasks.md",
+          "openspec/config.yaml",
+          "openspec/schemas/ai-content/schema.yaml",
+          "openspec/schemas/ai-content/templates/artifacts.md",
+          "openspec/schemas/ai-content/templates/proposal.md",
+          "openspec/schemas/ai-content/templates/specs/spec.md",
+          "openspec/schemas/ai-content/templates/tasks.md",
+          "openspec/specs/.gitkeep",
+          "openspec/specs/ai-content-cross-plugin/spec.md"
+        ],
+        "description": "remove obsolete openspec governance artifacts after runtime migration",
+        "body": "Delete 3 completed change proposals, schema templates, config, and cross-plugin spec.\nAll migrated to openspec/runtime/ — 768 lines removed, zero runtime impact."
+      },
+      {
+        "type": "chore",
+        "scope": "config",
+        "emoji": "🔧",
+        "files": [
+          ".gitignore"
+        ],
+        "description": "add .codex and .agents exclusions to gitignore",
+        "body": "Prevent Codex CLI local state and agent working directories from being tracked."
+      }
+    ]
+  },
+  "commit_strategy": {
+    "suggested_type": "chore",
+    "suggested_scope": "openspec",
+    "confidence": "high"
+  },
+  "synthesis_metadata": {
+    "semantic_groups_count": 2,
+    "symbol_scopes_count": 5,
+    "conflicts_resolved": 0,
+    "notes": "Symbol analysis covers the already-committed feature (95b8428). Unstaged changes are purely cleanup (openspec deletions + gitignore). No type/scope conflicts between semantic and symbol analyses as they cover different change sets."
+  }
+}

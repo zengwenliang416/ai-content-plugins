@@ -1,0 +1,78 @@
+{
+  "timestamp": "2026-03-09T15:30:00+08:00",
+  "analyzed_files": 29,
+  "semantic_groups": [
+    {
+      "name": "openspec infrastructure cleanup",
+      "files": [
+        "openspec/changes/.gitkeep",
+        "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/.openspec.yaml",
+        "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/README.md",
+        "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/artifacts.md",
+        "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/proposal.md",
+        "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/specs/ai-content-cross-plugin/spec.md",
+        "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/tasks.md",
+        "openspec/changes/extend-contract-visual-growth-audience-20260228/.openspec.yaml",
+        "openspec/changes/extend-contract-visual-growth-audience-20260228/README.md",
+        "openspec/changes/extend-contract-visual-growth-audience-20260228/artifacts.md",
+        "openspec/changes/extend-contract-visual-growth-audience-20260228/proposal.md",
+        "openspec/changes/extend-contract-visual-growth-audience-20260228/specs/ai-content-cross-plugin/spec.md",
+        "openspec/changes/extend-contract-visual-growth-audience-20260228/tasks.md",
+        "openspec/changes/unify-pipeline-contract-20260228/.openspec.yaml",
+        "openspec/changes/unify-pipeline-contract-20260228/README.md",
+        "openspec/changes/unify-pipeline-contract-20260228/artifacts.md",
+        "openspec/changes/unify-pipeline-contract-20260228/dry-run-report.md",
+        "openspec/changes/unify-pipeline-contract-20260228/proposal.md",
+        "openspec/changes/unify-pipeline-contract-20260228/specs/ai-content-cross-plugin/spec.md",
+        "openspec/changes/unify-pipeline-contract-20260228/tasks.md",
+        "openspec/config.yaml",
+        "openspec/schemas/ai-content/schema.yaml",
+        "openspec/schemas/ai-content/templates/artifacts.md",
+        "openspec/schemas/ai-content/templates/proposal.md",
+        "openspec/schemas/ai-content/templates/specs/spec.md",
+        "openspec/schemas/ai-content/templates/tasks.md",
+        "openspec/specs/.gitkeep",
+        "openspec/specs/ai-content-cross-plugin/spec.md"
+      ],
+      "purpose": "Bulk deletion of obsolete openspec governance artifacts after pipeline migration to openspec/runtime/. Removes three completed change proposals (runtime-root migration 20260301, visual-growth-audience extension 20260228, pipeline-contract unification 20260228), the openspec schema definition and templates, and the cross-plugin spec. 28 files, 768 lines deleted, zero functional impact on runtime pipeline.",
+      "suggested_type": "chore",
+      "suggested_scope": "openspec"
+    },
+    {
+      "name": "gitignore exclusions for codex-cli tooling",
+      "files": [
+        ".gitignore"
+      ],
+      "purpose": "Add .codex and .agents directory exclusions to .gitignore, preventing Codex CLI local state and agent working directories from being tracked. Note: existing negation rules for deleted openspec paths (!openspec/config.yaml, !openspec/schemas/, !openspec/specs/) are now stale but harmless.",
+      "suggested_type": "chore",
+      "suggested_scope": "config"
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "openspec/changes/archive/2026-03-01-update-cross-plugin-runtime-root-20260301/specs/ai-content-cross-plugin/spec.md",
+      "to": "openspec/specs/ai-content-cross-plugin/spec.md",
+      "relationship": "uses"
+    },
+    {
+      "from": "openspec/changes/extend-contract-visual-growth-audience-20260228/specs/ai-content-cross-plugin/spec.md",
+      "to": "openspec/specs/ai-content-cross-plugin/spec.md",
+      "relationship": "uses"
+    },
+    {
+      "from": "openspec/changes/unify-pipeline-contract-20260228/specs/ai-content-cross-plugin/spec.md",
+      "to": "openspec/specs/ai-content-cross-plugin/spec.md",
+      "relationship": "uses"
+    },
+    {
+      "from": "openspec/config.yaml",
+      "to": "openspec/schemas/ai-content/schema.yaml",
+      "relationship": "imports"
+    }
+  ],
+  "complexity_factors": {
+    "cross_module_changes": false,
+    "breaking_changes": false,
+    "new_dependencies": false
+  }
+}

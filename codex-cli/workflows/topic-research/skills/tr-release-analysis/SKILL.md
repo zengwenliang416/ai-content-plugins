@@ -1,0 +1,276 @@
+---
+name: tr-release-analysis
+description: "Analyze a new AI product release, model launch, or research paper by gathering release information, analyzing claims, comparing to competitors, and recommending a content angle"
+arguments:
+  - name: input
+    description: "Product/paper name, upstream .openspec.json, or pipeline.openspec.json"
+---
+
+## Step 1: Upstream Artifact Detection (MANDATORY — before ANY other interaction)
+
+**CRITICAL**: You MUST complete this step BEFORE any other interaction and BEFORE asking the user what to analyze. Do NOT skip this step.
+
+**Detection order** (stop at first hit):
+
+1. **Explicit argument**:
+   - If argument is `.openspec.json` or `pipeline.openspec.json`, read it first and prioritize `inputs.topic`, then `outputs.trend_preview_md`, then `outputs.daily_brief_md`.
+   - If argument is a product or paper name/path, use it directly.
+   - Then skip to Step 2.
+
+2. **Auto-scan OpenSpec contracts**: Run these Bash commands immediately:
+
+```bash
+ls -t openspec/runtime/trend-preview/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.openspec.json 2>/dev/null | head -3
+ls -t openspec/runtime/deep-research/*/pipeline.openspec.json 2>/dev/null | head -3
+```
+
+If contracts found, read and prioritize `inputs.topic`, `outputs.trend_preview_md`, and `outputs.daily_brief_md`.
+
+3. **Auto-scan legacy release inputs**: Run these Bash commands immediately:
+
+```bash
+ls -t openspec/runtime/trend-preview/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/daily-brief/*.md 2>/dev/null | head -3
+ls -t openspec/runtime/release-analysis/*.md 2>/dev/null | head -3
+```
+
+If files found, ask the user: "检测到以下发布分析素材，请选择要用于本次分析的输入：" with files as options.
+
+4. **No upstream found**: Only in this case, ask what product/paper to analyze.
+
+## Language Selection (MANDATORY — after Step 1)
+
+After completing Step 1 and before generating content output, ask the user:
+
+"请选择输出语言 / Select output language:
+
+1. 中文 (Chinese)
+2. English"
+
+All output artifacts must be produced in the user's chosen language.
+
+## Step 2: Execute Release Analysis
+
+Produce a fast-turnaround structured analysis of a new AI model launch, product release, or research paper — suitable for editorial decision-making and content planning. Turnaround: same day as release for maximum relevance.
+
+### Step 2.1: Gather Release Information
+
+Collect all primary source materials:
+
+**For a model release**:
+- Official announcement (blog post, press release)
+- Technical report or model card (if available)
+- Demo or playground (test it if access is available)
+- API documentation (what capabilities, pricing)
+- Safety report or evaluation results (if published)
+- Company's claimed benchmarks and comparisons
+
+**For a product launch**:
+- Product announcement page
+- Feature list and documentation
+- Pricing and availability details
+- Any video demos
+- Customer/partner quotes (if in press release)
+- Company's positioning claims
+
+**For a research paper**:
+- The paper itself (arXiv or conference proceedings)
+- Author affiliations and lab context
+- Any accompanying code release (GitHub)
+- Reproduction or commentary from the community (Twitter/X, HN)
+- Prior work the paper builds on (cited foundations)
+
+**Platform sources** (via news-search CLI, 24h freshness enforced):
+
+> **CONSTRAINT**: Execute all `news-search` commands via Bash tool. Do NOT substitute with Claude's built-in WebSearch. Resolve script path: from project root use `topic-research/skills/news-search/scripts/`. Run `doctor.ts` first to check available platforms.
+
+- Twitter/X: `${TS_RUNNER} news-search/scripts/search.ts twitter "[product/model name]" 20`
+- Reddit: `${TS_RUNNER} news-search/scripts/search.ts reddit "[product/model name]" 10`
+- GitHub: `${TS_RUNNER} news-search/scripts/search.ts github "[product/model name]" 10`
+- Read release page: `${TS_RUNNER} news-search/scripts/read.ts <announcement-url>`
+
+### Step 2.2: Analyze Key Claims and Capabilities
+
+Extract and evaluate:
+
+**Stated claims**:
+- List all specific capability or performance claims
+- Note: Are these claims qualified or absolute?
+- Note: What caveats or limitations does the source acknowledge?
+
+**Benchmark results**:
+- What benchmarks are cited?
+- Are these standard canonical benchmarks or cherry-picked?
+- Do the benchmark results actually support the claims?
+- What benchmarks are conspicuously missing?
+
+**Capability demonstrations**:
+- What does the demo show? What does it not show?
+- Are the demo examples representative or cherry-picked?
+- What failure modes are visible?
+
+**Technical approach** (for papers and technical releases):
+- What is the core technical innovation?
+- Is this incremental or a paradigm shift?
+- What is the compute/data requirement?
+- Is the method reproducible?
+
+### Step 2.3: Compare to Prior State and Competitors
+
+**Comparison to previous version/model**:
+- What is new vs. the previous version?
+- How much improvement on shared benchmarks?
+- What capabilities are added, changed, or removed?
+
+**Comparison to competitors**:
+- How does it compare on canonical benchmarks vs. top competitors?
+- What is competitive differentiation (better, cheaper, faster, more open)?
+- What does it not do that competitors do?
+
+**Comparison to prior SOTA** (for papers):
+- What was the previous best result on the paper's benchmarks?
+- By how much does this paper improve?
+- Is the improvement statistically significant?
+
+### Step 2.4: Assess Significance and Implications
+
+**Significance rating**: Major / Noteworthy / Incremental / Overhyped
+
+**Assessment dimensions**:
+
+*Technical significance*: Is this a genuine technical breakthrough, or incremental progress?
+
+*Commercial significance*: Does this change the competitive dynamics? Does it open new use cases?
+
+*Ecosystem significance*: Does this affect open-source options, pricing, or access?
+
+*Research significance* (for papers): Does this open new directions, or primarily validate existing approaches?
+
+**Implications**:
+- What does this mean for users and developers?
+- What does this mean for competitors?
+- What does this mean for the field's trajectory?
+- What questions does this raise?
+
+### Step 2.5: Write Analysis with Content Angle Recommendation
+
+Structure the document and conclude with a content recommendation.
+
+## Output Format
+
+```markdown
+# Release Analysis: [Product/Model/Paper Name]
+
+**Release type**: Model Launch / Product Launch / Research Paper
+**Releasing organization**: [Organization]
+**Date**: [Release date]
+**Analyzed**: [Analysis date]
+
+---
+
+## What Was Released
+
+[200-300 words]
+
+---
+
+## Key Claims
+
+| Claim | Supported by | Caveat |
+|-------|-------------|--------|
+| [Claim] | [Benchmark / demo / statement] | [Qualification or missing context] |
+
+[100-200 words of commentary]
+
+---
+
+## Capability Analysis
+
+[300-500 words]
+
+---
+
+## Competitive Comparison
+
+| Dimension | [This release] | [Competitor A] | [Competitor B] |
+|-----------|---------------|----------------|----------------|
+| [Benchmark] | [Score] | [Score] | [Score] |
+
+[200-300 words of competitive analysis]
+
+---
+
+## Technical Assessment (if applicable)
+
+[200-300 words]
+
+---
+
+## Significance Assessment
+
+**Rating**: Major / Noteworthy / Incremental / Overhyped
+
+**Rationale**: [3-5 sentences]
+
+**Implications**:
+- For users: [1-2 sentences]
+- For competitors: [1-2 sentences]
+- For the field: [1-2 sentences]
+
+---
+
+## What's Missing or Unknown
+
+[100-200 words]
+
+---
+
+## Content Angle Recommendation
+
+**Recommendation**: WRITE / MONITOR / SKIP
+
+**Best angle**: [Specific article hook]
+**Why now**: [Why the timing is right]
+**Target audience**: [Who would find this most valuable]
+**Key questions the article should answer**:
+- [Question 1]
+- [Question 2]
+- [Question 3]
+
+---
+
+## Sources
+
+[All primary sources with URLs and dates]
+```
+
+## Reference Files
+
+For additional context on evaluation methodology:
+- **references/evaluation-framework.md**: How to assess benchmark claims and capability comparisons
+
+## Artifact Handoff
+
+**Output**: Release analysis saved to `openspec/runtime/release-analysis/YYYY-MM-DD-<target>-release-analysis.md`
+
+**OpenSpec contract (MANDATORY)**:
+
+- Create or update `openspec/runtime/release-analysis/YYYY-MM-DD-<target>-release-analysis.openspec.json`.
+- Minimum fields:
+  - `pipeline`: `release-analysis->check-quality`
+  - `stage`: `release-analysis`
+  - `outputs.release_analysis_md`: release analysis path
+  - `next.command`: `check-quality`
+  - `next.input`: release analysis path or contract path
+
+**Next step**: Suggest running a quality check before publication-oriented reuse.
+
+## Quality Standards
+
+- All claims must be sourced from primary materials (not secondary coverage)
+- Benchmark comparisons must use numbers from official sources
+- Significance rating must be justified with specific evidence
+- Missing/unknown section is mandatory — every release has gaps
+- Content angle must be specific, not "write about the release"
+- Turnaround: Aim to complete within same day as release for maximum relevance

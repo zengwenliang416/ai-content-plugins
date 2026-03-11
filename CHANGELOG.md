@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Expand visual style counts, compatibility matrices, and recommendation rules to cover `claymorphic-ui`
+- Add anti-AI writing guardrails and humanizer handoff guidance across writing, planning, and research skills
+- Align OpenSpec governance artifacts and active changes to the `openspec/runtime/` contract root
+- Enforce single-route `next.command` semantics in OpenSpec change artifacts and templates
+- Standardize visual pipeline outputs under `openspec/runtime/deep-research/<slug>/visuals/` and standalone `openspec/runtime/visuals/`
+
 ### Added
 
 - Add `claymorphic-ui` style references for article illustration, infographic, and Xiaohongshu visual workflows
@@ -26,15 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add AskUserQuestion bilingual language selection to all topic-research commands (topic-research)
 - Add AskUserQuestion bilingual language selection to all growth-ops commands (growth-ops)
 - Add AskUserQuestion bilingual language selection to all audience-management commands (audience-management)
-
-
-### Changed
-
-- Expand visual style counts, compatibility matrices, and recommendation rules to cover `claymorphic-ui`
-- Add anti-AI writing guardrails and humanizer handoff guidance across writing, planning, and research skills
-- Align OpenSpec governance artifacts and active changes to the `openspec/runtime/` contract root
-- Enforce single-route `next.command` semantics in OpenSpec change artifacts and templates
-- Standardize visual pipeline outputs under `openspec/runtime/deep-research/<slug>/visuals/` and standalone `openspec/runtime/visuals/`
+- add Codex CLI workflow bundle and installer
 
 ### Fixed
 

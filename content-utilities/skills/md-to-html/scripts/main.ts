@@ -97,6 +97,25 @@ async function resolveImagePath(imagePath: string, baseDir: string, tempDir: str
   return path.resolve(baseDir, imagePath);
 }
 
+function toPosixPath(inputPath: string): string {
+  return inputPath.split(path.sep).join('/');
+}
+
+function resolveHtmlImageSrc(image: ImageInfo, htmlPath: string): string {
+  if (image.originalPath.startsWith('http://') || image.originalPath.startsWith('https://')) {
+    return image.originalPath;
+  }
+
+  const htmlDir = path.dirname(htmlPath);
+
+  if (path.isAbsolute(image.originalPath)) {
+    const relativeFromHtml = path.relative(htmlDir, image.originalPath);
+    return toPosixPath(relativeFromHtml || path.basename(image.originalPath));
+  }
+
+  return toPosixPath(image.originalPath);
+}
+
 function parseFrontmatter(content: string): { frontmatter: Record<string, string>; body: string } {
   const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
   if (!match) return { frontmatter: {}, body: content };
@@ -197,10 +216,14 @@ export async function convertMarkdown(markdownPath: string, options?: { title?: 
 
   console.error(`[markdown-to-html] Rendering with theme: ${theme}, keepTitle: ${keepTitle}`);
 
-  const args = ['-y', 'bun', renderScript, tempMdPath, '--theme', theme];
-  if (keepTitle) args.push('--keep-title');
+  const renderArgs = [renderScript, tempMdPath, '--theme', theme];
+  if (keepTitle) renderArgs.push('--keep-title');
 
-  const result = spawnSync('npx', args, {
+  const bunCheck = spawnSync('bun', ['--version'], { stdio: 'pipe' });
+  const command = bunCheck.status === 0 ? 'bun' : 'npx';
+  const args = bunCheck.status === 0 ? renderArgs : ['-y', 'bun', ...renderArgs];
+
+  const result = spawnSync(command, args, {
     stdio: ['inherit', 'pipe', 'pipe'],
     cwd: baseDir,
   });
@@ -238,7 +261,8 @@ export async function convertMarkdown(markdownPath: string, options?: { title?: 
 
   let htmlContent = fs.readFileSync(finalHtmlPath, 'utf-8');
   for (const img of contentImages) {
-    const imgTag = `<img src="${img.placeholder}" data-local-path="${img.localPath}" style="display: block; width: 100%; margin: 1.5em auto;">`;
+    const htmlSrc = resolveHtmlImageSrc(img, finalHtmlPath);
+    const imgTag = `<img src="${htmlSrc}" data-local-path="${img.localPath}" style="display: block; width: 100%; margin: 1.5em auto;">`;
     htmlContent = htmlContent.replace(img.placeholder, imgTag);
   }
   fs.writeFileSync(finalHtmlPath, htmlContent, 'utf-8');

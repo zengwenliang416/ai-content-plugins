@@ -45,6 +45,8 @@ coverage/
 TASKS.md
 MEMORY.md
 .claude/worktrees/
+.serena/
+CHANGELOG.md.bak-*
 
 # Generated content output
 ai-content-output/
@@ -61,6 +63,18 @@ openspec/*
 !openspec/specs/**
 !openspec/changes/
 !openspec/changes/**
+# Local commit workflow runtime artifacts
+openspec/changes/*/branch-info.json
+openspec/changes/*/changelog-entry.md
+openspec/changes/*/changes-analysis.json
+openspec/changes/*/changes-raw.json
+openspec/changes/*/commit-message*.md
+openspec/changes/*/commit-result.json
+openspec/changes/*/investigation-summary.md
+openspec/changes/*/proposal.md
+openspec/changes/*/semantic-analysis.json
+openspec/changes/*/symbol-analysis.json*
+openspec/changes/*/tasks.md
 output
 .codex
 .agents

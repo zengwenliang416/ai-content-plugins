@@ -13,6 +13,9 @@ const { positional, since, noFreshness } = parseSearchArgs(process.argv);
 const [platform, query, countStr] = positional;
 const count = parseInt(countStr || "10");
 
+// Sanitize query for safe interpolation into mcporter call strings
+const safeQuery = query?.replace(/"/g, '\\"') ?? "";
+
 if (!platform || !query) {
   console.error(
     "Usage: bun search.ts <platform> <query> [count] [--since 24h] [--no-freshness]",
@@ -140,7 +143,7 @@ switch (platform) {
     const r = await runCmd([
       "mcporter",
       "call",
-      `xiaohongshu.search_feeds(keyword: "${query}")`,
+      `xiaohongshu.search_feeds(keyword: "${safeQuery}")`,
     ]);
     if (r.ok) {
       if (!noFreshness)
@@ -160,7 +163,7 @@ switch (platform) {
     const r = await runCmd([
       "mcporter",
       "call",
-      `douyin.search_videos(keyword: "${query}", count: ${count})`,
+      `douyin.search_videos(keyword: "${safeQuery}", count: ${count})`,
     ]);
     if (r.ok) {
       if (!noFreshness)
@@ -184,7 +187,7 @@ switch (platform) {
     const r = await runCmd([
       "mcporter",
       "call",
-      `exa.web_search_exa(query: "${query}", numResults: ${count}${dateParam})`,
+      `exa.web_search_exa(query: "${safeQuery}", numResults: ${count}${dateParam})`,
     ]);
     if (r.ok) console.log(r.stdout);
     else {
@@ -199,7 +202,7 @@ switch (platform) {
     const r = await runCmd([
       "mcporter",
       "call",
-      `linkedin.search_people(query: "${query}")`,
+      `linkedin.search_people(query: "${safeQuery}")`,
     ]);
     if (r.ok) console.log(r.stdout);
     else {
@@ -220,7 +223,7 @@ switch (platform) {
     const r = await runCmd([
       "mcporter",
       "call",
-      `bosszp.search_jobs(query: "${query}")`,
+      `bosszp.search_jobs(query: "${safeQuery}")`,
     ]);
     if (r.ok) console.log(r.stdout);
     else {
@@ -248,7 +251,8 @@ switch (platform) {
     const r = await runCmd([
       "python3",
       "-c",
-      `${imports};f=feedparser.parse("${feedUrl}");print(json.dumps([{"title":e.get("title",""),"link":e.get("link",""),"published":e.get("published","")} for e in ${filterExpr}]))`,
+      `${imports};import sys;f=feedparser.parse(sys.argv[1]);print(json.dumps([{"title":e.get("title",""),"link":e.get("link",""),"published":e.get("published","")} for e in ${filterExpr}]))`,
+      feedUrl,
     ]);
     if (r.ok) console.log(r.stdout);
     else {

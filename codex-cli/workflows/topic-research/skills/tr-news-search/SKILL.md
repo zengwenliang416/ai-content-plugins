@@ -1,6 +1,11 @@
 ---
 name: tr-news-search
-description: "Search and read content across 12+ platforms (Twitter/X, Reddit, YouTube, Bilibili, GitHub, LinkedIn, XiaoHongShu, Douyin, RSS, Web) using upstream CLI tools"
+description: >
+  Search and read recent content across 12+ platforms (Twitter, Reddit, YouTube,
+  GitHub, web, RSS, and Chinese social media) with freshness control. Use when
+  the user needs current news, discussions, or social posts about a topic.
+  Triggers on "search news", "find recent posts about", "搜索",
+  "查一下最新的".
 arguments:
   - name: input
     description: "Search query, URL to read, upstream .openspec.json, or pipeline.openspec.json"

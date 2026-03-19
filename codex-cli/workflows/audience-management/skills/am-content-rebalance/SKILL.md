@@ -1,6 +1,12 @@
 ---
 name: am-content-rebalance
-description: "Rebalance content mix across topics and formats"
+description: >
+  Audit your current content mix across topics and formats, identify
+  imbalances vs. targets, and produce a phased adjustment plan. Use when
+  content feels scattered, a pivot is needed, or quarterly strategy calls
+  for a reset. Triggers on "content rebalance", "rebalance my content",
+  "content mix review", "fix my content mix", "too much of one topic",
+  "realign content strategy", "内容比例", "调整内容方向".
 arguments:
   - name: input
     description: "Performance/content-plan path, or pipeline.openspec.json"

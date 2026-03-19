@@ -1,6 +1,11 @@
 ---
 name: ca-trend-analysis
-description: "Analyze trends and data patterns in an AI or tech topic"
+description: >
+  Build a data-backed trend analysis for an AI or tech topic — constructing an
+  event timeline, identifying acceleration and disruption patterns, and
+  forecasting near-term and mid-term scenarios. Triggers on "trend analysis",
+  "analyze trends", "what's happening in [topic]", "trend report", "forecast",
+  "趋势分析", "行业趋势".
 arguments:
   - name: input
     description: "Topic/keyword, trend input path, or pipeline.openspec.json"

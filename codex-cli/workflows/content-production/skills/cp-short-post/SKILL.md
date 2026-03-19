@@ -1,6 +1,10 @@
 ---
 name: cp-short-post
-description: "Draft compelling short-form content for social media platforms"
+description: >
+  Draft platform-optimized short-form posts for Twitter/X (tweets, threads),
+  LinkedIn, WeChat, Weibo, and XiaoHongShu with fold-aware hooks, character-limit
+  compliance, and hashtag strategy. Triggers on "short post", "tweet", "thread",
+  "social media post", "微博", "小红书", "LinkedIn post", "写个短帖".
 arguments:
   - name: input
     description: "Topic, trend/narrative path, .openspec.json, or pipeline.openspec.json"

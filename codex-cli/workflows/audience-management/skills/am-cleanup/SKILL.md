@@ -1,6 +1,11 @@
 ---
 name: am-cleanup
-description: "Identify and clean up underperforming content"
+description: >
+  Audit published content for underperformance, outdated info, and
+  off-niche drift, then produce a prioritized update/merge/archive/delete
+  plan with effort and impact estimates. Triggers on "content cleanup",
+  "content audit", "clean up my posts", "underperforming content",
+  "outdated content", "content pruning", "内容清理", "清理旧文章".
 arguments:
   - name: input
     description: "Content inventory path, performance data, or pipeline.openspec.json"

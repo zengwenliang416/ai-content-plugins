@@ -1,6 +1,11 @@
 ---
 name: am-biz-proposal
-description: "Draft a business proposal for sponsorship or collaboration"
+description: >
+  Draft a structured sponsorship or collaboration proposal with audience metrics,
+  deliverable pricing tiers, and brand-aligned positioning for creator-brand
+  partnerships. Triggers on "business proposal", "sponsorship proposal", "brand
+  deal", "pitch a brand", "collaboration proposal", "media kit", "商务合作",
+  "品牌提案".
 arguments:
   - name: input
     description: "Brand/partner name, supporting brief path, or pipeline.openspec.json"

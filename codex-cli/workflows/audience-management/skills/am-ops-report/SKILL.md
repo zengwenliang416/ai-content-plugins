@@ -1,6 +1,11 @@
 ---
 name: am-ops-report
-description: "Generate an operations and analytics report"
+description: >
+  Generate a content operations report covering performance metrics,
+  audience growth, top-performing content, content mix analysis, and
+  actionable recommendations for a given period. Triggers on "ops report",
+  "operations report", "analytics report", "monthly report", "quarterly
+  report", "generate report", "运营报告", "数据报告".
 arguments:
   - name: input
     description: "Time period, performance/rebalance report path, or pipeline.openspec.json"

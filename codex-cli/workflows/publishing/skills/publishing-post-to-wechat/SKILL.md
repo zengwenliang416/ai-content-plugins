@@ -1,6 +1,10 @@
 ---
 name: publishing-post-to-wechat
-description: "Publish content to WeChat Official Account. Supports article posting via API or Chrome CDP with HTML, markdown, or plain text input, and image-text posting with multiple images."
+description: >
+  Publish articles and image-text posts to WeChat Official Account via API or
+  Chrome CDP. Supports HTML, markdown, or plain text input with automatic upstream
+  artifact detection. Triggers on "publish to WeChat", "post to wechat",
+  "发布公众号", "微信发文", "发公众号文章", "贴图", "图文".
 arguments:
   - name: input
     description: "Article file path (.html/.md) or pipeline.openspec.json"

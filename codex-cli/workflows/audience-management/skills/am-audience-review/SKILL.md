@@ -1,6 +1,10 @@
 ---
 name: am-audience-review
-description: "Review and analyze audience demographics and behavior"
+description: >
+  Analyze platform audience data to produce demographic breakdowns,
+  engagement-based segmentation, and actionable persona cards that inform content
+  strategy. Triggers on "audience review", "who is my audience", "audience
+  analysis", "audience demographics", "followers analysis", "受众分析", "粉丝画像".
 arguments:
   - name: input
     description: "Platform name, audience report path, or pipeline.openspec.json"

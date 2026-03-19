@@ -1,6 +1,11 @@
 ---
 name: am-content-plan
-description: "Create a content plan and editorial calendar"
+description: >
+  Build a weekly/monthly editorial calendar with content pillars, topic
+  themes, format mix, and resource estimates — optionally based on
+  performance reports or rebalance recommendations. Triggers on "content
+  plan", "editorial calendar", "content calendar", "plan my content",
+  "content schedule", "what should I post", "内容计划", "排期".
 arguments:
   - name: input
     description: "Time period, rebalance/performance report path, or pipeline.openspec.json"

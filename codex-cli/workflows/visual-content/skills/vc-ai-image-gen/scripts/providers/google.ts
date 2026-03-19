@@ -1,6 +1,6 @@
 import path from "node:path";
 import { readFile } from "node:fs/promises";
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import type { CliArgs } from "../types";
 
 const GOOGLE_MULTIMODAL_MODELS = [
@@ -75,12 +75,22 @@ async function postGoogleJsonViaCurl<T>(
 ): Promise<T> {
   const proxy = getHttpProxy();
   const bodyStr = JSON.stringify(body);
-  const proxyArgs = proxy ? `-x "${proxy}"` : "";
+  const curlArgs = [
+    "-s",
+    "--connect-timeout", "30",
+    "--max-time", "300",
+    ...(proxy ? ["-x", proxy] : []),
+    url,
+    "-H", "Content-Type: application/json",
+    "-H", `x-goog-api-key: ${apiKey}`,
+    "-d", "@-",
+  ];
 
-  const result = execSync(
-    `curl -s --connect-timeout 30 --max-time 300 ${proxyArgs} "${url}" -H "Content-Type: application/json" -H "x-goog-api-key: ${apiKey}" -d @-`,
-    { input: bodyStr, maxBuffer: 100 * 1024 * 1024, timeout: 310000 },
-  );
+  const result = execFileSync("curl", curlArgs, {
+    input: bodyStr,
+    maxBuffer: 100 * 1024 * 1024,
+    timeout: 310000,
+  });
 
   const parsed = JSON.parse(result.toString()) as any;
   if (parsed.error) {

@@ -1,6 +1,13 @@
 ---
 name: audience-targeting
 description: Define and analyze target audience segments for content planning and distribution. Triggers on "audience", "who reads this", "target reader", "persona", "target audience", "who should I write for".
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - AskUserQuestion
 ---
 
 # Audience Targeting

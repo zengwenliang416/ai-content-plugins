@@ -1,6 +1,13 @@
 ---
 name: short-post
 description: Draft compelling short-form content for social media platforms. Triggers on "short post", "tweet", "thread", "social media post", "微博", "小红书", "LinkedIn post".
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - AskUserQuestion
 ---
 
 # Short Post

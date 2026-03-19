@@ -1,6 +1,13 @@
 ---
 name: headline-optimizer
 description: Generate CTR-optimized headlines with scoring and A/B variants. Use when user asks to "write a headline", "optimize title", "title ideas", "headline test", or wants better titles for articles/posts.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - AskUserQuestion
 ---
 
 # Headline Optimizer

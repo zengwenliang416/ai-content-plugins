@@ -1,6 +1,16 @@
 ---
 name: event-calendar
 description: Build an AI event calendar by gathering known conferences and launches, estimating likely events from cadences, mapping content opportunities around each, and producing a planning calendar.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Event Calendar

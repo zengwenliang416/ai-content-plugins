@@ -1,6 +1,13 @@
 ---
 name: article-illustrator
 description: Analyzes article structure, identifies positions requiring visual aids, generates illustrations with Type × Style two-dimension approach. Use when user asks to "illustrate article", "add images", "generate images for article", or "为文章配图".
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Glob
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Article Illustrator

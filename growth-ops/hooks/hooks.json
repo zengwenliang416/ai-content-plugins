@@ -1,1 +1,14 @@
-{ "hooks": {} }
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] STOP growth-ops: reason=$STOP_REASON\" >> \"${PROJECT_DIR:-.}/logs/stop-failures.log\""
+          }
+        ]
+      }
+    ]
+  }
+}

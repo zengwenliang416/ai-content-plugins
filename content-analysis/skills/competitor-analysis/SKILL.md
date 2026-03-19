@@ -1,6 +1,15 @@
 ---
 name: competitor-analysis
 description: Framework for competitor content account analysis across any AI/content niche. Use when analyzing competing accounts, mapping content landscape, assessing content positioning, building competitive strategy, or evaluating content creator performance. Triggers include requests for competitor breakdowns, account comparisons, content landscape maps, platform positioning assessments, and content strategy recommendations.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Competitor Content Account Analysis

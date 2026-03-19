@@ -5,6 +5,11 @@ description: >
   multi-platform news search. Use when setting up platform access for the
   first time, checking availability, or configuring cookies/proxy. Never for
   searching or reading content — use news-search instead.
+allowed-tools:
+  - Bash
+  - Read
+  - Glob
+  - AskUserQuestion
 ---
 
 # News Search Setup

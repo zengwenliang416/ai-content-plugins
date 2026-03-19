@@ -6,6 +6,11 @@ description: >
   upstream CLI tools. Use for multi-platform data collection, news gathering,
   and content research. Never for platform setup or configuration — use
   news-search-setup instead. Never for writing or publishing content.
+allowed-tools:
+  - Bash
+  - Read
+  - Glob
+  - AskUserQuestion
 ---
 
 # News Search

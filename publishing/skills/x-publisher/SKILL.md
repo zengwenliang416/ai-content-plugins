@@ -1,6 +1,11 @@
 ---
 name: x-publisher
 description: Posts content and articles to X (Twitter). Supports regular posts with images/videos and X Articles (long-form Markdown). Uses real Chrome with CDP to bypass anti-automation. Use when user asks to "post to X", "tweet", "publish to Twitter", or "share on X".
+allowed-tools:
+  - Bash
+  - Read
+  - Glob
+  - AskUserQuestion
 ---
 
 # Post to X (Twitter)

@@ -1,6 +1,16 @@
 ---
 name: article-builder
 description: Write comprehensive long-form articles for blogs, newsletters, and editorial platforms. Triggers on "article", "long post", "blog post", "deep dive", "write about", "long-form".
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - WebSearch
+  - AskUserQuestion
 ---
 
 # Article Builder

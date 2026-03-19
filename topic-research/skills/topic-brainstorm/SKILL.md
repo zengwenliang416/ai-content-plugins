@@ -1,6 +1,16 @@
 ---
 name: topic-brainstorm
 description: Generate and score 20+ content topic ideas, rank to top 10, and create briefs for the top 3 with suggested angles and audience insights.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Topic Brainstorm

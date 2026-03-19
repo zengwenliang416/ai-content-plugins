@@ -1,6 +1,16 @@
 ---
 name: biz-proposal
 description: Create professional business proposals for sponsorships, brand deals, and content collaborations. Covers collaboration format, audience metrics, value proposition, pricing, deliverables, and timeline. Use when pitching brands, responding to inbound inquiries, or formalizing partnership terms. Triggers on "business proposal", "sponsorship proposal", "brand deal proposal", "pitch a brand", "collaboration proposal", or "proposal for [brand]".
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - WebSearch
+  - AskUserQuestion
 ---
 
 # Business Proposal

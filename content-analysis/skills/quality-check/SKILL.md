@@ -1,6 +1,15 @@
 ---
 name: quality-check
 description: Review article or content quality across accuracy, readability, logical coherence, SEO, and originality dimensions. Use when checking a draft or published piece before publication, auditing existing content for quality issues, or evaluating whether content meets publishing standards. Triggers include requests to review an article, check content quality, audit a draft, or assess whether a piece is ready to publish.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Article Quality Check

@@ -1,6 +1,13 @@
 ---
 name: ai-image-gen
 description: AI image generation with OpenAI, Google, DashScope and Replicate APIs. Supports text-to-image, reference images, aspect ratios. Sequential by default; parallel generation available on request. Use when user asks to generate, create, or draw images.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Glob
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Image Generation (AI SDK)

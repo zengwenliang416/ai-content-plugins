@@ -1,6 +1,16 @@
 ---
 name: presentation
 description: Create content presentations and slide decks for talks, webinars, pitches, and educational content. Triggers on "presentation", "slides", "deck", "PPT", "slide deck", "keynote".
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - WebSearch
+  - AskUserQuestion
 ---
 
 # Presentation

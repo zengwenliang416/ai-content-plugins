@@ -4,6 +4,16 @@ description: >
   Analyze a GitHub repository combining repo data with multi-platform community
   sentiment. Use when user asks to "analyze repo", "review this GitHub project",
   "what do people think about [repo]", or wants to create content about a GitHub project.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Repo Analysis

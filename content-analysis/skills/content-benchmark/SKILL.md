@@ -1,6 +1,15 @@
 ---
 name: content-benchmark
 description: Benchmark content performance against top performers in a niche. Use when evaluating how a piece of content or an account's output compares to the best-performing content in the same topic area, platform, or format. Triggers include requests to benchmark an article, video, or post against niche leaders, identify gaps in content quality or structure, or understand what makes top content succeed.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Content Benchmark

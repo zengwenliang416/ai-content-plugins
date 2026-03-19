@@ -1,6 +1,15 @@
 ---
 name: draft-debugger
 description: Diagnose and fix structural, clarity, and persuasion issues in a draft article or content piece. Use when a draft exists but feels off — weak opening, poor flow, unsupported claims, unclear structure, or loss of reader attention. Triggers include requests to fix a draft, debug an article, improve a piece of writing, find what's wrong with a post, or review a draft before publishing.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Draft Debugger

@@ -1,6 +1,13 @@
 ---
 name: content-repurposer
 description: Transform content across platforms and formats. Use when user asks to "repurpose", "reformat", "cross-post", "convert article to tweets", or adapt content for different platforms.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Content Repurposer

@@ -1,6 +1,13 @@
 ---
 name: infographic-gen
 description: Generates professional infographics with 21 layout types and 21 visual styles. Analyzes content, recommends layout×style combinations, and generates publication-ready infographics. Use when user asks to create "infographic", "信息图", "visual summary", "可视化", or "高密度信息大图".
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Glob
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Infographic Generator

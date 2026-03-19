@@ -1,6 +1,16 @@
 ---
 name: narrative-tracker
 description: Define and track a content narrative or angle by collecting supporting and opposing evidence, documenting narrative evolution over time, and identifying content opportunities.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Narrative Tracker

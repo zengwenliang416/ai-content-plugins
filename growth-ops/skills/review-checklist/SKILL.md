@@ -1,6 +1,14 @@
 ---
 name: review-checklist
 description: Generate and track a comprehensive pre-publish checklist tailored to the content type and platform. Covers accuracy, quality, SEO, formatting, legal, and platform-specific requirements. Use before publishing any piece of content. Triggers on "review checklist", "pre-publish check", "content review", "ready to publish", or "review this before I post".
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - AskUserQuestion
 ---
 
 # Pre-Publish Review Checklist

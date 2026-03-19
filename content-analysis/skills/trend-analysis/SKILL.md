@@ -1,6 +1,15 @@
 ---
 name: trend-analysis
 description: Analyze trends and data patterns in an AI or tech topic. Use when researching how a topic has evolved over time, identifying inflection points, forecasting trajectory, or understanding the current state of a fast-moving field. Triggers include requests to analyze AI trends, track topic evolution, understand what's happening in a specific area of AI, create a trend report, or forecast where a technology or field is heading.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # AI Topic Trend Analysis

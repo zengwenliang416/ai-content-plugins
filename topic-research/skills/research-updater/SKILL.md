@@ -1,6 +1,16 @@
 ---
 name: research-updater
 description: Update an existing research document by finding new developments since the last update, identifying what changed, updating relevant sections, and producing a change log.
+allowed-tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - WebSearch
+  - WebFetch
+  - AskUserQuestion
 ---
 
 # Research Updater

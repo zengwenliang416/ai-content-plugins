@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Add `allowed-tools` metadata across marketplace skills and wire `Stop` hooks for plugin-level failure logging
 - Expand visual style counts, compatibility matrices, and recommendation rules to cover `claymorphic-ui`
 - Add anti-AI writing guardrails and humanizer handoff guidance across writing, planning, and research skills
 - Align OpenSpec governance artifacts and active changes to the `openspec/runtime/` contract root

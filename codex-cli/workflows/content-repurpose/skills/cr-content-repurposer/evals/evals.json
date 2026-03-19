@@ -1,0 +1,53 @@
+{
+  "skill_name": "cr-content-repurposer",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "repurpose this article for Twitter",
+      "expected_output": "Skill 'cr-content-repurposer' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The cr-content-repurposer skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "把这篇文章改成推特版",
+      "expected_output": "技能 'cr-content-repurposer' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 cr-content-repurposer 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "I wrote a long article, now I need versions for each platform",
+      "expected_output": "Skill 'cr-content-repurposer' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to cr-content-repurposer skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "repurpose this article for Twitter. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "skill_name": "cp-long-article",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "write a long-form article about MCP",
+      "expected_output": "Skill 'cp-long-article' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The cp-long-article skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "写一篇关于MCP的长文",
+      "expected_output": "技能 'cp-long-article' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 cp-long-article 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "I want to write a comprehensive piece about MCP protocol",
+      "expected_output": "Skill 'cp-long-article' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to cp-long-article skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "write a long-form article about MCP. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "negative-trigger",
+      "prompt": "Summarize this article in 3 bullet points",
+      "expected_output": "Skill 'cp-long-article' should NOT be triggered",
+      "files": [],
+      "expectations": [
+        "Does NOT route to cp-long-article skill",
+        "Routes to a more appropriate skill or handles directly"
+      ]
+    }
+  ]
+}

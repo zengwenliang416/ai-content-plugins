@@ -1,0 +1,64 @@
+{
+  "skill_name": "publishing-post-to-wechat",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "publish this article to WeChat",
+      "expected_output": "Skill 'publishing-post-to-wechat' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The publishing-post-to-wechat skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "把这篇文章发到公众号",
+      "expected_output": "技能 'publishing-post-to-wechat' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 publishing-post-to-wechat 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "发一下公众号",
+      "expected_output": "Skill 'publishing-post-to-wechat' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to publishing-post-to-wechat skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "publish this article to WeChat. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "negative-trigger",
+      "prompt": "Read my WeChat messages",
+      "expected_output": "Skill 'publishing-post-to-wechat' should NOT be triggered",
+      "files": [],
+      "expectations": [
+        "Does NOT route to publishing-post-to-wechat skill",
+        "Routes to a more appropriate skill or handles directly"
+      ]
+    }
+  ]
+}

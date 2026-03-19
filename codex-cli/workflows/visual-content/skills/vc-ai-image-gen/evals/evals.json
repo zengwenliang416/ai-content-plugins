@@ -1,0 +1,64 @@
+{
+  "skill_name": "vc-ai-image-gen",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "generate an illustration for my article",
+      "expected_output": "Skill 'vc-ai-image-gen' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The vc-ai-image-gen skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "帮我的文章生成一张配图",
+      "expected_output": "技能 'vc-ai-image-gen' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 vc-ai-image-gen 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "I need a hero image for my blog post about AI safety",
+      "expected_output": "Skill 'vc-ai-image-gen' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to vc-ai-image-gen skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "generate an illustration for my article. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "negative-trigger",
+      "prompt": "Compress this image to webp",
+      "expected_output": "Skill 'vc-ai-image-gen' should NOT be triggered",
+      "files": [],
+      "expectations": [
+        "Does NOT route to vc-ai-image-gen skill",
+        "Routes to a more appropriate skill or handles directly"
+      ]
+    }
+  ]
+}

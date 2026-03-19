@@ -1,0 +1,53 @@
+{
+  "skill_name": "am-biz-proposal",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "draft a business proposal",
+      "expected_output": "Skill 'am-biz-proposal' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The am-biz-proposal skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "写一个商务合作方案",
+      "expected_output": "技能 'am-biz-proposal' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 am-biz-proposal 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "I need to pitch a brand for sponsorship, help me prepare the document",
+      "expected_output": "Skill 'am-biz-proposal' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to am-biz-proposal skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "draft a business proposal. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

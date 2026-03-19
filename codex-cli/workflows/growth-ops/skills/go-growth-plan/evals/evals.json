@@ -1,0 +1,53 @@
+{
+  "skill_name": "go-growth-plan",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "create a growth plan for Q2",
+      "expected_output": "Skill 'go-growth-plan' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The go-growth-plan skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "制定Q2的增长策略",
+      "expected_output": "技能 'go-growth-plan' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 go-growth-plan 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "I want to double my following this quarter, what's the plan?",
+      "expected_output": "Skill 'go-growth-plan' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to go-growth-plan skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "create a growth plan for Q2. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

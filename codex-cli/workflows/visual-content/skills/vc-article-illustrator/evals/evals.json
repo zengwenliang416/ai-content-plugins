@@ -1,0 +1,53 @@
+{
+  "skill_name": "vc-article-illustrator",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "add illustrations to my article",
+      "expected_output": "Skill 'vc-article-illustrator' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The vc-article-illustrator skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "给我的文章配图",
+      "expected_output": "技能 'vc-article-illustrator' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 vc-article-illustrator 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "My article about transformers needs diagrams at key points",
+      "expected_output": "Skill 'vc-article-illustrator' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to vc-article-illustrator skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "add illustrations to my article. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

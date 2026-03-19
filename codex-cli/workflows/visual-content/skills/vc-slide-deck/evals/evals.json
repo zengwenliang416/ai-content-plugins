@@ -1,0 +1,53 @@
+{
+  "skill_name": "vc-slide-deck",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "create a slide deck about LLMs",
+      "expected_output": "Skill 'vc-slide-deck' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The vc-slide-deck skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "做一套LLM的幻灯片",
+      "expected_output": "技能 'vc-slide-deck' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 vc-slide-deck 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "Turn my article into a shareable slide deck",
+      "expected_output": "Skill 'vc-slide-deck' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to vc-slide-deck skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "create a slide deck about LLMs. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

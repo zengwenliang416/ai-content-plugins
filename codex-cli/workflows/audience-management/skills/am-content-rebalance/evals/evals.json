@@ -1,0 +1,53 @@
+{
+  "skill_name": "am-content-rebalance",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "rebalance my content mix",
+      "expected_output": "Skill 'am-content-rebalance' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The am-content-rebalance skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "调整我的内容比例",
+      "expected_output": "技能 'am-content-rebalance' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 am-content-rebalance 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "I feel like I'm writing too much about one topic, my content feels scattered",
+      "expected_output": "Skill 'am-content-rebalance' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to am-content-rebalance skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "rebalance my content mix. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

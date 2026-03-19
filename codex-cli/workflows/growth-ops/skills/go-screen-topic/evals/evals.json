@@ -1,0 +1,53 @@
+{
+  "skill_name": "go-screen-topic",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "is 'AI in healthcare' worth covering?",
+      "expected_output": "Skill 'go-screen-topic' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The go-screen-topic skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "'AI+医疗'这个话题值得做吗",
+      "expected_output": "技能 'go-screen-topic' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 go-screen-topic 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "Should I write about AI in education?",
+      "expected_output": "Skill 'go-screen-topic' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to go-screen-topic skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "is 'AI in healthcare' worth covering?. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

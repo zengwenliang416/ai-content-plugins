@@ -1,0 +1,53 @@
+{
+  "skill_name": "am-ops-report",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "generate a monthly operations report",
+      "expected_output": "Skill 'am-ops-report' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The am-ops-report skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "生成月度运营报告",
+      "expected_output": "技能 'am-ops-report' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 am-ops-report 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "I need to prepare a monthly summary of how my content performed",
+      "expected_output": "Skill 'am-ops-report' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to am-ops-report skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "generate a monthly operations report. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

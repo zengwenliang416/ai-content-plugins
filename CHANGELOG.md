@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add dedicated agent profile docs across audience-management, research, production, utility, publishing, and visual plugins
 - Add `claymorphic-ui` style references for article illustration, infographic, and Xiaohongshu visual workflows
 - Add `humanizer` skill and `/content-utilities:humanize` command for rewriting drafts that still read like AI-generated text
 - Add cross-skill artifact handoff for full content pipeline: daily-brief → brainstorm → deep-research → long-article → cover-image → markdown-to-html → check-quality → post-to-wechat

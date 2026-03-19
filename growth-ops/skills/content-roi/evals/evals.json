@@ -1,0 +1,53 @@
+{
+  "skill_name": "content-roi",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "calculate my content ROI",
+      "expected_output": "Skill 'go-content-roi' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The go-content-roi skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "算算我的内容投入产出比",
+      "expected_output": "技能 'go-content-roi' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 go-content-roi 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "Is it worth spending 8 hours on long articles vs short posts?",
+      "expected_output": "Skill 'go-content-roi' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to go-content-roi skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "calculate my content ROI. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

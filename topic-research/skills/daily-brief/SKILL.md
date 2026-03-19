@@ -1,6 +1,6 @@
 ---
 name: daily-brief
-description: Generate a daily AI news briefing by gathering from Hacker News, arXiv, RSS feeds, and news-search, then filtering, categorizing, summarizing, and identifying top stories for potential deep dives.
+description: "Generate a daily AI news briefing by gathering from Hacker News, arXiv, RSS feeds, and news-search, then filtering, categorizing, summarizing, and identifying top stories"
 allowed-tools:
   - Bash
   - Read

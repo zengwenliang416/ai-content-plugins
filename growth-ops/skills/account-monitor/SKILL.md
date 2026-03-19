@@ -1,6 +1,6 @@
 ---
 name: account-monitor
-description: Track and analyze content account performance across platforms. Reviews follower growth, engagement, views, and posting activity, flags trends and anomalies, and surfaces action items. Use when reviewing monthly or quarterly account health, monitoring multiple platforms, or preparing a performance summary. Triggers on "account review", "portfolio monitoring", "how are my accounts doing", "platform performance", "growth check", or "account monitor".
+description: "Track and analyze content account performance across platforms — follower growth, engagement, views, posting activity, trends, and action items"
 allowed-tools:
   - Bash
   - Read

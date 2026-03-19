@@ -1,9 +1,10 @@
 ---
 name: repo-analysis
 description: >
-  Analyze a GitHub repository combining repo data with multi-platform community
-  sentiment. Use when user asks to "analyze repo", "review this GitHub project",
-  "what do people think about [repo]", or wants to create content about a GitHub project.
+  Analyze a GitHub repository's code, community sentiment across social
+  platforms, and synthesize ranked content angles for creators. Triggers on
+  "analyze repo", "review this GitHub project", "repo analysis", "what do people
+  think about [repo]", "分析仓库".
 allowed-tools:
   - Bash
   - Read

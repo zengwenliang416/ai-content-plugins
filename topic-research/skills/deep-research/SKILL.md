@@ -1,6 +1,6 @@
 ---
 name: deep-research
-description: Create comprehensive AI topic research articles through a 5-task workflow. Tasks must be executed individually with verified prerequisites - (1) topic research, (2) data compilation, (3) analysis & synthesis, (4) visual asset generation, (5) article assembly. Each task produces specific deliverables (markdown docs, Excel workbooks, image assets, or final articles). Tasks 3-5 have dependencies on earlier tasks.
+description: "Create comprehensive AI topic research articles through a 5-task workflow: topic research, data compilation, analysis, visual generation, article assembly"
 allowed-tools:
   - Bash
   - Read

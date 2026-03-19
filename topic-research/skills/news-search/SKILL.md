@@ -1,11 +1,11 @@
 ---
 name: news-search
 description: >
-  Searches and reads content across 12+ platforms (Twitter/X, Reddit, YouTube,
-  Bilibili, GitHub, LinkedIn, XiaoHongShu, Douyin, Boss直聘, RSS, Web) using
-  upstream CLI tools. Use for multi-platform data collection, news gathering,
-  and content research. Never for platform setup or configuration — use
-  news-search-setup instead. Never for writing or publishing content.
+  Search and read recent content across 12+ platforms (Twitter, Reddit, YouTube,
+  GitHub, web, RSS, and Chinese social media) with freshness control. Use when
+  the user needs current news, discussions, or social posts about a topic.
+  Triggers on "search news", "find recent posts about", "搜索",
+  "查一下最新的".
 allowed-tools:
   - Bash
   - Read

@@ -1,6 +1,6 @@
 ---
 name: template-creator
-description: Create reusable content templates for specific content types. Use when a user wants a repeatable structure for articles, videos, newsletters, or other content formats. Triggers include requests to create a template, build a content framework, design a repeatable structure for a content type, or develop a format that can be reused across multiple pieces.
+description: "Create a reusable content template for a specific content type"
 allowed-tools:
   - Bash
   - Read

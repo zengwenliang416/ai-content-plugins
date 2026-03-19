@@ -1,6 +1,6 @@
 ---
 name: content-tracker
-description: Track the content pipeline from idea to publication. Manages topics, statuses, deadlines, and performance metrics across all active content projects. Triggers on "content tracker", "editorial calendar", "pipeline", "what's in progress", "content status", "what should I publish next".
+description: "Track the content pipeline from idea to publication with statuses, deadlines, and performance metrics"
 allowed-tools:
   - Bash
   - Read

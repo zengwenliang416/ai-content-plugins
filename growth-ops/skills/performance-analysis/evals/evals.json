@@ -1,0 +1,53 @@
+{
+  "skill_name": "performance-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "analyze my content performance",
+      "expected_output": "Skill 'go-performance' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The go-performance skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "分析我的内容表现",
+      "expected_output": "技能 'go-performance' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 go-performance 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "Which of my recent posts performed best and why?",
+      "expected_output": "Skill 'go-performance' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to go-performance skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "analyze my content performance. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 name: xhs-card
-description: Renders Markdown into styled Xiaohongshu card images via HTML/CSS + Puppeteer screenshot. Multiple CSS themes, auto-sliced into 1242x1660px pages. Use when user mentions "小红书图片", "XHS images", "RedNote cards", "小红书种草", or wants social media cards for Chinese platforms.
+description: "Generate Xiaohongshu infographic series with 11 visual styles and 8 layouts"
 allowed-tools:
   - Bash
   - Read

@@ -1,6 +1,6 @@
 ---
 name: growth-plan
-description: Build a structured content account growth strategy with current state assessment, growth levers, a 90-day action plan, and a measurement framework. Use when setting direction for a new quarter, pivoting strategy, or scaling an account. Triggers on "growth plan", "growth strategy", "90-day plan", "how to grow my account", "scale my content", or "content growth roadmap".
+description: "Build a structured content account growth strategy with current state assessment, growth levers, 90-day action plan, and measurement framework"
 allowed-tools:
   - Bash
   - Read

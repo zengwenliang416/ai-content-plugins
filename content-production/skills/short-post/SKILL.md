@@ -1,6 +1,10 @@
 ---
 name: short-post
-description: Draft compelling short-form content for social media platforms. Triggers on "short post", "tweet", "thread", "social media post", "微博", "小红书", "LinkedIn post".
+description: >
+  Draft platform-optimized short-form posts for Twitter/X (tweets, threads),
+  LinkedIn, WeChat, Weibo, and XiaoHongShu with fold-aware hooks, character-limit
+  compliance, and hashtag strategy. Triggers on "short post", "tweet", "thread",
+  "social media post", "微博", "小红书", "LinkedIn post", "写个短帖".
 allowed-tools:
   - Bash
   - Read

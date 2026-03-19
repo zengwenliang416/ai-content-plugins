@@ -1,6 +1,6 @@
 ---
 name: research-updater
-description: Update an existing research document by finding new developments since the last update, identifying what changed, updating relevant sections, and producing a change log.
+description: "Update an existing research document by finding new developments since the last update, identifying what changed, updating relevant sections, and producing a change log"
 allowed-tools:
   - Bash
   - Read

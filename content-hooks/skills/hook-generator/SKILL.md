@@ -1,6 +1,6 @@
 ---
 name: hook-generator
-description: Generate platform-optimized hooks and opening lines. Use when user asks to "write a hook", "opening line", "attention grabber", "scroll stopper", or wants to improve content openings.
+description: "Generate attention-grabbing hooks and opening lines"
 allowed-tools:
   - Bash
   - Read

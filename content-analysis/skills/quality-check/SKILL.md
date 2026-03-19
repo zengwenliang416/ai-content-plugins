@@ -1,6 +1,6 @@
 ---
 name: quality-check
-description: Review article or content quality across accuracy, readability, logical coherence, SEO, and originality dimensions. Use when checking a draft or published piece before publication, auditing existing content for quality issues, or evaluating whether content meets publishing standards. Triggers include requests to review an article, check content quality, audit a draft, or assess whether a piece is ready to publish.
+description: "Check article quality for accuracy, readability, logical coherence, and SEO"
 allowed-tools:
   - Bash
   - Read

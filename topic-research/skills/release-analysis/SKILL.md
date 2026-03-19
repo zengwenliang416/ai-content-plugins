@@ -1,6 +1,6 @@
 ---
 name: release-analysis
-description: Analyze a new AI product release, model launch, or research paper by gathering release information, analyzing key claims and capabilities, comparing to prior state and competitors, assessing significance, and recommending a content angle.
+description: "Analyze a new AI product release, model launch, or research paper by gathering release information, analyzing claims, comparing to competitors, and recommending a content angle"
 allowed-tools:
   - Bash
   - Read

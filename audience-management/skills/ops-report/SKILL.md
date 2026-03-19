@@ -1,6 +1,11 @@
 ---
 name: ops-report
-description: Generate professional operations and analytics reports covering account performance, content mix, audience growth, and recommendations. Suitable for monthly or quarterly distribution to team members, brand partners, or personal review. Triggers on "ops report", "operations report", "analytics report", "monthly report", "quarterly report", or "generate report".
+description: >
+  Generate a content operations report covering performance metrics,
+  audience growth, top-performing content, content mix analysis, and
+  actionable recommendations for a given period. Triggers on "ops report",
+  "operations report", "analytics report", "monthly report", "quarterly
+  report", "generate report", "运营报告", "数据报告".
 allowed-tools:
   - Bash
   - Read

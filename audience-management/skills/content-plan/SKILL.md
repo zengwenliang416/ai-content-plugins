@@ -1,6 +1,11 @@
 ---
 name: content-plan
-description: Build a content plan and editorial calendar covering objectives, weekly/monthly content schedule, theme planning, and resource allocation. Use for new quarter planning, strategy pivots, or establishing a consistent content rhythm. Triggers on "content plan", "editorial calendar", "content calendar", "plan my content", "content schedule", or "what should I post".
+description: >
+  Build a weekly/monthly editorial calendar with content pillars, topic
+  themes, format mix, and resource estimates — optionally based on
+  performance reports or rebalance recommendations. Triggers on "content
+  plan", "editorial calendar", "content calendar", "plan my content",
+  "content schedule", "what should I post", "内容计划", "排期".
 allowed-tools:
   - Bash
   - Read

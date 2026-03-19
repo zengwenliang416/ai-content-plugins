@@ -1,6 +1,6 @@
 ---
 name: presentation
-description: Create content presentations and slide decks for talks, webinars, pitches, and educational content. Triggers on "presentation", "slides", "deck", "PPT", "slide deck", "keynote".
+description: "Create content presentations and slide decks for talks, webinars, pitches, and educational content"
 allowed-tools:
   - Bash
   - Read

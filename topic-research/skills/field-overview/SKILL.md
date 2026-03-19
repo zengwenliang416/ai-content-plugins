@@ -1,6 +1,6 @@
 ---
 name: field-overview
-description: Create a 3,000-5,000 word comprehensive overview of an AI sub-field covering definition, history, current state, key players, open problems, and future directions.
+description: "Create a comprehensive 3,000-5,000 word overview of an AI sub-field covering definition, history, current state, key players, open problems, and future directions"
 allowed-tools:
   - Bash
   - Read

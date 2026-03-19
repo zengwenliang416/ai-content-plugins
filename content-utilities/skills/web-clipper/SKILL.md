@@ -1,6 +1,10 @@
 ---
 name: web-clipper
-description: Fetch any URL and convert to markdown using Chrome CDP. Supports two modes - auto-capture on page load, or wait for user signal (for pages requiring login). Use when user wants to save a webpage as markdown.
+description: >
+  Fetch any URL and convert to clean markdown with metadata using Chrome CDP.
+  Supports public pages (auto-capture) and login-required pages (wait mode).
+  Triggers on "clip webpage", "save page as markdown", "fetch URL", "grab
+  article", "抓取网页", "保存网页", "网页转markdown".
 allowed-tools:
   - Bash
   - Read

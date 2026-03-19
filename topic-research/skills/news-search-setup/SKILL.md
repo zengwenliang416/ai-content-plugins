@@ -1,10 +1,6 @@
 ---
 name: news-search-setup
-description: >
-  Installs and configures upstream tools (bird, yt-dlp, mcporter, gh) for
-  multi-platform news search. Use when setting up platform access for the
-  first time, checking availability, or configuring cookies/proxy. Never for
-  searching or reading content — use news-search instead.
+description: "Install and configure upstream tools (bird, yt-dlp, mcporter, gh) for multi-platform news search"
 allowed-tools:
   - Bash
   - Read

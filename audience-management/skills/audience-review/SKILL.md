@@ -1,6 +1,10 @@
 ---
 name: audience-review
-description: Analyze audience demographics, interests, behavior, and engagement patterns across platforms. Segments the audience by platform, content preference, and engagement level. Identifies high-value segments and underserved opportunities. Use before content planning, collaboration pitches, or brand proposals. Triggers on "audience review", "who is my audience", "audience analysis", "audience demographics", "audience breakdown", or "audience insights".
+description: >
+  Analyze platform audience data to produce demographic breakdowns,
+  engagement-based segmentation, and actionable persona cards that inform content
+  strategy. Triggers on "audience review", "who is my audience", "audience
+  analysis", "audience demographics", "followers analysis", "受众分析", "粉丝画像".
 allowed-tools:
   - Bash
   - Read

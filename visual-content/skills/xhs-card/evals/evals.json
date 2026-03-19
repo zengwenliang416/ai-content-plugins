@@ -1,0 +1,53 @@
+{
+  "skill_name": "xhs-card",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "create XHS card images",
+      "expected_output": "Skill 'vc-xhs-images' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The vc-xhs-images skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "做一组小红书图片",
+      "expected_output": "技能 'vc-xhs-images' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 vc-xhs-images 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "Break this article into XiaoHongShu card images",
+      "expected_output": "Skill 'vc-xhs-images' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to vc-xhs-images skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "create XHS card images. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

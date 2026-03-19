@@ -1,6 +1,6 @@
 ---
 name: article-builder
-description: Write comprehensive long-form articles for blogs, newsletters, and editorial platforms. Triggers on "article", "long post", "blog post", "deep dive", "write about", "long-form".
+description: "Write comprehensive long-form articles for blogs, newsletters, and editorial platforms"
 allowed-tools:
   - Bash
   - Read

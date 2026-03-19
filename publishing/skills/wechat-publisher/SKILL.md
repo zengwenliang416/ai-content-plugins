@@ -1,6 +1,10 @@
 ---
 name: wechat-publisher
-description: Posts content to WeChat Official Account (微信公众号) via API or Chrome CDP. Supports article posting (文章) with HTML, markdown, or plain text input, and image-text posting (贴图, formerly 图文) with multiple images. Use when user mentions "发布公众号", "post to wechat", "微信公众号", or "贴图/图文/文章".
+description: >
+  Publish articles and image-text posts to WeChat Official Account via API or
+  Chrome CDP. Supports HTML, markdown, or plain text input with automatic upstream
+  artifact detection. Triggers on "publish to WeChat", "post to wechat",
+  "发布公众号", "微信发文", "发公众号文章", "贴图", "图文".
 allowed-tools:
   - Bash
   - Read

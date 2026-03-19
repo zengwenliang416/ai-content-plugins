@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations. Triggers include requests to build a new skill, create a custom skill for a specific content workflow, design a reusable skill for a recurring AI content task, or update an existing skill.
+description: "Create or update a reusable skill for content workflows"
 allowed-tools:
   - Bash
   - Read

@@ -1,6 +1,6 @@
 ---
 name: content-experiment
-description: Design content A/B tests to optimize headlines, formats, posting times, and engagement tactics. Triggers on "A/B test", "experiment", "test which", "compare formats", "optimize content", "what performs better".
+description: "Design content A/B tests to optimize headlines, formats, posting times, and engagement tactics"
 allowed-tools:
   - Bash
   - Read

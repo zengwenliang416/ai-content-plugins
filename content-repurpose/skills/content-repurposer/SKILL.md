@@ -1,6 +1,12 @@
 ---
 name: content-repurposer
-description: Transform content across platforms and formats. Use when user asks to "repurpose", "reformat", "cross-post", "convert article to tweets", or adapt content for different platforms.
+description: >
+  Transform long-form content (articles, research reports, posts) into
+  platform-optimized formats: tweet threads, XHS notes, WeChat summaries,
+  LinkedIn posts, and short video scripts. Use after content production or
+  deep research to maximize content reach across platforms. Triggers on
+  "repurpose", "cross-post", "adapt for [platform]", "turn this into
+  tweets", "make XHS version", "内容分发", "跨平台改写".
 allowed-tools:
   - Read
   - Write

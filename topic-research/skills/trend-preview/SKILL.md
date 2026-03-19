@@ -1,6 +1,6 @@
 ---
 name: trend-preview
-description: Preview upcoming AI trends by identifying trend signals from conferences, paper clusters, funding, and job postings, then analyzing momentum and assessing content opportunity with confidence levels.
+description: "Preview upcoming AI trends by identifying signals from conferences, paper clusters, funding, and job postings, then analyzing momentum and assessing content opportunity"
 allowed-tools:
   - Bash
   - Read

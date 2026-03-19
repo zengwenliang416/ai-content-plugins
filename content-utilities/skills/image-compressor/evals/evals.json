@@ -1,0 +1,64 @@
+{
+  "skill_name": "image-compressor",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "compress this image to webp",
+      "expected_output": "Skill 'image-compressor' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The image-compressor skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "压缩这张图片",
+      "expected_output": "技能 'image-compressor' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 image-compressor 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "This image is too large for my blog, shrink it",
+      "expected_output": "Skill 'image-compressor' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to image-compressor skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "compress this image to webp. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "negative-trigger",
+      "prompt": "Generate an AI image of a cat",
+      "expected_output": "Skill 'image-compressor' should NOT be triggered",
+      "files": [],
+      "expectations": [
+        "Does NOT route to image-compressor skill",
+        "Routes to a more appropriate skill or handles directly"
+      ]
+    }
+  ]
+}

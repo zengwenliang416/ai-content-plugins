@@ -1,6 +1,10 @@
 ---
 name: x-publisher
-description: Posts content and articles to X (Twitter). Supports regular posts with images/videos and X Articles (long-form Markdown). Uses real Chrome with CDP to bypass anti-automation. Use when user asks to "post to X", "tweet", "publish to Twitter", or "share on X".
+description: >
+  Post content to X (Twitter) including text with images/videos, quote tweets,
+  and long-form X Articles. Uses Chrome browser automation for reliable
+  publishing. Triggers on "post to X", "tweet", "post to Twitter", "publish to
+  Twitter", "发推", "发推特".
 allowed-tools:
   - Bash
   - Read

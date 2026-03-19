@@ -1,0 +1,53 @@
+{
+  "skill_name": "content-benchmark",
+  "evals": [
+    {
+      "id": 1,
+      "name": "direct-trigger-en",
+      "prompt": "benchmark my content against competitors",
+      "expected_output": "Skill 'ca-benchmark' is triggered and produces structured output",
+      "files": [],
+      "expectations": [
+        "The ca-benchmark skill is activated",
+        "Output follows the skill's documented workflow steps",
+        "Language selection is handled correctly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "direct-trigger-zh",
+      "prompt": "对标竞品内容",
+      "expected_output": "技能 'ca-benchmark' 被正确触发并生成结构化输出",
+      "files": [],
+      "expectations": [
+        "正确触发了 ca-benchmark 技能",
+        "输出遵循技能文档中的工作流步骤",
+        "正确处理了语言选择"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "indirect-trigger",
+      "prompt": "How does my content compare to the top creators in my niche?",
+      "expected_output": "Skill 'ca-benchmark' is correctly matched despite indirect phrasing",
+      "files": [],
+      "expectations": [
+        "Routes to ca-benchmark skill despite not using exact keywords",
+        "Begins the documented workflow",
+        "Asks for necessary clarifications before proceeding"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "output-structure",
+      "prompt": "benchmark my content against competitors. Use minimal sample data — I just want to verify the output format is correct.",
+      "expected_output": "Produces output matching the skill's documented deliverable format",
+      "files": [],
+      "expectations": [
+        "Output follows documented structure/sections",
+        "Artifact is saved to the correct path per conventions",
+        "Markdown formatting is correct if applicable"
+      ]
+    }
+  ]
+}

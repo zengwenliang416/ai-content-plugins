@@ -11,14 +11,15 @@ Every plugin follows this skeleton:
 ```
 plugin-name/
   .claude-plugin/plugin.json   # manifest (required)
+  agents/                       # plugin-local agent profiles (optional)
   commands/                     # slash-command markdown files
   skills/                       # skill directories, each with SKILL.md
-  hooks/hooks.json              # automation hooks (currently all empty)
+  hooks/hooks.json              # automation hooks (optional; Stop logging on configured plugins)
   .mcp.json                     # MCP server config (if any)
   .claude/                      # user-local config (gitignored)
 ```
 
-Eight plugins exist: `content-analysis`, `topic-research`, `content-production`, `growth-ops`, `audience-management`, `visual-content`, `publishing`, `content-utilities`.
+Ten plugins exist: `content-analysis`, `topic-research`, `content-production`, `growth-ops`, `audience-management`, `visual-content`, `publishing`, `content-utilities`, `content-repurpose`, `content-hooks`.
 
 The root-level `.claude-plugin/marketplace.json` registers all plugins with their source paths.
 
@@ -28,6 +29,7 @@ The root-level `.claude-plugin/marketplace.json` registers all plugins with thei
 
 | File type | Format | Location |
 |---|---|---|
+| Agent profiles | Markdown (.md) | `agents/` |
 | Commands | Markdown (.md) | `commands/` |
 | Skills | `SKILL.md` | `skills/<skill-name>/` |
 | Plugin manifest | JSON | `.claude-plugin/plugin.json` |
@@ -103,6 +105,9 @@ Two format variants exist:
 ---
 name: skill-name
 description: Trigger description with 5-7 trigger phrases...
+allowed-tools:
+  - Bash
+  - Read
 ---
 
 # Skill Title
@@ -111,7 +116,7 @@ description: Trigger description with 5-7 trigger phrases...
 ...
 ```
 
-Used by most skills across all plugins.
+Used by most skills across all plugins. `allowed-tools` is optional but now common on runtime-facing skills.
 
 ### Variant B: Inline prose (no YAML fences)
 
@@ -130,7 +135,7 @@ Used by: `presentation`, `asset-pack`, `content-tracker` in content-production, 
 
 Regardless of variant, all SKILL.md files follow this structure:
 
-1. **Description line** with 5-7 trigger phrases
+1. **Frontmatter** with `name`, `description`, and optional runtime metadata such as `allowed-tools`
 2. **Numbered workflow steps** with clear action verbs
 3. **Output section** specifying format and deliverables
 4. **Important Notes** section with constraints and best practices
@@ -154,23 +159,62 @@ Standard directory name is `references/` (plural). Used by: `competitor-analysis
 
 Assets are used by `deep-research` (`article-template.md`, `quality-checklist.md`).
 
+The `xhs-card` skill demonstrates a script-backed resource layout with `scripts/md-to-xhs.mjs` and CSS themes under `references/themes/`.
+
 ---
 
-## 8. hooks.json
+## 8. Agent Profiles
 
-All eight plugins have `hooks/hooks.json`. All are currently empty with the schema:
+Agent profiles live in `agents/*.md` at the plugin root.
+
+Typical frontmatter fields:
+
+- `name`
+- `description`
+- `tools`
+- `memory`
+- `model`
+- `effort`
+- `maxTurns`
+- `disallowedTools`
+
+Common body sections:
+
+1. `## Role`
+2. `## Services`
+3. `## When Invoked`
+4. `## Key Practices`
+
+These files define plugin-local execution roles and should stay aligned with the skills they serve.
+
+---
+
+## 9. hooks.json
+
+Eight plugins currently have `hooks/hooks.json` with a `Stop` command hook that appends failure diagnostics to `logs/stop-failures.log`:
 
 ```json
 {
-  "hooks": {}
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[...] STOP <plugin>: reason=$STOP_REASON\" >> \"${PROJECT_DIR:-.}/logs/stop-failures.log\""
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
-No event-driven automation is implemented.
+`content-hooks` and `content-repurpose` currently do not ship hook configs.
 
 ---
 
-## 9. .mcp.json
+## 10. .mcp.json
 
 MCP configs define external tool servers. Currently only `topic-research` uses active MCP servers:
 
@@ -185,7 +229,7 @@ Server runners used:
 
 ---
 
-## 10. Command-to-Skill Mapping
+## 11. Command-to-Skill Mapping
 
 The standard pattern is 1:1 command-to-skill mapping. Each command loads exactly one skill.
 
@@ -197,7 +241,7 @@ The `skill-creator` in `content-analysis` is a cross-plugin meta-skill that defi
 
 ---
 
-## 11. Output Conventions
+## 12. Output Conventions
 
 ### Primary format
 
@@ -228,7 +272,7 @@ All data claims require source citation. Rules by plugin:
 
 ## 12. OpenSpec Contract Conventions
 
-OpenSpec handoff is workflow-centric and mandatory across all 55 commands.
+OpenSpec handoff is workflow-centric and mandatory across all 60 commands.
 
 ### Contract topology
 

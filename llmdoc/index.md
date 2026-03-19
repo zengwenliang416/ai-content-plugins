@@ -1,6 +1,6 @@
 # AI Content Plugins — LLM Documentation Index
 
-Claude Cowork plugin marketplace for AI content creators: 8 plugins, 55 commands, 56 skills, 2 MCP servers.
+Claude Cowork plugin marketplace for AI content creators: 10 plugins, 60 commands, 61 skills, 2 MCP servers, 14 agent profiles.
 
 ---
 
@@ -8,14 +8,14 @@ Claude Cowork plugin marketplace for AI content creators: 8 plugins, 55 commands
 
 | File | Description |
 |------|-------------|
-| [overview/project-overview.md](overview/project-overview.md) | Project purpose, 8-plugin inventory, architecture patterns, known gaps |
+| [overview/project-overview.md](overview/project-overview.md) | Project purpose, 10-plugin inventory, architecture patterns, agent profiles, known gaps |
 
 ## Architecture
 
 | File | Description |
 |------|-------------|
 | [architecture/plugin-system.md](architecture/plugin-system.md) | Plugin directory layout, manifest schema, command system, skill triggers, MCP config, hooks |
-| [architecture/content-lifecycle.md](architecture/content-lifecycle.md) | Full content lifecycle pipeline across 8 plugins, cross-plugin data flows, workflow-centric OpenSpec handoff contracts, and route continuity |
+| [architecture/content-lifecycle.md](architecture/content-lifecycle.md) | Full content lifecycle pipeline across marketplace plugins, cross-plugin data flows, workflow-centric OpenSpec handoff contracts, and route continuity |
 | [architecture/deep-research-pipeline.md](architecture/deep-research-pipeline.md) | 5-task deep research pipeline architecture, MCP integration, WRITE/MONITOR/SKIP framework |
 
 ## Guides
@@ -30,7 +30,7 @@ Claude Cowork plugin marketplace for AI content creators: 8 plugins, 55 commands
 
 | File | Description |
 |------|-------------|
-| [reference/coding-conventions.md](reference/coding-conventions.md) | File formats, naming rules, SKILL.md variants, hooks schema, output conventions, and mandatory OpenSpec conventions (55 commands, Step-1 detection, single-route `next.command`) |
+| [reference/coding-conventions.md](reference/coding-conventions.md) | File formats, naming rules, agent/skill conventions, hooks schema, output conventions, and mandatory OpenSpec conventions (60 commands, Step-1 detection, single-route `next.command`) |
 | [reference/git-conventions.md](reference/git-conventions.md) | Branch strategy, commit messages, contribution workflow |
 
 ---

@@ -11,6 +11,8 @@ plugin-name/
 ├── .mcp.json                # MCP server connections (optional)
 ├── commands/                # Slash commands (.md files)
 │   └── command-name.md
+├── agents/                  # Plugin-local agent profiles (.md files, optional)
+│   └── agent-name.md
 ├── skills/                  # Domain knowledge + workflows
 │   └── skill-name/
 │       ├── SKILL.md         # Skill definition (required)
@@ -30,16 +32,17 @@ plugin-name/
   └── plugin-name/
        ├── .claude-plugin/plugin.json    # Per-plugin metadata
        ├── .mcp.json                     # MCP server config
+       ├── agents/*.md                   # Plugin-local role profiles
        ├── commands/*.md                 # User-invocable slash commands
        ├── skills/*/SKILL.md             # Auto-triggered domain knowledge
        └── hooks/hooks.json              # Event automation
 ```
 
-Discovery is convention-based: the runtime scans `commands/`, `skills/`, and `hooks/` directories. No explicit component registration in `plugin.json` is required.
+Discovery is convention-based: the runtime scans `commands/`, `skills/`, and `hooks/` directories. No explicit component registration in `plugin.json` is required. Optional `agents/*.md` files are co-located role profiles and likewise require no `plugin.json` registration.
 
 ## Marketplace Manifest
 
-Located at `.claude-plugin/marketplace.json` in the project root. Registers all 5 plugins:
+Located at `.claude-plugin/marketplace.json` in the project root. Registers all 10 plugins:
 
 ```json
 {
@@ -50,7 +53,12 @@ Located at `.claude-plugin/marketplace.json` in the project root. Registers all 
     { "name": "topic-research", "source": "./topic-research", "description": "..." },
     { "name": "content-production", "source": "./content-production", "description": "..." },
     { "name": "growth-ops", "source": "./growth-ops", "description": "..." },
-    { "name": "audience-management", "source": "./audience-management", "description": "..." }
+    { "name": "audience-management", "source": "./audience-management", "description": "..." },
+    { "name": "visual-content", "source": "./visual-content", "description": "..." },
+    { "name": "publishing", "source": "./publishing", "description": "..." },
+    { "name": "content-utilities", "source": "./content-utilities", "description": "..." },
+    { "name": "content-repurpose", "source": "./content-repurpose", "description": "..." },
+    { "name": "content-hooks", "source": "./content-hooks", "description": "..." }
   ]
 }
 ```
@@ -70,17 +78,22 @@ All plugins use the same minimal format:
 }
 ```
 
-All 5 plugins are at version `0.1.0` with `AI Content Studio` as author. The `description` field summarizes the plugin's capabilities.
+All 10 plugins are at version `0.1.0` with `AI Content Studio` as author. The `description` field summarizes the plugin's capabilities.
 
 ## Plugin Inventory
 
 | Plugin | Commands | Skills | MCP Servers |
 |--------|----------|--------|-------------|
-| `content-analysis` | 6 (benchmark, check-quality, competitor, debug-draft, template, trend-analysis) | 7 (includes skill-creator meta-skill) | None |
-| `topic-research` | 9 (brainstorm, daily-brief, deep-research, events, field-overview, narrative, release-analysis, trend-preview, update-research) | Varies | 3 (hacker-news, arxiv, rss-reader) |
-| `content-production` | 7 (ab-test, audience, collab-letter, content-tracker, infographic, long-article, short-post) | Varies | None |
-| `growth-ops` | 9 (account-portfolio, collab-prep, content-roi, find-sources, growth-plan, performance, review-checklist, screen-topic, strategy-memo) | Varies | 2 (hacker-news, rss-reader) |
-| `audience-management` | 6 (audience-review, biz-proposal, cleanup, content-plan, content-rebalance, ops-report) | Varies | None |
+| `content-analysis` | 7 | 7 | 0 |
+| `topic-research` | 12 | 12 | 2 |
+| `content-production` | 9 | 9 | 0 |
+| `growth-ops` | 9 | 9 | 0 |
+| `audience-management` | 6 | 6 | 0 |
+| `visual-content` | 6 | 7 | 0 |
+| `publishing` | 2 | 2 | 0 |
+| `content-utilities` | 6 | 6 | 0 |
+| `content-repurpose` | 1 | 1 | 0 |
+| `content-hooks` | 2 | 2 | 0 |
 
 ## Command System
 
@@ -149,7 +162,7 @@ description: Benchmark content performance against top performers in a niche.
 ---
 ```
 
-Only `name` and `description` are read for trigger matching. The markdown body loads post-trigger. The `description` field should include 5-7 natural-language trigger phrases covering synonyms and use-case contexts.
+Only `name` and `description` are read for trigger matching. The markdown body loads post-trigger. Many runtime-facing skills also declare `allowed-tools` to constrain the tool surface available during execution. The `description` field should include 5-7 natural-language trigger phrases covering synonyms and use-case contexts.
 
 ### Progressive Disclosure
 
@@ -167,6 +180,14 @@ Three-level context loading:
 | `references/` | Domain docs, detailed criteria | Read on demand when relevant |
 | `assets/` | Output templates, images | Used in output, not loaded into context |
 
+Example: `visual-content/skills/xhs-card/` now pairs `scripts/md-to-xhs.mjs` with `references/themes/*.css` to render Markdown into Xiaohongshu card images.
+
+## Agent Profiles
+
+Optional plugin-local agent specs live in `agents/*.md`. They use YAML frontmatter for fields such as `name`, `description`, `tools`, `memory`, `model`, `effort`, `maxTurns`, and `disallowedTools`, followed by role, services, invocation, and practice sections.
+
+The current repo includes 14 agent profiles across 10 plugins. These profiles are auxiliary runtime assets rather than slash commands or skills.
+
 ### Meta-Skills
 
 `content-analysis` contains the `skill-creator` meta-skill -- a canonical guide for authoring new skills. It defines the extensibility contract: directory structure, frontmatter requirements, progressive disclosure principles, degrees-of-freedom framework, and a 6-step creation process.
@@ -177,28 +198,17 @@ Three-level context loading:
 
 Located at the plugin root. Uses local process-based servers (npx/uvx), not remote HTTP endpoints:
 
-**topic-research** (3 servers):
+**topic-research** (2 servers):
 ```json
 {
   "mcpServers": {
     "hacker-news": { "command": "npx", "args": ["-y", "mcp-hacker-news"] },
-    "arxiv": { "command": "uvx", "args": ["arxiv-mcp-server"] },
-    "rss-reader": { "command": "npx", "args": ["-y", "@kwp-lab/rss-reader-mcp"] }
+    "arxiv": { "command": "uvx", "args": ["arxiv-mcp-server"] }
   }
 }
 ```
 
-**growth-ops** (2 servers):
-```json
-{
-  "mcpServers": {
-    "hacker-news": { "command": "npx", "args": ["-y", "mcp-hacker-news"] },
-    "rss-reader": { "command": "npx", "args": ["-y", "@kwp-lab/rss-reader-mcp"] }
-  }
-}
-```
-
-**content-analysis, content-production, audience-management**: Empty `{ "mcpServers": {} }`.
+All other plugins currently use empty `{ "mcpServers": {} }`.
 
 All servers are free, community-maintained packages requiring no API keys.
 
@@ -208,17 +218,29 @@ All servers are free, community-maintained packages requiring no API keys.
 |--------|---------|--------|---------|
 | `hacker-news` | `mcp-hacker-news` | npx | Hacker News content access |
 | `arxiv` | `arxiv-mcp-server` | uvx | Academic paper search |
-| `rss-reader` | `@kwp-lab/rss-reader-mcp` | npx | RSS feed reading |
 
 ## Hooks
 
-Defined in `hooks/hooks.json`. All 5 plugins have empty hook configurations:
+Defined in `hooks/hooks.json`. Eight plugins currently register `Stop` hooks that append stop timestamps and reasons to `logs/stop-failures.log`:
 
 ```json
-{ "hooks": {} }
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[...] STOP <plugin>: reason=$STOP_REASON\" >> \"${PROJECT_DIR:-.}/logs/stop-failures.log\""
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
 
-No event-driven automation exists in the current version. The schema is reserved for future use.
+This automation is intentionally narrow: it records failure diagnostics, but there is still no broader event-driven orchestration layer.
 
 ## User Configuration
 

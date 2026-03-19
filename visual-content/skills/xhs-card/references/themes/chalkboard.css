@@ -1,0 +1,160 @@
+/* XHS Card Theme: Chalkboard */
+/* Dark green chalkboard, educational aesthetic */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 1242px;
+  background: #1B3B2A;
+  color: #E8E0D0;
+  font-family: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  font-size: 26px;
+  line-height: 1.85;
+  padding: 68px 76px;
+}
+
+h1 {
+  font-size: 56px;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0 0 32px 0;
+  line-height: 1.3;
+}
+
+h2 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #FFE066;
+  margin: 48px 0 20px 0;
+  line-height: 1.35;
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.3);
+  padding-bottom: 12px;
+}
+
+h3 {
+  font-size: 34px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 36px 0 16px 0;
+  line-height: 1.4;
+}
+
+h4 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #7DCEA0;
+  margin: 28px 0 12px 0;
+}
+
+p {
+  margin: 14px 0;
+  font-size: 26px;
+  color: #C8D6CF;
+  line-height: 1.85;
+}
+
+strong {
+  color: #FFE066;
+  font-weight: 700;
+}
+
+em {
+  color: #7DCEA0;
+  font-style: italic;
+}
+
+a {
+  color: #FFE066;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+code {
+  background: rgba(255, 255, 255, 0.08);
+  color: #7DCEA0;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 24px;
+  font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+}
+
+pre {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 24px;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 24px;
+  line-height: 1.6;
+  color: #E8E0D0;
+}
+
+blockquote {
+  border-left: 3px solid #FFE066;
+  background: rgba(255, 224, 102, 0.08);
+  padding: 20px;
+  margin: 20px 0;
+}
+
+blockquote p {
+  margin: 6px 0;
+  color: #C8D6CF;
+}
+
+ul, ol {
+  padding-left: 36px;
+  margin: 14px 0;
+}
+
+li {
+  margin: 8px 0;
+  line-height: 1.85;
+}
+
+li::marker {
+  color: #FFE066;
+  font-weight: 700;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 24px;
+}
+
+thead th {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFE066;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+tbody td {
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed rgba(255, 255, 255, 0.3);
+  margin: 40px 0;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 16px 0;
+}

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Rework `xhs-card` from outline planning into a Markdown-to-image rendering workflow with explicit runtime requirements
 - Add `allowed-tools` metadata across marketplace skills and wire `Stop` hooks for plugin-level failure logging
 - Expand visual style counts, compatibility matrices, and recommendation rules to cover `claymorphic-ui`
 - Add anti-AI writing guardrails and humanizer handoff guidance across writing, planning, and research skills
@@ -18,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add script-backed Xiaohongshu card rendering assets with CSS themes and auto-sliced PNG output
 - Add dedicated agent profile docs across audience-management, research, production, utility, publishing, and visual plugins
 - Add `claymorphic-ui` style references for article illustration, infographic, and Xiaohongshu visual workflows
 - Add `humanizer` skill and `/content-utilities:humanize` command for rewriting drafts that still read like AI-generated text

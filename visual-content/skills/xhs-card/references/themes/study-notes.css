@@ -1,0 +1,183 @@
+/* XHS Card Theme: Study Notes */
+/* Notebook paper, handwritten feel aesthetic */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 1242px;
+  background: #FEFCF3;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 46px,
+    #E8E0D0 46px,
+    #E8E0D0 48px
+  );
+  color: #2D2D2D;
+  font-family: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  font-size: 26px;
+  line-height: 2.0;
+  padding: 68px 76px;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  left: 52px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #E8453C;
+  opacity: 0.3;
+}
+
+h1 {
+  font-size: 52px;
+  font-weight: 800;
+  color: #1A73E8;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  margin: 0 0 32px 0;
+  line-height: 1.35;
+}
+
+h2 {
+  font-size: 38px;
+  font-weight: 700;
+  color: #E8453C;
+  margin: 40px 0 20px 0;
+  line-height: 1.4;
+}
+
+h3 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #1A73E8;
+  margin: 36px 0 16px 0;
+  line-height: 1.4;
+}
+
+h4 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #F4A623;
+  margin: 28px 0 12px 0;
+}
+
+p {
+  margin: 14px 0;
+  font-size: 26px;
+  color: #333333;
+  line-height: 2.0;
+}
+
+strong {
+  background: #FFF176;
+  padding: 2px 4px;
+  font-weight: 700;
+  color: #2D2D2D;
+}
+
+em {
+  color: #1A73E8;
+  font-style: italic;
+}
+
+a {
+  color: #1A73E8;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+code {
+  background: #EBF4FF;
+  color: #1A73E8;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 24px;
+  font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+}
+
+pre {
+  background: #F5F0E8;
+  border-left: 3px solid #E8453C;
+  padding: 22px;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 24px;
+  line-height: 1.6;
+  color: #2D2D2D;
+}
+
+blockquote {
+  background: #EBF4FF;
+  border-left: 4px solid #1A73E8;
+  border-radius: 0;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+blockquote p {
+  margin: 6px 0;
+  color: #333333;
+}
+
+ul, ol {
+  padding-left: 36px;
+  margin: 14px 0;
+}
+
+li {
+  margin: 8px 0;
+  line-height: 2.0;
+}
+
+li::marker {
+  color: #E8453C;
+  font-weight: 700;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 24px;
+}
+
+thead th {
+  background: #F5F0E8;
+  color: #2D2D2D;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 700;
+  border: 1px solid #D4C5B2;
+}
+
+tbody td {
+  padding: 10px 16px;
+  border: 1px solid #D4C5B2;
+  background: #FFFFFF;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: #D4C5B2;
+  margin: 40px 0;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 4px;
+  margin: 16px 0;
+}

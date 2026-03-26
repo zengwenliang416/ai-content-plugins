@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Clarify that `xhs-images` source markdown should strip hashtag lines before rendering cards (visual-content)
 - Rework `xhs-card` from outline planning into a Markdown-to-image rendering workflow with explicit runtime requirements
 - Add `allowed-tools` metadata across marketplace skills and wire `Stop` hooks for plugin-level failure logging
 - Expand visual style counts, compatibility matrices, and recommendation rules to cover `claymorphic-ui`

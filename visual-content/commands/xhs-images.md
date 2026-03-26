@@ -41,6 +41,11 @@ The skill renders Markdown → HTML (CSS theme) → Puppeteer screenshot → aut
 
 **Key**: The rendering is done by the `md-to-xhs.mjs` script, NOT by AI image generation. The script path is `visual-content/skills/xhs-card/scripts/md-to-xhs.mjs`.
 
+**Content rules for card source markdown**:
+
+- **DO NOT include hashtags/tags in the card images.** Tags like `#AI编程 #前端开发` belong in the post text when publishing, not in the rendered card. Strip any `#tag` lines from the source markdown before rendering.
+- Keep card content focused on the substance — titles, body text, tables, lists only.
+
 ## Artifact Handoff
 
 **Output**: XHS card PNG pages saved to:

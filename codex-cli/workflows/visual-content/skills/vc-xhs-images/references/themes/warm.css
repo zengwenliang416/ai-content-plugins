@@ -1,0 +1,163 @@
+/* XHS Card Theme: Warm */
+/* Warm amber, cozy, personal stories aesthetic */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 1242px;
+  background: #FFFBEB;
+  color: #44403C;
+  font-family: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  font-size: 26px;
+  line-height: 1.85;
+  padding: 68px 76px;
+}
+
+h1 {
+  font-size: 54px;
+  font-weight: 800;
+  color: #B45309;
+  margin: 0 0 32px 0;
+  line-height: 1.35;
+}
+
+h2 {
+  font-size: 40px;
+  font-weight: 700;
+  color: #D97706;
+  margin: 44px 0 20px 0;
+  line-height: 1.4;
+  border-bottom: 2px solid #FDE68A;
+  padding-bottom: 12px;
+}
+
+h3 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #92400E;
+  margin: 36px 0 16px 0;
+  line-height: 1.4;
+}
+
+h4 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #D97706;
+  margin: 28px 0 12px 0;
+}
+
+p {
+  margin: 14px 0;
+  font-size: 26px;
+  color: #57534E;
+  line-height: 1.85;
+}
+
+strong {
+  color: #B45309;
+  font-weight: 700;
+}
+
+em {
+  color: #92400E;
+  font-style: italic;
+}
+
+a {
+  color: #D97706;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+code {
+  background: #FEF3C7;
+  color: #B45309;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 24px;
+  font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+}
+
+pre {
+  background: #FFFFFF;
+  border: 1px solid #FDE68A;
+  border-radius: 12px;
+  padding: 22px;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 24px;
+  line-height: 1.6;
+  color: #44403C;
+}
+
+blockquote {
+  border-left: 3px solid #F59E0B;
+  background: #FEF3C7;
+  padding: 20px;
+  margin: 20px 0;
+  font-style: italic;
+}
+
+blockquote p {
+  margin: 6px 0;
+  color: #57534E;
+}
+
+ul, ol {
+  padding-left: 36px;
+  margin: 14px 0;
+}
+
+li {
+  margin: 8px 0;
+  line-height: 1.85;
+}
+
+li::marker {
+  color: #D97706;
+  font-weight: 700;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 24px;
+}
+
+thead th {
+  background: #FFFBEB;
+  color: #92400E;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 700;
+  border: 1px solid #FDE68A;
+}
+
+tbody td {
+  padding: 10px 16px;
+  border: 1px solid #FDE68A;
+  background: #FFFFFF;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background: #FDE68A;
+  margin: 40px 0;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 16px 0;
+}

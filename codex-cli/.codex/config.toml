@@ -1,0 +1,260 @@
+# AI Content Plugins -- Codex CLI Central Registration
+# Generated: 2026-03-19
+# Total: 61 skills across 10 workflows
+
+[skills]
+enabled = true
+
+# -- audience-management (6) --
+[[skills.config]]
+path = "../workflows/audience-management/skills/am-audience-review/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/audience-management/skills/am-biz-proposal/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/audience-management/skills/am-cleanup/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/audience-management/skills/am-content-plan/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/audience-management/skills/am-content-rebalance/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/audience-management/skills/am-ops-report/SKILL.md"
+enabled = true
+
+# -- content-analysis (7) --
+[[skills.config]]
+path = "../workflows/content-analysis/skills/ca-benchmark/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-analysis/skills/ca-check-quality/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-analysis/skills/ca-competitor/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-analysis/skills/ca-debug-draft/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-analysis/skills/ca-skill-creator/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-analysis/skills/ca-template/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-analysis/skills/ca-trend-analysis/SKILL.md"
+enabled = true
+
+# -- content-hooks (2) --
+[[skills.config]]
+path = "../workflows/content-hooks/skills/ch-headline-optimizer/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-hooks/skills/ch-hook-generator/SKILL.md"
+enabled = true
+
+# -- content-production (9) --
+[[skills.config]]
+path = "../workflows/content-production/skills/cp-ab-test/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-production/skills/cp-asset-pack/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-production/skills/cp-audience/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-production/skills/cp-collab-letter/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-production/skills/cp-content-tracker/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-production/skills/cp-infographic/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-production/skills/cp-long-article/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-production/skills/cp-presentation/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-production/skills/cp-short-post/SKILL.md"
+enabled = true
+
+# -- content-repurpose (1) --
+[[skills.config]]
+path = "../workflows/content-repurpose/skills/cr-content-repurposer/SKILL.md"
+enabled = true
+
+# -- content-utilities (6) --
+[[skills.config]]
+path = "../workflows/content-utilities/skills/humanizer/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-utilities/skills/image-compressor/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-utilities/skills/md-formatter/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-utilities/skills/md-to-html/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-utilities/skills/tweet-clipper/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/content-utilities/skills/web-clipper/SKILL.md"
+enabled = true
+
+# -- growth-ops (9) --
+[[skills.config]]
+path = "../workflows/growth-ops/skills/go-account-portfolio/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/growth-ops/skills/go-collab-prep/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/growth-ops/skills/go-content-roi/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/growth-ops/skills/go-find-sources/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/growth-ops/skills/go-growth-plan/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/growth-ops/skills/go-performance/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/growth-ops/skills/go-review-checklist/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/growth-ops/skills/go-screen-topic/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/growth-ops/skills/go-strategy-memo/SKILL.md"
+enabled = true
+
+# -- publishing (2) --
+[[skills.config]]
+path = "../workflows/publishing/skills/publishing-post-to-wechat/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/publishing/skills/publishing-post-to-x/SKILL.md"
+enabled = true
+
+# -- topic-research (12) --
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-brainstorm/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-daily-brief/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-deep-research/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-events/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-field-overview/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-narrative/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-news-search/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-news-search-setup/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-release-analysis/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-repo-analysis/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-trend-preview/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/topic-research/skills/tr-update-research/SKILL.md"
+enabled = true
+
+# -- visual-content (7) --
+[[skills.config]]
+path = "../workflows/visual-content/skills/vc-ai-image-gen/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/visual-content/skills/vc-article-illustrator/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/visual-content/skills/vc-comic/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/visual-content/skills/vc-cover-image/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/visual-content/skills/vc-infographic/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/visual-content/skills/vc-slide-deck/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "../workflows/visual-content/skills/vc-xhs-images/SKILL.md"
+enabled = true

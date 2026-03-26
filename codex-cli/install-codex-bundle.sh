@@ -11,6 +11,10 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKFLOWS_DIR="${SCRIPT_DIR}/workflows"
 
+discover_workflows() {
+  find "$WORKFLOWS_DIR" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort
+}
+
 # ── Defaults ────────────────────────────────────────────────────────
 SCOPE=""
 PROJECT_ROOT=""
@@ -21,16 +25,10 @@ BACKUP_DIR="${HOME}/.backup/codex-bundle-installer/${TIMESTAMP}"
 INSTALLED_SKILL_COUNT=0
 REGISTERED_SKILL_COUNT=0
 
-ALL_WORKFLOWS=(
-  audience-management
-  content-analysis
-  content-production
-  content-utilities
-  growth-ops
-  publishing
-  topic-research
-  visual-content
-)
+ALL_WORKFLOWS=()
+while IFS= read -r workflow; do
+  [[ -n "$workflow" ]] && ALL_WORKFLOWS+=("$workflow")
+done < <(discover_workflows)
 
 # ── Parse Args ──────────────────────────────────────────────────────
 while [[ $# -gt 0 ]]; do
@@ -90,6 +88,7 @@ count_optional_dirs() {
   [[ -d "${skill_dir}/references" ]] && optional+=("references/")
   [[ -d "${skill_dir}/scripts" ]] && optional+=("scripts/")
   [[ -d "${skill_dir}/assets" ]] && optional+=("assets/")
+  [[ -d "${skill_dir}/prompts" ]] && optional+=("prompts/")
 
   if [[ ${#optional[@]} -eq 0 ]]; then
     echo "SKILL.md"
@@ -229,7 +228,7 @@ HEADER
 
       cat >> "$CONFIG_FILE" << EOF
 [[skills.config]]
-path = "../.agents/skills/${skill_name}"
+path = "../.agents/skills/${skill_name}/SKILL.md"
 enabled = true
 
 EOF
@@ -302,7 +301,7 @@ install_config() {
       for skill_dir in "${src_skills}"/*/; do
         local skill_name
         skill_name="$(basename "$skill_dir")"
-        local installed_path="../.agents/skills/${skill_name}"
+        local installed_path="../.agents/skills/${skill_name}/SKILL.md"
 
         if config_entry_has_enabled "$installed_path"; then
           log "Already registered: ${skill_name}"

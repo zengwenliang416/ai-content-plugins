@@ -1,8 +1,17 @@
 # Claude Code → Codex CLI 迁移计划
 
-> 项目：ai-content-plugins（8 个内容创作插件）
+> 项目：ai-content-plugins（当前已同步为 10 个 workflow / 61 个 skills）
 > 日期：2026-03-06
 > 参考：ccg-workflows/CLAUDE-CODE-TO-CODEX-CLI-MIGRATION-GUIDE.md
+
+---
+
+## 状态更新（2026-03-19）
+
+- 已补齐 `content-hooks`、`content-repurpose`、`tr-repo-analysis`
+- `install-codex-bundle.sh` 改为自动发现 workflow，不再手写 8 个目录
+- `.codex/config.toml` 已切到官方文档一致的 `SKILL.md` 文件路径注册方式
+- 新增 `scripts/sync_codex_bundle.py`，用于从主插件目录补齐缺失 skill 与资源
 
 ---
 

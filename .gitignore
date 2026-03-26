@@ -78,3 +78,5 @@ openspec/changes/*/tasks.md
 output
 .codex
 .agents
+!codex-cli/.codex/
+!codex-cli/.codex/config.toml

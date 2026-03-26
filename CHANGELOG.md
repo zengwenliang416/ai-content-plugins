@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Sync Codex CLI bundle registration, newly mirrored workflow skills, and Xiaohongshu rendering assets (codex-cli)
 - Add script-backed Xiaohongshu card rendering assets with CSS themes and auto-sliced PNG output
 - Add dedicated agent profile docs across audience-management, research, production, utility, publishing, and visual plugins
 - Add `claymorphic-ui` style references for article illustration, infographic, and Xiaohongshu visual workflows

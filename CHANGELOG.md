@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Ensure plugin Stop hooks create `logs/` before appending failure records (marketplace)
 - Fix fenced code block and ruby text examples in markdown formatter/html skill docs
 - Fix image insertion workflow: Task 4 now copies images from ~/banana-images/ to article output directory with chart_index.txt manifest
 - Fix Task 5 article assembly: add Visual Embedding Protocol with relative ./images/ paths and verification checklist

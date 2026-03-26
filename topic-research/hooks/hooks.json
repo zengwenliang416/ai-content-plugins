@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] STOP topic-research: reason=$STOP_REASON\" >> \"${PROJECT_DIR:-.}/logs/stop-failures.log\""
+            "command": "mkdir -p \"${PROJECT_DIR:-.}/logs\" && echo \"[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] STOP topic-research: reason=$STOP_REASON\" >> \"${PROJECT_DIR:-.}/logs/stop-failures.log\""
           }
         ]
       }

@@ -1,6 +1,6 @@
 ---
 name: daily-brief
-description: "Generate a daily AI news briefing by gathering from Hacker News, arXiv, RSS feeds, and news-search, then filtering, categorizing, summarizing, and identifying top stories"
+description: "Generate a daily AI news briefing by gathering from Grok multi-agent deep search, Hacker News, arXiv, RSS feeds, and news-search, then filtering, categorizing, summarizing, and identifying top stories"
 allowed-tools:
   - Bash
   - Read
@@ -66,11 +66,55 @@ ${TS_RUNNER} ${NS_SCRIPTS}/doctor.ts
 
 4. Record which platforms are available. Skip unavailable platforms gracefully but **never skip news-search entirely**.
 
+5. **Check Grok research availability**:
+
+```bash
+GROK_SCRIPTS="$HOME/.claude/skills/grok-research/scripts"
+if [[ -f "${GROK_SCRIPTS}/grok-research.ts" ]] && [[ -n "${OPENAI_API_KEY:-}" ]]; then
+  echo "GROK_AVAILABLE=true"
+else
+  echo "GROK_AVAILABLE=false (grok-research scripts not found or OPENAI_API_KEY not set — Layer 0 will be skipped)"
+fi
+```
+
+> If Grok is available, it serves as the **primary intelligence sweep** (Layer 0) providing cross-validated, multi-source results from 16 parallel agents. If unavailable, the remaining layers still produce a complete briefing.
+
 ### Step 1: Gather Sources
 
-Pull from **both** MCP tools and news-search in parallel. **Both layers are MANDATORY** — they serve different purposes and are not interchangeable.
+Pull from **all available layers** in parallel. Layers 1 and 2 are MANDATORY — Layer 0 is conditional on Grok availability but strongly recommended for comprehensive coverage.
 
-> **CONSTRAINT**: Do NOT substitute Claude's built-in WebSearch for `news-search` commands. WebSearch may be used as a **supplement** for follow-up queries on specific stories, but the primary data collection MUST go through news-search. news-search provides structured, freshness-controlled, multi-platform results that WebSearch cannot replicate.
+> **CONSTRAINT**: Do NOT substitute Claude's built-in WebSearch for `news-search` commands. WebSearch may be used as a **supplement** for follow-up queries on specific stories, but the primary data collection MUST go through news-search and/or Grok. news-search provides structured, freshness-controlled, multi-platform results that WebSearch cannot replicate.
+
+#### Layer 0: Grok Deep Search (multi-agent, cross-validated)
+
+**Skip this layer if `GROK_AVAILABLE=false` from Step 0.**
+
+Grok multi-agent research launches **16 parallel agents** that independently search the web and X/Twitter, then a leader agent cross-validates and synthesizes all findings. This produces the highest-quality, most comprehensive single-source intelligence sweep.
+
+**Run this FIRST** — its output provides a baseline that helps evaluate and deduplicate results from subsequent layers.
+
+```bash
+GROK_SCRIPTS="$HOME/.claude/skills/grok-research/scripts"
+TODAY=$(date +%Y-%m-%d)
+YESTERDAY=$(date -v-1d +%Y-%m-%d 2>/dev/null || date -d "yesterday" +%Y-%m-%d)
+
+${TS_RUNNER} ${GROK_SCRIPTS}/grok-research.ts \
+  "AI artificial intelligence news breakthroughs and announcements from ${YESTERDAY} to ${TODAY} (last 24 hours). Cover: new model releases, major research papers, product launches, funding rounds, partnerships, acquisitions, policy and regulation updates, open-source releases, and developer tool announcements. Focus on verified facts with sources." \
+  --agents 16 --x --json
+```
+
+> **What Grok covers that other layers don't**:
+> - Real-time X/Twitter signals (trending AI discussions, researcher announcements, company reveals)
+> - Cross-validation across 16 independent search agents — reduces hallucination risk
+> - Automatic source citation with URLs
+>
+> **What Grok does NOT replace**:
+> - Hacker News community signals and engagement data (Layer 1)
+> - arXiv structured paper metadata and abstracts (Layer 1)
+> - RSS feeds from curated AI newsletters (Layer 2)
+> - Platform-specific freshness-controlled search (Layer 2)
+
+**Processing Grok output**: Parse the JSON output. Extract items from the `output` field. Each item should map to a category in Step 3. Use Grok's source URLs as primary citations. Flag any items that lack source URLs for verification in Layer 3.
 
 #### Layer 1: MCP Tools (structured API data)
 
@@ -123,15 +167,16 @@ ${TS_RUNNER} ${NS_SCRIPTS}/search.ts github "AI" 10
 
 Use Claude's built-in WebSearch **only** for:
 
-- Following up on specific stories discovered in Layer 1 or Layer 2
-- Filling gaps if a specific topic is underrepresented in news-search results
+- Following up on specific stories discovered in Layers 0, 1, or 2
+- Filling gaps if a specific topic is underrepresented across all other layers
 - Verifying claims or finding additional context for top stories
+- Cross-checking Grok items that lack source URLs (if Layer 0 was used)
 
 Do NOT use WebSearch as a primary data source.
 
-### Step 2: Filter for AI/ML Relevance
+### Step 2: Filter and Deduplicate
 
-From all gathered items, keep only items that:
+From all gathered items (across all layers), keep only items that:
 
 - Directly involve AI, ML, or related technology (NLP, CV, RL, robotics, agents)
 - Come from credible sources (avoid pure opinion/speculation without facts)
@@ -140,7 +185,7 @@ From all gathered items, keep only items that:
 
 Remove:
 
-- Duplicate stories from multiple sources (keep the best source)
+- **Cross-layer duplicates** — the same story will often appear in Grok output AND news-search/MCP results. When deduplicating, prefer the version with the best source URL and most detail. If Grok provided a richer summary but news-search has a more authoritative source link, merge them.
 - Paywalled content with no extractable summary
 - Opinion pieces without factual news hooks
 - AI-adjacent topics with no direct AI relevance
@@ -296,6 +341,7 @@ date: YYYY-MM-DD
 type: daily-brief
 language: <user-selected-language>
 sources:
+  - grok-deep-search
   - hacker-news
   - arxiv
   - web-search

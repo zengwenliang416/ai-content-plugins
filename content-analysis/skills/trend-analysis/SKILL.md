@@ -84,6 +84,20 @@ Produce data-oriented visuals in markdown:
 | "Adoption growing 3x" | High — vendor survey, n=1000 | Supported |
 ```
 
+**Real chart rendering (optional, preferred when numeric data available)**:
+
+Instead of stopping at ASCII / Markdown tables, upgrade to rendered images:
+
+| Pattern | Command |
+|---|---|
+| Timeline with dated events | `/visual-content:infographic-dsl --template sequence-timeline-simple` |
+| Trend metrics over time | `/visual-content:chart --type line` (or `area` for cumulative) |
+| Category comparison | `/visual-content:chart --type column` |
+| Adoption S-curve | `/visual-content:chart --type area` |
+| Data report with embedded mini-charts + prose | `/visual-content:narrative-viz` |
+
+Pass the data file (JSON or Markdown table) as input. The skill auto-saves to `openspec/runtime/visuals/charts/<topic-slug>/` and returns a Markdown image reference you can paste into the final report.
+
 ### Step 5: Trend Forecast
 
 Based on patterns identified, project 3 scenarios:

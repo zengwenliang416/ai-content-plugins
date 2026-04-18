@@ -539,6 +539,22 @@ Required from Task 3:
 4. Package all assets into a zip file
 5. Deliver zip file
 
+**Tooling Preference (data-driven visuals)**:
+
+For visuals that render **structured data** (timelines, benchmarks, market size, adoption curves, positioning maps), prefer the AntV-powered skills over generic AI image generation — they produce sharper, reproducible, data-accurate charts:
+
+| Visual Type | Preferred Skill | Rationale |
+|---|---|---|
+| chart_01 timeline | `/visual-content:infographic-dsl` with `sequence-timeline-simple` | Exact dates + labels, no hallucination |
+| chart_05 benchmarks | `/visual-content:chart` with `column` or `bar` | Numeric precision |
+| chart_09 adoption trend | `/visual-content:chart` with `area` or `line` | Reproducible from data |
+| chart_14 positioning map | `/visual-content:chart` with `scatter` + quadrant annotations, or `/visual-content:infographic-dsl` with `compare-quadrant-quarter-simple-card` | Structural clarity |
+| Competitive landscape | `/visual-content:infographic-dsl` with `relation-dagre-flow-*` | Graph semantics |
+| Architecture / mechanism | `/visual-content:infographic-dsl` with `hierarchy-*` or `relation-*` | Correct topology |
+| Data-narrative summary | `/visual-content:narrative-viz` | Prose + inline mini-charts in one artifact |
+
+Use AI image generation (`/visual-content:article-illustrator`, `/visual-content:cover-generator`) for **conceptual / stylistic** visuals where data accuracy isn't the goal.
+
 **Output**: 15-25 Visual Asset Files (PNG/JPG, 300 DPI) packaged in zip
 
 **4 MANDATORY Visuals** (must be present):

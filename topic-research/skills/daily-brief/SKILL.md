@@ -257,6 +257,14 @@ From all items, identify the **top 3 stories** most worthy of deeper investigati
 - What angle a deeper article could take
 - What additional research would be needed
 
+**Optional visual uplift**: When the day's brief has numeric signals (funding amounts, benchmark scores, model counts across categories), generate a companion chart:
+
+```bash
+/visual-content:chart --type column --data /tmp/brief-metrics.json --offline
+```
+
+The chart can be embedded at the top of the brief as a Markdown image. Use `/visual-content:infographic-dsl` with `sequence-timeline-simple` for a timeline of the day's launches.
+
 ---
 
 ## Output Format

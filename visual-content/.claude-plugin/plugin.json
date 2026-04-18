@@ -1,8 +1,20 @@
 {
   "name": "visual-content",
-  "version": "0.1.0",
-  "description": "Visual content generation: article illustrations, knowledge comics, cover images, infographics, slide decks, and Xiaohongshu cards",
+  "version": "0.2.0",
+  "description": "Visual content generation: AI illustrations, charts (26+ types), icons, structured infographics, data narratives, covers, slides, comics, and Xiaohongshu cards",
   "author": {
     "name": "AI Content Studio"
+  },
+  "credits": {
+    "antv-chart-visualization-skills": {
+      "source": "https://github.com/antvis/chart-visualization-skills",
+      "license": "MIT",
+      "used_for": [
+        "chart-visualization",
+        "icon-retrieval",
+        "infographic-dsl",
+        "narrative-text-viz"
+      ]
+    }
   }
 }

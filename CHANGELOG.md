@@ -7,8 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **visual-content**: `lib/puppeteer-helper.mjs` — shared browser bootstrapping with three-tier resolution (`puppeteer` bundled → `puppeteer-core` + system Chrome → explicit `VIS_CHROME_PATH`). Auto-detects Chrome/Chromium/Edge/Brave on macOS/Linux/Windows. Provides `InstallHintError` with copy-paste repair commands.
+- **visual-content**: `scripts/preflight.mjs` — one-shot readiness check (Node ≥ 18, Puppeteer runtime, AntV API / CDN reachability). Exits 0 all-green / 1 required-failed / 2 optional-warnings. Supports `--json` and `--verbose`.
+- **visual-content**: `TROUBLESHOOTING.md` — dedicated guide for Puppeteer setup, network fallbacks, chart type support matrix, and common errors.
+- **visual-content/chart-visualization**: Local fallback expanded from 11/26 to 24/26 chart types via three renderers — G2 (17 statistical), G6 (5 graph/tree), custom HTML/SVG (2). No upstream API needed for any mapped type. New `--html-only` flag emits HTML without launching a browser.
+- **visual-content**: Four new AntV-powered data visualization skills migrated from `antvis/chart-visualization-skills` (MIT):
+  - `chart-visualization` — 26+ chart types (bar/line/pie/sankey/radar/mind-map/...) via AntV GPT-Vis API with a local Puppeteer+G2 fallback. Survives API outages.
+  - `icon-retrieval` — SVG icon search via WeaveFox API with 30-day content-addressed local cache.
+  - `infographic-dsl` — 58 structured-data templates (SWOT, quadrants, timelines, tree, mind maps, DAG) via AntV Infographic DSL, rendered HTML + PNG + SVG. Uses jsDelivr → unpkg CDN fallback.
+  - `narrative-text-viz` — T8 Syntax narrative reports with inline mini charts + semantic entity annotations (HTML/React/Vue).
+- **visual-content**: Four new slash commands — `/visual-content:chart`, `:icon`, `:infographic-dsl`, `:narrative-viz` — each with upstream artifact auto-detection and pipeline-mode output routing.
+- **topic-research/deep-research**: Task 4 now prefers the AntV data-viz skills for structured charts (timelines, benchmarks, positioning maps) and reserves AI image generation for conceptual visuals.
+- **topic-research/daily-brief**: Optional chart uplift hook for numeric daily signals.
+- **content-analysis/trend-analysis**: Step 4 now offers rendered chart images (beyond ASCII art) via `/visual-content:chart` and `/visual-content:infographic-dsl`.
+
 ### Changed
 
+- **visual-content**: Bumped plugin to `0.2.0`; added upstream credits (`antvis/chart-visualization-skills`, MIT) to `plugin.json`.
+- **visual-content/visual-generator agent**: Extended service list and added a skill-selection decision tree (structured data → chart/narrative-viz/infographic-dsl; prose → cards/slides/illustrations).
 - Clarify that `xhs-images` source markdown should strip hashtag lines before rendering cards (visual-content)
 - Rework `xhs-card` from outline planning into a Markdown-to-image rendering workflow with explicit runtime requirements
 - Add `allowed-tools` metadata across marketplace skills and wire `Stop` hooks for plugin-level failure logging

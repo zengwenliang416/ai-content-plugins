@@ -25,7 +25,10 @@ openspec/runtime/
 │   └── visuals/                       # visual-content skills (pipeline mode)
 │       ├── xhs/                       # xhs-card
 │       ├── illustrations/             # article-illustrator
-│       ├── infographic/               # infographic-gen
+│       ├── infographic/               # infographic-gen (aesthetic)
+│       ├── infographic-dsl/           # infographic-dsl (structured data, AntV)
+│       ├── charts/                    # chart-visualization (AntV)
+│       ├── narrative/                 # narrative-text-viz (AntV T8)
 │       ├── slides/                    # slide-generator
 │       └── comic/                     # knowledge-comic
 ├── articles/                          # content-production/article-builder (standalone)
@@ -34,6 +37,10 @@ openspec/runtime/
     ├── xhs/<slug>/
     ├── illustrations/<slug>/
     ├── infographic/<slug>/
+    ├── infographic-dsl/<slug>/
+    ├── charts/<slug>/
+    ├── narrative/<slug>/
+    ├── icons/_cache/                  # icon-retrieval (shared cache, 30-day TTL)
     ├── slides/<slug>/
     ├── comic/<slug>/
     └── cover/<slug>/
